@@ -12,7 +12,7 @@ CSC 307 Web Application
 # Code Style:
 Uses Prettier - ESLint
 Properties:
-   - Indent: Space
-   - Linebreak: Windows
+   - Indent: Tab
+   - Linebreak: 0
    - Quotes: double
    - Semicolon: always
