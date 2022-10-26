@@ -3,6 +3,8 @@ import Form from './Form';
 import axios from 'axios'; 
 import React, {useState, useEffect} from 'react';
 
+const port = 8675
+
 function MyApp() {
   const [characters, setCharacters] = useState([]);
 
@@ -26,8 +28,8 @@ function MyApp() {
 
   async function fetchAll(){
     try {
-       const response = await axios.get('http://localhost:8675/users');
-       return response.data.users_list;     
+       const response = await axios.get(`http://localhost:${port}/users`);
+       return response.data.users_list;
     }
     catch (error){
        //We're not handling errors. Just logging into the console.
@@ -38,7 +40,7 @@ function MyApp() {
 
   async function makePostCall(person){
     try {
-      const response = await axios.post('http://localhost:8675/users', person);
+      const response = await axios.post(`http://localhost:${port}/users`, person);
       return response;
     }
     catch (error) {
@@ -49,7 +51,7 @@ function MyApp() {
 
   async function makeDeleteCall(id){
     try {
-      const response = await axios.delete('http://localhost:8675/users/' + id);
+      const response = await axios.delete(`http://localhost:${port}/users/` + id);
       return response;
     }
     catch (error) {
