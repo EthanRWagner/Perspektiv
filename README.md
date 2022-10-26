@@ -10,7 +10,7 @@ CSC 307 Web Application
 2. run `npm start` in frontend
 
 # Code Style:
-Uses Prettier-ESLint
+Uses Prettier - ESLint
 Properties:
    - Indent: Space
    - Linebreak: Windows
