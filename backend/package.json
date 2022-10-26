@@ -1,50 +1,27 @@
 {
-  "name": "expressjs-with-mongoose-localdb",
+  "name": "expressjs-with-mongoose",
   "version": "1.0.0",
-  "description": "",
+  "description": "A sample backend for our class app with database access (MongoDB) using Mongoose.",
   "main": "backend_with_db.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon backend_with_db.js"
+    "test": "jest --forceExit",
+    "coverage": "jest --collectCoverage --forceExit",
+    "dev": "nodemon backend_with_db.js",
+    "start": "node backend_with_db.js"
   },
-  "author": "Dr. da Silva",
+  "author": "BJ Klingenberg (based on Dr. DaSilva's code",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "mongoose": "^6.0.10"
+    "jest": "^27.5.1",
+    "mongoose": "^6.0.3"
   },
-    "eslintConfig": {
-      "extends": ["react-app", "shared-config"],
-      "rules": {
-        "additional-rule": "warn"
-      },
-      "overrides": [
-        {
-          "files": ["**/*.ts?(x)"],
-          "rules": {
-            "additional-typescript-only-rule": "warn"
-          }
-        }
-      ]
-    },
   "devDependencies": {
-    "eslint": "^8.26.0",
-    "eslint-plugin-react": "^7.31.10",
-    "nodemon": "^2.0.13",
-    "prettier": "^2.4.1"
-  },
-  "husky": {
-    "hooks": {
-        "pre-commit": "lint-staged"
-      }
-    },
-"lint-staged": {
-   "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-     "prettier --write"
-   ]
-}
-
+    "eslint": "^8.8.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.28.0",
+    "nodemon": "^2.0.12"
+  }
 }
