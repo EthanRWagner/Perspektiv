@@ -9,7 +9,7 @@ CSC 307 Web Application
 1. run `npmrun dev` in backend
 2. run `npm start` in frontend
 
-#Code Style:
+# Code Style:
 Uses Prettier-ESLint
 Properties:
 - Indent: Space
