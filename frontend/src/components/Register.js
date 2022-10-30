@@ -94,6 +94,9 @@ function Register(props) {
 
     return (<div className="col-md-12">
         <div className="card card-container">
+            <h2>
+                Register
+            </h2>
             <Form>
                 <div className="form-group">
                     <label htmlFor="fullName">Full Name</label>
