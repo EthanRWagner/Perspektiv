@@ -1,5 +1,6 @@
 import React from "react";
 import RegisterPage from "./RegisterPage";
+import LoginPage from "./LoginPage";
 import MyApp from "./MyApp";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./App.css";
@@ -21,6 +22,9 @@ function App() {
 						<li>
 							<Link to="/register">Register Here</Link>
 						</li>
+						<li>
+							<Link to="/login">Login Here</Link>
+						</li>
 					</ul>
 				</nav>
 					<Routes>
@@ -34,6 +38,12 @@ function App() {
 							path="/register"
 							element={
 								<RegisterPage />
+							}
+						/>
+						<Route
+							path="/login"
+							element={
+								<LoginPage />
 							}
 						/>
 					</Routes>
