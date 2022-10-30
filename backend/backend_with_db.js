@@ -11,17 +11,15 @@ const port = 8675;
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.get("/users", async (req, res) => {
   // res.send(users); this is a very very very very very very very very very long line
   //HTTP code 200 is set by default. See an alternative below
   // res.status(200).send(users);
-  const name = req.query["name"];
-  const job = req.query["job"];
-  if (name === undefined && job === undefined) {
+  const fullName = req.query["fullName"];
+  const email = req.query["email"];
+  const username = req.query["username"];
+  const password = req.query["password"];
+  if (username === undefined && email === undefined) {
     try {
       const users_from_db = await userServices.getUsers();
       res.send({ users_list: users_from_db });
@@ -29,21 +27,22 @@ app.get("/users", async (req, res) => {
       console.log("Mongoose error: " + error);
       res.status(500).send("An error ocurred in the server.");
     }
-  } else if (name && job === undefined) {
-    let result = await userServices.findUserByName(name);
+  } else if (username && email === undefined) {
+    let result = await userServices.findUserByUserName(username);
     result = { users_list: result };
     res.send(result);
-  } else if (job && name === undefined) {
-    let result = await userServices.findUserByJob(job);
+  } else if (email && username === undefined) {
+    let result = await userServices.findUserByEmail(email);
     result = { users_list: result };
     res.send(result);
   } else {
-    let result = await userServices.findUserByNameAndJob(name, job);
+    let result = await userServices.findUserByUserNameAndEmail(username, email);
     result = { users_list: result };
     res.send(result);
   }
 });
 
+// previously used function for local db
 // async function findUserByName(name) {
 //   return await userModel.find({ name: name });
 // }

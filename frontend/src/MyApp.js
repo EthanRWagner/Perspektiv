@@ -1,30 +1,31 @@
-import Table from './Table';
-import Form from './Form';
+//import Register from "./Register";
 import axios from 'axios'; 
 import React, {useState, useEffect} from 'react';
+import logo from "./img/Perspektiv.gif"
+import "./App.css";
 
-const port = 8675
+const port = 8675;
 
 function MyApp() {
-  const [characters, setCharacters] = useState([]);
+  const [setCharacters] = useState([]);
 
-  function removeOneCharacter (index) {
-    makeDeleteCall(characters.at(index)._id).then( result => {
-      if(result && result.status === 200){
-        const updated = characters.filter((character, i) => {
-          return i !== index
-        });
-        setCharacters(updated);
-      }
-    });
-  }
+//   function removeOneCharacter (index) {
+//     makeDeleteCall(characters.at(index)._id).then( result => {
+//       if(result && result.status === 200){
+//         const updated = characters.filter((character, i) => {
+//           return i !== index
+//         });
+//         setCharacters(updated);
+//       }
+//     });
+//   }
 
-  function updateList(person) { 
-    makePostCall(person).then( result => {
-    if (result && result.status === 201)
-       setCharacters([...characters, result.data] );
-    });
- }
+//   function updateList(person) { 
+//     makePostCall(person).then( result => {
+//     if (result && result.status === 201)
+//        setCharacters([...characters, result.data] );
+//     });
+//  }
 
   async function fetchAll(){
     try {
@@ -38,27 +39,27 @@ function MyApp() {
     }
  }
 
-  async function makePostCall(person){
-    try {
-      const response = await axios.post(`http://localhost:${port}/users`, person);
-      return response;
-    }
-    catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
+  // async function makePostCall(person){
+  //   try {
+  //     const response = await axios.post(`http://localhost:${port}/users`, person);
+  //     return response;
+  //   }
+  //   catch (error) {
+  //     console.log(error);
+  //     return false;
+  //   }
+  // }
 
-  async function makeDeleteCall(id){
-    try {
-      const response = await axios.delete(`http://localhost:${port}/users/` + id);
-      return response;
-    }
-    catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
+  // async function makeDeleteCall(id){
+  //   try {
+  //     const response = await axios.delete(`http://localhost:${port}/users/` + id);
+  //     return response;
+  //   }
+  //   catch (error) {
+  //     console.log(error);
+  //     return false;
+  //   }
+  // }
 
   useEffect(() => {
     fetchAll().then( result => {
@@ -68,9 +69,8 @@ function MyApp() {
   }, [] );
 
   return (
-    <div className="container">
-      <Table characterData={characters} removeCharacter={removeOneCharacter} />
-      <Form handleSubmit={updateList} />
+    <div className="black-out">
+      <img src={logo} className="center"/>
     </div>
   )
 }

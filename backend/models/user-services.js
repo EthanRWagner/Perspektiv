@@ -26,16 +26,16 @@ mongoose
   )
   .catch((error) => console.log(error));
 
-async function getUsers(name, job) {
+async function getUsers(username, email) {
   let result;
-  if (name === undefined && job === undefined) {
+  if (username === undefined && email === undefined) {
     result = await userModel.find();
-  } else if (name && !job) {
-    result = await findUserByName(name);
-  } else if (job && !name) {
-    result = await findUserByJob(job);
+  } else if (username && !email) {
+    result = await findUserByUserName(username);
+  } else if (email && !username) {
+    result = await findUserByEmail(email);
   } else {
-    result = await findUserByNameAndJob(name, job);
+    result = await findUserByUserNameAndEmail(username, email);
   }
   return result;
 }
@@ -60,16 +60,16 @@ async function addUser(user) {
   }
 }
 
-async function findUserByName(name) {
-  return await userModel.find({ name: name });
+async function findUserByUserName(username) {
+  return await userModel.find({ username: username });
 }
 
-async function findUserByJob(job) {
-  return await userModel.find({ job: job });
+async function findUserByEmail(email) {
+  return await userModel.find({ email: email });
 }
 
-async function findUserByNameAndJob(name, job) {
-  return await userModel.find({ name: name, job: job });
+async function findUserByUserNameAndEmail(username, email) {
+  return await userModel.find({ username: username, email: email });
 }
 
 async function deleteUser(id) {
@@ -83,7 +83,7 @@ async function deleteUser(id) {
 
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
-exports.findUserByName = findUserByName;
+exports.findUserByUserName = findUserByUserName;
 exports.addUser = addUser;
 exports.deleteUser = deleteUser;
 // exports.disconnectDB = disconnectDB;

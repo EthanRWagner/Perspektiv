@@ -1,19 +1,31 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  fullName: {
     type: String,
     required: true,
     trim: true,
   },
-  job: {
+  email: {
     type: String,
     required: true,
     trim: true,
-    validate(value) {
-      if (value.length < 2) throw new Error("Invalid job.");
-    },
   },
+  username: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  confPassword: {
+    type: String,
+    required: false,
+    trim: true,
+  }, 
 }, {collection : 'users_list'});
 
 const User = mongoose.model("User", UserSchema);

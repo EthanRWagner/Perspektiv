@@ -1,25 +1,43 @@
 import React from "react";
-import logo from "./logo.svg";
+import RegisterPage from "./RegisterPage";
+import MyApp from "./MyApp";
+import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./App.css";
-
+//<button onClick={navigateToRegister}>Register</button>
 function App() {
+	// const navigate = useNavigate();
+	// const navigateToRegister = () => {
+	// 	navigate('/register');
+	// };
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-          Edit <code>src/App.js</code> and save to reload. Yippee!
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-          Learn React
-				</a>
-			</header>
+		<div>
+			<div>
+				<BrowserRouter basename="/">
+				<nav>
+					<ul>
+						<li>
+							<Link to="/register">Register Here</Link>
+						</li>
+					</ul>
+				</nav>
+					<Routes>
+						<Route
+							path="/"
+							element={
+								<MyApp />
+							}
+						/>
+						<Route
+							path="/register"
+							element={
+								<RegisterPage />
+							}
+						/>
+					</Routes>
+				</BrowserRouter>
+			</div>
 		</div>
+		
 	);
 }
 
