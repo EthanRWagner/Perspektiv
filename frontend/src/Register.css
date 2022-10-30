@@ -1,0 +1,36 @@
+.Register {
+    position: relative;
+    width: 1440px;
+    height: 900px;
+    background: #FFFFFF;
+}
+
+.Logo {
+    position: absolute;
+    width: 735px;
+    height: 731.19px;
+    left: 645px;
+    top: 115.81px;
+}
+
+.SignUpField {
+    position: absolute;
+    width: 430px;
+    height: 682px;
+    left: 123px;
+    top: 116px;
+}
+
+.LogoImage {
+    position: absolute;
+    width: 735px;
+    height: 731.19px;
+    left: 645px;
+    top: 115.81px;
+
+    background: url(Perspektiv.png);
+    border-radius: 15px;
+}
+
+
+
