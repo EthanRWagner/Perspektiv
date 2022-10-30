@@ -1,8 +1,8 @@
 //import Register from "./Register";
 import axios from 'axios'; 
 import React, {useState, useEffect} from 'react';
-import logo from "./img/Perspektiv.gif"
-import "./App.css";
+import logo from "../img/Perspektiv.gif"
+import "../css/App.css";
 
 const port = 8675;
 
