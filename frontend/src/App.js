@@ -16,6 +16,9 @@ function App() {
 				<nav>
 					<ul>
 						<li>
+							<Link to="/">PERSPEKTIV</Link>
+						</li>
+						<li>
 							<Link to="/register">Register Here</Link>
 						</li>
 					</ul>
