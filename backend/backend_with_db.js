@@ -92,10 +92,7 @@ async function deleteUserById(id) {
 
 app.post("/users", async (req, res) => {
   const user = req.body;
-  if(await userServices.findUserByUserName(req.query["username"]) != []) {
-    res.status(500).end("Username already exists");
-  }
-  else if (await userServices.addUser(user)) res.status(201).end();
+  if (await userServices.addUser(user)) res.status(201).end();
   else res.status(500).end();
 });
 
