@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const userModel = require("./user");
 const dotenv = require("dotenv");
+const User = require("./user");
 
 dotenv.config();
 
@@ -80,6 +81,9 @@ async function deleteUser(id) {
 //   await mongoose.connection.close();
 //   await mongoose.disconnect();
 // }
+
+
+
 
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
