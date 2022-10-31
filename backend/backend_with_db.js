@@ -138,9 +138,9 @@ app.post("/signup", async (req, res) =>{
       res.status(400).send("All input is required");
     }
 
-    const existedUser1 = await User.findOne({ email });
-    const existedUser2 = await User.findOne({ username });
-    if (existedUser1 || existedUser2) {
+    const existedUserWithEmail = await User.findOne({ email });
+    const existedUserWithUsername = await User.findOne({ username });
+    if (existedUserWithEmail || existedUserWithUsername) {
       return res.status(409).send("User Already Exist. Please Login");
     }
     else if(password != confPassword){
