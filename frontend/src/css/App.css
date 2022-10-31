@@ -44,13 +44,22 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
 
+.logo-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  border-radius: 15px;
 }
 
 .black-out {
   margin-left: auto;
   margin-right: auto;
-  background-color: black;
+  background-color: #121121;
 }
 
 .dropdown {
@@ -70,6 +79,7 @@
 
 .dropdown:hover .dropdown-content {
   display: block;
+  text-decoration: none;
 }
 
 ul.no-bullets {
@@ -78,3 +88,6 @@ ul.no-bullets {
   padding: 0;
 }
 
+nav {
+  background-color: #121121;
+}

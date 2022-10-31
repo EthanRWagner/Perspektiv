@@ -70,7 +70,7 @@ function MyApp() {
 
   return (
     <div className="black-out">
-      <img src={logo} className="center"/>
+      <img src={logo} className="logo-center"/>
     </div>
   )
 }

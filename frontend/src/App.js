@@ -5,6 +5,14 @@ import Feed from "./components/Feed";
 import MyApp from "./components/MyApp";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
+import styled from "styled-components";
+
+const HomeButtonLink = styled(Link)`
+	font-family: 'Courier New', Courier, monospace;
+	color: #ed009c;
+	background: none;
+	font-size: larger;
+`;
 
 function App() {
 	return (
@@ -13,7 +21,7 @@ function App() {
 				<BrowserRouter basename="/">
 				<nav>
 					<div className="dropdown">
-							<Link to="/">PERSPEKTIV</Link>
+							<HomeButtonLink to="/">PERSPEKTIV</HomeButtonLink>
 						<div className="dropdown-content">
 							<ul className="no-bullets">
 								<li>
