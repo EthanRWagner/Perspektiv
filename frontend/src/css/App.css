@@ -89,5 +89,6 @@ ul.no-bullets {
 }
 
 nav {
+  height: 50px;
   background-color: #121121;
 }

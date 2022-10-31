@@ -11,7 +11,9 @@ const HomeButtonLink = styled(Link)`
 	font-family: 'Courier New', Courier, monospace;
 	color: #ed009c;
 	background: none;
-	font-size: larger;
+	font-size: xx-large;
+	position: relative;
+	left: 5%;
 `;
 
 function App() {
