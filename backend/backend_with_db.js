@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
+const User = require("./models/user");
 // Add mongdb user services
 const userServices = require("./models/user-services");
 
@@ -108,7 +108,7 @@ app.patch("/users/:id", async (req, res) => {
   else if (result === 500) {
     res.status(500).send("An error ocurred in the server.");
   }
-});
+})
 
 async function updateUser(id, updatedUser) {
   try {
@@ -119,10 +119,33 @@ async function updateUser(id, updatedUser) {
     console.log(error);
     return 500;
   }
-}
+};
+
+
+app.post("/signup", async (req, res) =>{
+  const user = new User(req.body);
+  user.save((err, newUser) => {
+    if(err){
+      return res.status(404).json({error: "Unable to add user"});
+    }
+    res.json({message: "Added new user", user});
+  })
+});
+
+app.get("/signin", async(req, res) => {
+  const {username, password} = req.body;
+  User.findOne({username, password}, (err, username) => {
+    if(err || !username){
+      return res.status(404).json({error: "Email not found"})
+    }
+    res.status(200).send("Login");
+  })
+});
 
 app.listen(process.env.PORT || port, () => {
   if (process.env.PORT) {
     console.log(`REST API is listening on port: ${process.env.PORT}.`);
   } else console.log(`REST API is listening on port: ${port}.`);
 });
+
+

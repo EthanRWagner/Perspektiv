@@ -10,11 +10,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    unique: true,
   },
   username: {
     type: String,
     required: true,
     trim: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -27,6 +29,12 @@ const UserSchema = new mongoose.Schema({
     trim: true,
   }, 
 }, {collection : 'users_list'});
+
+UserSchema.methods = {
+  authenticate: function (inputPass){
+    return this.inputPass === this.password;
+  }
+}
 
 const User = mongoose.model("User", UserSchema);
 
