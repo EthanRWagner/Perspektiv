@@ -2,8 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const User = require("./models/user");
+const bcrypt = require('bcrypt');
 // Add mongdb user services
 const userServices = require("./models/user-services");
+const { findOne } = require("./models/user");
 
 const app = express();
 const port = 8675;
@@ -54,6 +56,13 @@ app.get("/users", async (req, res) => {
 // async function findUserByNameAndJob(name, job) {
 //   return await userModel.find({ name: name, job: job });
 // }
+function isEmail(email) {
+  var emailFormat = /^[a-zA-Z0-9_.+]*[a-zA-Z][a-zA-Z0-9_.+]*@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  if (email !== '' && email.match(emailFormat)) { return true; }
+  
+  return false;
+}
+
 
 app.get("/users/:id", async (req, res) => {
   const id = req.params["id"];
@@ -120,23 +129,58 @@ async function updateUser(id, updatedUser) {
 
 
 app.post("/signup", async (req, res) =>{
-  const user = new User(req.body);
-  user.save((err, newUser) => {
-    if(err){
-      return res.status(404).json({error: "Unable to add user"});
+
+  try {
+    const { fullName, email, username, password, confPassword } = req.body;
+
+    // Validate user input
+    if (!(email && password && username && fullName && confPassword)) {
+      res.status(400).send("All input is required");
     }
-    res.json({message: "Added new user", user});
-  })
-});
+
+    const existedUser1 = await User.findOne({ email });
+    const existedUser2 = await User.findOne({ username });
+    if (existedUser1 || existedUser2) {
+      return res.status(409).send("User Already Exist. Please Login");
+    }
+    else if(password != confPassword){
+      return res.status(404).send("Password and confirm password mismatch");
+    }
+    
+    else if(!isEmail(email)){
+      return res.status(404).send("Not an email");
+    }
+    //Encrypt user password
+    else{
+      encryptedUserPassword = await bcrypt.hash(password, 10);
+      encryptedConfPassword = encryptedUserPassword;
+    // Create user in our database
+      const user = await User.create({
+        fullName: fullName,
+        username: username,
+        email: email.toLowerCase(), // sanitize
+        password: encryptedUserPassword,
+        confPassword : encryptedConfPassword,
+      });
+      if(user){
+        return res.status(201).json({message: "Added new user", user});
+      }
+    }
+    
+    
+  }
+catch (err) {
+  console.log(err);
+}});
 
 app.get("/signin", async(req, res) => {
   const {username, password} = req.body;
-  User.findOne({username, password}, (err, username) => {
-    if(err || !username){
-      return res.status(404).json({error: "Email not found"})
-    }
-    res.status(200).send("Login");
-  })
+  const tempUser = await userServices.findUserByUserName(username);
+  let result = bcrypt.compareSync(password, tempUser[0].password);
+  if(!result){
+    return res.status(404).send("Username and password do not match");
+  }
+  return res.status(200).send("Login");
 });
 
 app.listen(process.env.PORT || port, () => {

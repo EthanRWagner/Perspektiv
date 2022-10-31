@@ -30,11 +30,7 @@ const UserSchema = new mongoose.Schema({
   }, 
 }, {collection : 'users_list'});
 
-UserSchema.methods = {
-  authenticate: function (inputPass){
-    return this.inputPass === this.password;
-  }
-}
+
 
 const User = mongoose.model("User", UserSchema);
 

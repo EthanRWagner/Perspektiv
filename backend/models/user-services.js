@@ -65,6 +65,7 @@ async function findUserByUserName(username) {
   return await userModel.find({ username: username });
 }
 
+
 async function findUserByEmail(email) {
   return await userModel.find({ email: email });
 }
