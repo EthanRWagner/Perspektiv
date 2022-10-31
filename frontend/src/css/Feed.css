@@ -1,0 +1,55 @@
+.subheader-cont {
+    display: block;
+    position: absolute;
+    left: 40%;
+    top: 5%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.post-section-container {
+    display: relative;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    width: 80%;
+    height: 70%;
+}
+
+.post-container {
+    background-color: gray;
+    position: absolute;
+    border-color: black;
+    top: 0%;
+    left: 0%;
+    width: 75%;
+    height: 66%;
+}
+
+.descr-container {
+    background-color: white;
+    position: absolute;
+    border-color: black;
+    bottom: 0%;
+    left: 0%;
+    width: 75%;
+    height: 33%;
+}
+
+.comment-container {
+    background-color: green;
+    position: absolute;
+    border-color: black;
+    top: 0%;
+    right: 5%;
+    width: 20%;
+    height: 100%;
+}
+
+.button-container {
+    background-color: brown;
+    position: absolute;
+    top: 40%;
+    right: 0%;
+    width: 5%;
+    height: 10%;
+}

@@ -1,15 +1,12 @@
 import React from "react";
-import RegisterPage from "./RegisterPage";
-import MyApp from "./MyApp";
-import Feed from "./Feed";
+import RegisterPage from "./components/RegisterPage";
+import LoginPage from "./components/LoginPage";
+import Feed from "./components/Feed";
+import MyApp from "./components/MyApp";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import "./App.css";
-//<button onClick={navigateToRegister}>Register</button>
+import "./css/App.css";
+
 function App() {
-	// const navigate = useNavigate();
-	// const navigateToRegister = () => {
-	// 	navigate('/register');
-	// };
 	return (
 		<div>
 			<div>
@@ -48,7 +45,7 @@ function App() {
 						<Route
 							path="/login"
 							element={
-								<RegisterPage />
+								<LoginPage />
 							}
 						/>
 						<Route

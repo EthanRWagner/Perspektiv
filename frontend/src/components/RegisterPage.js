@@ -1,6 +1,6 @@
 import Register from "./Register";
 import axios from 'axios'; 
-import "./App.css";
+import "../css/App.css";
 import React, {useState, useEffect} from 'react';
 
 const port = 8675;
