@@ -1,6 +1,12 @@
 //import axios from 'axios'; 
 import React from 'react';
 import "../css/Feed.css";
+// import styled from "styled-components";
+
+// const ScrollButton = styled.button`
+//     border-radius: 50%;
+//     color: white;
+// `
 
 function Feed (){
     return (
@@ -18,7 +24,10 @@ function Feed (){
                 <div className='comment-container'>
                     <h1>Comments</h1>
                 </div>
-                <div className='button-container'></div>
+                <div className='button-container'>
+                    <button className='scroll-button-top'>↑</button>
+                    <button className='scroll-button-bottom'>↓</button>
+                </div>
             </div>
         </div>
         
