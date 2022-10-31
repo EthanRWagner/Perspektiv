@@ -46,7 +46,8 @@
 }
 
 .button-container {
-    background-color: brown;
+    background-color: white;
+    border-color: black;
     position: absolute;
     top: 40%;
     right: 0%;
@@ -68,6 +69,7 @@
     color: black;
     text-align: center;
     padding: 0px;
+
 }
 
 .scroll-button-bottom {
@@ -84,4 +86,34 @@
     border-color: black;
     text-align: center;
     padding: 0px;
+}
+
+.tri-top {
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 10px solid black;
+    border-radius: 3px;
+
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    width: 60%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.tri-bottom {
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-top: 10px solid black;
+    border-radius: 3px;
+
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    width: 60%;
+    margin-top: auto;
+    margin-bottom: auto;
 }

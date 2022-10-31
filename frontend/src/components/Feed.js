@@ -25,8 +25,12 @@ function Feed (){
                     <h1>Comments</h1>
                 </div>
                 <div className='button-container'>
-                    <button className='scroll-button-top'>↑</button>
-                    <button className='scroll-button-bottom'>↓</button>
+                    <button className='scroll-button-top'>
+                        <div className='tri-top'></div>
+                    </button>
+                    <button className='scroll-button-bottom'>
+                        <div className='tri-bottom'></div>
+                    </button>
                 </div>
             </div>
         </div>
