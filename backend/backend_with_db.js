@@ -174,13 +174,18 @@ catch (err) {
 }});
 
 app.get("/signin", async(req, res) => {
+
   const {username, password} = req.body;
   const tempUser = await userServices.findUserByUserName(username);
-  let result = bcrypt.compareSync(password, tempUser[0].password);
-  if(!result){
+  if(tempUser.length > 0){
+    console.log(tempUser[0]);
+    let result = bcrypt.compareSync(password, tempUser[0].password);
+    if(result){
+      return res.status(200).send("Login");
+    }
     return res.status(404).send("Username and password do not match");
   }
-  return res.status(200).send("Login");
+  
 });
 
 app.listen(process.env.PORT || port, () => {
