@@ -25,7 +25,7 @@ function Login(props) {
         const {name, value} = event.target;
         if (name === "password") setUser({username: user['name'], password: value}); else setUser({
             username: value,
-            password: user['job']
+            password: user['password']
         });
     }
 
