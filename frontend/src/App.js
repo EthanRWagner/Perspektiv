@@ -16,6 +16,15 @@ const HomeButtonLink = styled(Link)`
 	left: 5%;
 `;
 
+// const Tab = styled(Link)`
+// 	font-family: 'Courier New', Courier, monospace;
+// 	color: #ed009c;
+// 	background: none;
+// 	font-size: large;
+// 	position: relative;
+// 	right: 0%;
+// `
+
 function App() {
 	return (
 		<div>

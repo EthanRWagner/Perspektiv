@@ -9,6 +9,7 @@
 .post-section-container {
     display: relative;
     position: absolute;
+    border-color: black;
     top: 15%;
     left: 10%;
     width: 80%;
@@ -22,11 +23,11 @@
     top: 0%;
     left: 0%;
     width: 75%;
-    height: 66%;
+    height: 67%;
 }
 
 .descr-container {
-    background-color: white;
+    background-color: #ed009c;
     position: absolute;
     border-color: black;
     bottom: 0%;
@@ -36,7 +37,7 @@
 }
 
 .comment-container {
-    background-color: green;
+    background-color: #121121;
     position: absolute;
     border-color: black;
     top: 0%;
@@ -95,10 +96,10 @@
     border-radius: 3px;
 
     position:relative;
-    margin-left: auto;
-    margin-right: auto;
     padding: 0;
     width: 60%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -110,10 +111,10 @@
     border-radius: 3px;
 
     position:relative;
-    margin-left: auto;
-    margin-right: auto;
     padding: 0;
     width: 60%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
 }
