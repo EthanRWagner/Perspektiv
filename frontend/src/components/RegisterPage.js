@@ -1,7 +1,9 @@
 import Register from "./Register";
+import LoginPage from "./LoginPage";
 import axios from 'axios'; 
 import "../css/App.css";
 import React, {useState, useEffect} from 'react';
+import {Link, Route, Routes} from "react-router-dom";
 
 const port = 8675;
 
@@ -45,10 +47,31 @@ function RegisterPage (){
         });
     }, [] );
         
-    return (
-        <div className="container">
+    return (<div>
+        <div>
+            <div className="container">
             <Register handleSubmit={updateList} />
+            </div>
+            <div className='regLink'>
+                <t>Already Have An Account?&nbsp;</t>
+                <Link to="/login">Login Here</Link>
+            </div>
         </div>
+        <Routes>
+            <Route
+                path="/login"
+                element={
+                    <LoginPage />
+                }
+            />
+            <Route
+                path="/register"
+                element={
+                    <RegisterPage />
+                }
+            />
+        </Routes>
+    </div>
 
     )
 }
