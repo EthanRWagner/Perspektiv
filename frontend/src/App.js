@@ -3,6 +3,8 @@ import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
 import Feed from "./components/Feed";
 import MyApp from "./components/MyApp";
+import SearchPage from "./components/SearchPage";
+import CreatePostPage from "./components/CreatePostPage";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";
@@ -77,6 +79,18 @@ function App() {
 						path="/<user>feed"
 						element={
 							<Feed />
+						}
+					/>
+					<Route
+						path="/search"
+						element={
+							<SearchPage />
+						}
+					/>
+					<Route
+						path="/createPost"
+						element={
+							<CreatePostPage />
 						}
 					/>
 				</Routes>

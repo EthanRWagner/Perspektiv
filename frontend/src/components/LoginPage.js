@@ -1,11 +1,9 @@
 import axios from 'axios'; 
 import Login from "./Login"
-import RegisterPage from "./RegisterPage"
-import Feed from './Feed';
 import "../css/App.css";
 import "../css/Login.css";
 import React from 'react';
-import {Link, Route, Routes} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const port = 8675;
 
@@ -42,26 +40,6 @@ function LoginPage (){
                     <Link to="/register">Register Here</Link>
                 </div>
             </div>
-            <Routes>
-                <Route
-                    path="/login"
-                    element={
-                        <LoginPage />
-                    }
-                />
-                <Route
-                    path="/register"
-                    element={
-                        <RegisterPage />
-                    }
-                />
-                <Route
-                    path="/<user>feed"
-                    element={
-                        <Feed />
-                    }
-                />
-            </Routes>
         </div>
     )
 }
