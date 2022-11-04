@@ -29,7 +29,8 @@ function LoginPage (){
 
     async function makePostCall(person){
         try {
-        const response = await axios.post(`http://localhost:${port}/users`, person);
+        const response = await axios.get(`http://localhost:${port}/users`, person);
+        console.log(person)
         return response;
         }
         catch (error) {
