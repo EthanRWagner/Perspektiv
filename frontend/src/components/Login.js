@@ -23,7 +23,7 @@ function Login(props) {
 
     function handleChange(event) {
         const {name, value} = event.target;
-        if (name === "password") setUser({username: user['name'], password: value}); else setUser({
+        if (name === "password") setUser({username: user['username'], password: value}); else setUser({
             username: value,
             password: user['password']
         });
