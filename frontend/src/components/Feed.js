@@ -16,13 +16,13 @@ function Feed (){
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
-                    <h1>Post Container</h1>
+                    <t>Post Container</t>
                 </div>
                 <div className='descr-container'>
-                    <h1>Post Description</h1>
+                    <t>Post Description</t>
                 </div>
                 <div className='comment-container'>
-                    <h1>Comments</h1>
+                    <t>Comments</t>
                 </div>
                 <div className='button-container'>
                     <button className='scroll-button-top'>

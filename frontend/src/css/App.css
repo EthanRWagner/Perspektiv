@@ -62,9 +62,17 @@
   background-color: #121121;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+.navBar {
+  display: inline;
+  width: 100%;
+}
+.subNavBar {
+  display: inline;
+  text-align: right;
+  padding-right: 2%;
+  position: absolute;
+  right: 0%;
+  width: 30%;
 }
 
 .dropdown-content {

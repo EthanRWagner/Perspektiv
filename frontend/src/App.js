@@ -8,65 +8,79 @@ import "./css/App.css";
 import styled from "styled-components";
 
 const HomeButtonLink = styled(Link)`
+	display: inline;
+	position: absolute;
 	font-family: 'Courier New', Courier, monospace;
 	color: #ed009c;
 	background: none;
 	font-size: xx-large;
-	position: relative;
-	left: 5%;
+	left: 15px;
 `;
 
+const RegisterLink = styled(Link)`
+	display: inline;
+	position: relative;
+	font-family: 'Courier New', Courier, monospace;
+	color: #ed009c;
+	background: none;
+	font-size: large;
+`;
+
+const LoginLink = styled(Link)`
+	display: inline;
+	position: relative;
+	font-family: 'Courier New', Courier, monospace;
+	color: #ed009c;
+	background: none;
+	font-size: large;
+	padding-left: 25px;
+	margin-top: auto;
+  	margin-bottom: auto;
+`;
+
+//<Link to="/<user>feed">Feed</Link>
 function App() {
 	return (
 		<div>
-			<div>
-				<BrowserRouter basename="/">
-				<nav>
-					<div className="dropdown">
-							<HomeButtonLink to="/">PERSPEKTIV</HomeButtonLink>
-						<div className="dropdown-content">
-							<ul className="no-bullets">
-								<li>
-									<Link to="/register">Register</Link>
-								</li>
-								<li>
-									<Link to="/login">Login</Link>
-								</li>
-								<li>
-									<Link to="/<user>feed">Feed</Link>
-								</li>
-							</ul>
+			<BrowserRouter basename="/">
+			<nav>
+				<div>
+					<div className="navBar">
+						<HomeButtonLink to="/">PERSPEKTIV</HomeButtonLink>
+						<div className="subNavBar">
+							<RegisterLink to="/register">REGISTER</RegisterLink>
+							<LoginLink to="/login">LOGIN</LoginLink>
 						</div>
 					</div>
-				</nav>
-					<Routes>
-						<Route
-							path="/"
-							element={
-								<MyApp />
-							}
-						/>
-						<Route
-							path="/register"
-							element={
-								<RegisterPage />
-							}
-						/>
-						<Route
-							path="/login"
-							element={
-								<LoginPage />
-							}
-						/>
-						<Route
-							path="/<user>feed"
-							element={
-								<Feed />
-							}
-						/>
-					</Routes>
-				</BrowserRouter>
-			</div>
+				</div>
+			</nav>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<MyApp />
+						}
+					/>
+					<Route
+						path="/register"
+						element={
+							<RegisterPage />
+						}
+					/>
+					<Route
+						path="/login"
+						element={
+							<LoginPage />
+						}
+					/>
+					<Route
+						path="/<user>feed"
+						element={
+							<Feed />
+						}
+					/>
+				</Routes>
+			</BrowserRouter>
 		</div>
 		
 	);

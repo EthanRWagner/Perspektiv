@@ -22,11 +22,11 @@
     top: 0%;
     left: 0%;
     width: 75%;
-    height: 66%;
+    height: 67%;
 }
 
 .descr-container {
-    background-color: white;
+    background-color: #121121;
     position: absolute;
     border-color: black;
     bottom: 0%;
@@ -36,7 +36,7 @@
 }
 
 .comment-container {
-    background-color: green;
+    background-color: #ed009c;
     position: absolute;
     border-color: black;
     top: 0%;
