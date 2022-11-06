@@ -63,7 +63,6 @@
 }
 
 .navBar {
-  display: inline;
   width: 100%;
 }
 .subNavBar {
@@ -72,7 +71,7 @@
   padding-right: 2%;
   position: absolute;
   right: 0%;
-  width: 30%;
+  width: 200px;
 }
 
 .dropdown-content {

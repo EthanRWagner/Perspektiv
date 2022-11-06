@@ -1,0 +1,25 @@
+.search-bar {
+    display: flex;
+    position:relative;
+    min-width: 200px;
+    max-width: 400px;
+    width: auto;
+    height: 10px;
+    padding: 5px 0px;   
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+input[type="text"] {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+input[type="text"]:focus {
+    font-family: 'Courier New', Courier, monospace;
+    color: #ffff;
+    border: 1px solid #ed009c;
+  }
+
+.eq-button {
+    padding: 25px;
+}

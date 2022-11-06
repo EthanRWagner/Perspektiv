@@ -5,6 +5,7 @@ import Feed from "./components/Feed";
 import MyApp from "./components/MyApp";
 import SearchPage from "./components/SearchPage";
 import CreatePostPage from "./components/CreatePostPage";
+import SearchBar from "./components/SearchBar";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";
@@ -49,6 +50,7 @@ function App() {
 				<div>
 					<div className="navBar">
 						<HomeButtonLink to="/">PERSPEKTIV</HomeButtonLink>
+						<SearchBar/>
 						<div className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
 							<LoginLink to="/login">LOGIN</LoginLink>
@@ -76,7 +78,7 @@ function App() {
 						}
 					/>
 					<Route
-						path="/<user>feed"
+						path="/feed"
 						element={
 							<Feed />
 						}
