@@ -1,0 +1,114 @@
+.box-headings {
+	font-family: 'Courier New', Courier, monospace;
+    margin-left: 8px;
+}
+
+.create-post-frame {
+    position: relative;
+    overflow: hidden;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    min-width: 850px;
+    width: 60%;
+    border-radius: 10px;
+    border: 2px solid black;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.caption-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-width: 750px;
+    min-height: 150px;
+    width: 60%;
+    height: 20%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.caption-edit {
+    padding: 4px 4px 4px 4px;
+    min-width: 750px;
+    min-height: 150px;
+    width: 60%;
+    height: 20%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.sharing-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-width: 750px;
+    min-height: 50px;
+    width: 60%;
+    height: 10%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.sharing-edit {
+    padding: 4px 4px 4px 4px;
+    min-width: 750px;
+    min-height: 50px;
+    width: 60%;
+    height: 10%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.iframe-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-width: 750px;
+    min-height: 600px;
+    width: 60%;
+    height: 30%;
+    padding: 2.5% 2.5% 2.5% 2.5%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+iframe {
+    display:flex;
+    position:relative;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 600px;
+    width: 700px;
+    border: none;
+    
+    overflow: hidden;
+}
+
+.button-box {
+    /* put on right side of container */
+    display: inline;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.post-button {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #121121;
+    color: #ed009c;
+    border:none;
+    margin-left: 5px;
+}

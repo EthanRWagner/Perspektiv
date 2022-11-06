@@ -28,7 +28,19 @@ function LoginPage (){
         return false;
         }
     }
-        
+    
+    //login error bar 
+//     <Alert onClose={() => {}} severity="error">
+//   <AlertTitle>Error</AlertTitle>
+//   Invalid login or password — <strong>Try Again!</strong>
+// </Alert>
+
+// login success bar 
+{/* <Alert onClose={() => {}} severity="success">
+  <AlertTitle>Success</AlertTitle>
+  Login successful — <strong>Welcome Back!</strong>
+</Alert> */}
+
     return (
         <div>
             <div>

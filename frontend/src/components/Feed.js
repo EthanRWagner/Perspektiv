@@ -12,7 +12,7 @@ function Feed (){
     return (
         <div>
             <div className='subheader-cont'>
-                <h3>Recent Feed</h3>
+                <h1>Recent Feed</h1>
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
