@@ -57,6 +57,7 @@ const Feed = () => {
     if(index<=0) {
         decrementIndex = () => setIndex(0);
     }
+    
     if(index === posts.length-1) {
         incrementIndex = () => setIndex(0);
     }
