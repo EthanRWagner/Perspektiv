@@ -10,14 +10,14 @@ const port = 8675;
 function LoginPage (){
 
     function updateList(person) { 
-        makeGetCall(person).then( result => {
+        loginHandler(person).then( result => {
             console.log(result.status);
         if (result && result.status === 404)
         console.log("Login Failed");
         });
     }
 
-    async function makeGetCall(person){
+    async function loginHandler(person){
         try {
         const response = await axios.post(`http://localhost:${port}/signin`, person);
         console.log(person)

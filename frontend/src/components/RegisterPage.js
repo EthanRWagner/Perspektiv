@@ -30,7 +30,7 @@ function RegisterPage (){
 
     async function makePostCall(person){
         try {
-        const response = await axios.post(`http://localhost:${port}/users`, person);
+        const response = await axios.post(`http://localhost:${port}/signup`, person);
         return response;
         }
         catch (error) {
