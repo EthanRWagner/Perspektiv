@@ -17,4 +17,4 @@ Properties:
    - Quotes: double
    - Semicolon: always
 
-[![Build and deploy Node.js app to Azure Web App - Perspektiv](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_perspektiv.yml/badge.svg)](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_perspektiv.yml)
+[![Build and deploy -backend- Node.js app to Azure Web App - Perspektiv](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_perspektiv.yml/badge.svg)](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_perspektiv.yml)
