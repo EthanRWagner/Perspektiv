@@ -61,6 +61,38 @@ const Feed = () => {
         incrementIndex = () => setIndex(0);
     }
 
+    const hodgePodgeEnum = () => {
+      
+        const hodges = [];
+        for (let i = 0; i < posts[index].hodgepodges.length; i++) {
+            if (i === posts[index].hodgepodges.length-1){
+                hodges.push(
+                    <t className="descr">{posts[index].hodgepodges[i]}</t>);
+            }
+            else {
+                hodges.push(<t className="descr">{posts[index].hodgepodges[i]}</t>);
+                hodges.push(<t className="descr">,&nbsp;</t>);
+            }
+        }
+
+        return hodges;
+      };
+
+    const commentEnum = () => {
+      
+        const commList = [];
+        for (let i = 0; i < posts[index].comments.length; i++) {
+          commList.push(
+          <div className='comment-box'>
+            <t className="descr">{posts[index].comments[i].user}</t>
+            <br/>
+            <t className="descr">{posts[index].comments[i].comment}</t>
+          </div>);
+        }
+
+        return commList;
+      };
+
     return (
         <div>
             <div className='subheader-cont'>
@@ -72,10 +104,17 @@ const Feed = () => {
                     </iframe>
                 </div>
                 <div className='descr-container'>
-                    <t>Post Description</t>
+                    <t className="descr">{posts[index].initialPost} </t>
+                    <br/>
+                    {hodgePodgeEnum()}
+                    <br/>
+                    <br/>
+                    <t className="descr">{posts[index].caption}</t>
                 </div>
                 <div className='comment-container'>
-                    <t>Comments</t>
+                    <t className="descr">Comments</t>
+                    <br/>
+                    {commentEnum()}
                 </div>
                 <div className='button-container'>
                     <button onClick={decrementIndex} className='scroll-button-top'>

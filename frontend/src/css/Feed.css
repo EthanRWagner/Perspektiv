@@ -27,9 +27,11 @@
 }
 
 .descr-container {
+    overflow: scroll;
     background-color: #121121;
     position: absolute;
     border-color: black;
+    padding: 8px;
     bottom: 0%;
     left: 0%;
     width: 75%;
@@ -37,13 +39,23 @@
 }
 
 .comment-container {
-    background-color: #ed009c;
+    overflow: scroll;
+    background-color: black;
     position: absolute;
     border-color: black;
+    padding: 8px;
     top: 0%;
     right: 5%;
     width: 20%;
     height: 100%;
+}
+
+.comment-box {
+    position:relative;
+    padding: 8px;
+    width:auto;
+    height: auto;
+    min-height: 30px;
 }
 
 .button-container {
@@ -117,4 +129,8 @@
     width: 60%;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.descr {
+    color:white;
 }
