@@ -166,26 +166,24 @@ app.post("/signup", async (req, res) =>{
         return res.status(201).json({message: "Added new user", user});
       }
     }
-    
-    
   }
 catch (err) {
   console.log(err);
 }});
 
-app.get("/signin", async(req, res) => {
-
+app.post("/signin", async(req, res) => {
   const {username, password} = req.body;
   const tempUser = await userServices.findUserByUserName(username);
+  console.log(tempUser);
   if(tempUser.length > 0){
     console.log(tempUser[0]);
     let result = bcrypt.compareSync(password, tempUser[0].password);
     if(result){
-      return res.status(200).send("Login");
+      return res.status(200).send(tempUser["_id"]);
     }
     return res.status(404).send("Username and password do not match");
   }
-  
+  return res.status(404).send("User not found");
 });
 
 app.listen(process.env.PORT || port, () => {

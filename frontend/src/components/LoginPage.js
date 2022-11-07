@@ -19,7 +19,7 @@ function LoginPage (){
 
     async function makeGetCall(person){
         try {
-        const response = await axios.get(`http://localhost:${port}/users`, person);
+        const response = await axios.post(`http://localhost:${port}/signin`, person);
         console.log(person)
         return response;
         }
