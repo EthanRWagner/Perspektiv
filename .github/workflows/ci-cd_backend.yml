@@ -1,13 +1,17 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - Perspektiv
+name: Build and deploy backend to Azure Web App - Perspektiv
 
 on:
   push:
     branches:
       - ci-cd
   workflow_dispatch:
+  
+defaults:
+  run:
+    working-directory: ./backend
 
 jobs:
   build:
@@ -20,6 +24,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
 
       - name: npm install, build, and test
         run: |
