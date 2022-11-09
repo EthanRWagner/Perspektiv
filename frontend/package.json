@@ -24,13 +24,12 @@
     "react-validation": "^3.0.7",
     "styled-components": "^5.3.6",
     "validator": "^13.7.0",
-    "web-vitals": "^2.1.4",
-    "axios": "^0.27.2"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "prettier --check .",
+    "test": "",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
