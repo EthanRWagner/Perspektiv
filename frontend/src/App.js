@@ -1,6 +1,6 @@
 import React from "react";
 import RegisterPage from "./components/RegisterPage";
-import LoginPage from "./components/LoginPage";
+import Login from "./components/Login";
 import Feed from "./components/Feed";
 import MyApp from "./components/MyApp";
 import SearchPage from "./components/SearchPage";
@@ -74,7 +74,7 @@ function App() {
 					<Route
 						path="/login"
 						element={
-							<LoginPage />
+							<Login />
 						}
 					/>
 					<Route

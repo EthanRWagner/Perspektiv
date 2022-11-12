@@ -14,9 +14,6 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/users", async (req, res) => {
-  // res.send(users); this is a very very very very very very very very very long line
-  //HTTP code 200 is set by default. See an alternative below
-  // res.status(200).send(users);
   const fullName = req.query["fullName"];
   const email = req.query["email"];
   const username = req.query["username"];
@@ -173,13 +170,18 @@ catch (err) {
 
 app.post("/signin", async(req, res) => {
   const {username, password} = req.body;
+  if(!username) {
+    return res.status(404).send("Need username");
+  }
+  if(!password) {
+    return res.status(404).send("Need password");
+  }
   const tempUser = await userServices.findUserByUserName(username);
   console.log(tempUser);
   if(tempUser.length > 0){
-    console.log(tempUser[0]);
     let result = bcrypt.compareSync(password, tempUser[0].password);
     if(result){
-      return res.status(200).send(tempUser["_id"]);
+      return res.status(201).send(tempUser);
     }
     return res.status(404).send("Username and password do not match");
   }
