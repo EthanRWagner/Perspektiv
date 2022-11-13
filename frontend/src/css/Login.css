@@ -11,6 +11,10 @@ input[name="password"] {
   -webkit-text-security: disc;
 }
 
+input[name="confPassword"] {
+  -webkit-text-security: disc;
+}
+
 input[type="text"]:focus {
   font-family: 'Courier New', Courier, monospace;
   color: black !important;

@@ -3,18 +3,18 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import axios from 'axios'; 
 import "../css/Login.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const port = 8675;
 
 function Login() {
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({
         username: "", password: "",
     });
 
     const [loginState, setState] = useState(false);
-
-    const [token, setToken] = useState(0);
 
     function handleChange(event) {
         const {name, value} = event.target;
@@ -35,7 +35,8 @@ function Login() {
                 setState(true);
             }
             else {
-                setToken(result.data[0]['_id']);
+                window.sessionStorage.setItem("id", result.data[0]['_id'])
+                navigate('../feed')
             }
         });
     }
@@ -85,7 +86,7 @@ function Login() {
                     onClick={LoginForm} />
                 </div>
             </Form>
-            {!token && loginState && <t>Login failed, please try again.</t>}
+            {loginState && <t>Login failed, please try again.</t>}
         </div>
         <div className='regLink'>
             <t>Don&apos;t Have An Account?&nbsp;</t>

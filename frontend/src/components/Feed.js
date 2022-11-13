@@ -1,10 +1,29 @@
-//import axios from 'axios'; 
+import axios from 'axios'; 
 import React, {useState} from 'react';
 import "../css/Feed.css";
 // import styled from "styled-components";
 
-const Feed = () => {
+const port = 8675;
+
+function Feed() {
+    const [user, setUser] = useState({});
     const [index, setIndex] = useState(0);
+
+    const getUser =  async () => {
+        var id = window.sessionStorage.getItem("id");
+        try {
+            var response = await axios.get(`http://localhost:${port}/users/${id}`)
+            setUser(response.data.user);
+        }
+        catch(er) {
+            console.log(er);
+        }
+    }
+    
+    getUser();
+
+    console.log(user);
+
     var posts = [
         {url: `https://viewer.diagrams.net/?tags=%7B%7D&highlight=000000&edit=https%3A%2F%2Fapp.diagrams.net%2F%23G14J62bJ-mwPuvyI3UK9FMqsZkeiWTJrnE&layers=1&nav=1&title=Feed%20Sample%201#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D14J62bJ-mwPuvyI3UK9FMqsZkeiWTJrnE%26export%3Ddownload`,
         hodgepodges: ["Comp Neuro", "BCI"],
@@ -92,12 +111,12 @@ const Feed = () => {
         }
 
         return commList;
-      };
+    };
 
     return (
         <div>
             <div className='subheader-cont'>
-                <h1>Recent Feed</h1>
+                <h1>Recent Feed for {user.fullName}</h1>
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
