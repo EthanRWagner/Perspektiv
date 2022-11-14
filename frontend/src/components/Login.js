@@ -1,36 +1,58 @@
 import React, {useState} from 'react';
-import PropTypes from "prop-types";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import axios from 'axios'; 
+import "../css/Login.css";
+import {Link, useNavigate} from "react-router-dom";
 
-// Validators
-const required = value => {
-    if (!value) {
-        return (<div className="alert alert-danger" role="alert">
-            This field is required.
-        </div>);
-    }
-};
+const port = 8675;
 
-function Login(props) {
+function Login() {
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({
         username: "", password: "",
     });
 
-    Login.propTypes = {
-        handleSubmit: PropTypes.any.isRequired
-    }
+    const [loginState, setState] = useState(false);
 
     function handleChange(event) {
         const {name, value} = event.target;
-        if (name === "password") setUser({username: user['username'], password: value}); else setUser({
-            username: value,
-            password: user['password']
+        if (name === "password") {
+            setUser({username: user['username'], password: value}); 
+        }
+        else {
+            setUser({
+                username: value,
+                password: user['password']
+            });
+        }
+    }
+
+    function updateList(person) { 
+        attemptLogin(person).then( result => {
+            if (result && result.status != 201) {
+                setState(true);
+            }
+            else {
+                window.sessionStorage.setItem("id", result.data[0]['_id'])
+                navigate('../feed')
+            }
         });
     }
 
+    async function attemptLogin(person){
+        try {
+            const response = await axios.post(`http://localhost:${port}/signin`, person);
+            return response;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+
     function LoginForm() {
-        props.handleSubmit(user);
+        updateList(user);
         setUser({username: '', password: ''});
     }
 
@@ -48,8 +70,7 @@ function Login(props) {
                         name="username"
                         id="username"
                         value={user.username}
-                        onChange={handleChange}
-                        validations={[required]}/>
+                        onChange={handleChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
@@ -58,13 +79,18 @@ function Login(props) {
                         name="password"
                         id="password"
                         value={user.password}
-                        onChange={handleChange}
-                        validations={[required]}/>
+                        onChange={handleChange}/>
                 </div>
                 <div className="form-group">
-                    <input type="button" value="Submit" onClick={LoginForm}/>
+                    <input type="button" value="Submit" 
+                    onClick={LoginForm} />
                 </div>
             </Form>
+            {loginState && <t>Login failed, please try again.</t>}
+        </div>
+        <div className='regLink'>
+            <t>Don&apos;t Have An Account?&nbsp;</t>
+            <Link to="/register">Register Here</Link>
         </div>
     </div>);
 }

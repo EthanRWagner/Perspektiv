@@ -5,7 +5,10 @@ const User = require("./models/user");
 const bcrypt = require('bcrypt');
 // Add mongdb user services
 const userServices = require("./models/user-services");
+const postServices = require("./models/post-services");
 const { findOne } = require("./models/user");
+const Post = require("./models/post");
+const { findPostByPostBody } = require("./models/post-services");
 
 const app = express();
 const port = 8675;
@@ -14,9 +17,6 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/users", async (req, res) => {
-  // res.send(users); this is a very very very very very very very very very long line
-  //HTTP code 200 is set by default. See an alternative below
-  // res.status(200).send(users);
   const fullName = req.query["fullName"];
   const email = req.query["email"];
   const username = req.query["username"];
@@ -67,10 +67,11 @@ function isEmail(email) {
 app.get("/users/:id", async (req, res) => {
   const id = req.params["id"];
   let result = await userServices.findUserById(id);
+  console.log(result)
   if (result === undefined || result === null) {
     res.status(404).send("Resource not found.");
   } else {
-    result = { users_list: result };
+    result = { user: result };
     res.send(result);
   }
 });
@@ -173,18 +174,77 @@ catch (err) {
 
 app.post("/signin", async(req, res) => {
   const {username, password} = req.body;
+  if(!username) {
+    return res.status(404).send("Need username");
+  }
+  if(!password) {
+    return res.status(404).send("Need password");
+  }
   const tempUser = await userServices.findUserByUserName(username);
   console.log(tempUser);
   if(tempUser.length > 0){
-    console.log(tempUser[0]);
     let result = bcrypt.compareSync(password, tempUser[0].password);
     if(result){
-      return res.status(200).send(tempUser["_id"]);
+      return res.status(201).send(tempUser);
     }
     return res.status(404).send("Username and password do not match");
   }
   return res.status(404).send("User not found");
 });
+
+app.post("/post", async(req, res) =>{
+  try{
+    const{postBody, userList} = req.body;
+    if(!(postBody && userList)){
+      return res.status(400).send("All fields are required");
+    }
+    const post = await Post.create({
+      postBody: postBody,
+      userList: userList
+    });
+    if(post){
+      return res.status(201).send("Post Created");
+    }
+    return res.status(400).send("Unable to create post");
+  }
+  catch(err){
+    console.log(err);
+  }
+});
+
+app.post("/editpost", async(req, res) =>{
+  try{
+    const{oldBody, newBody} = req.body;
+    if(!(oldBody && newBody)){
+      return res.status(400).send("All fields are required");
+    }
+    const post = await postServices.updatePost(oldBody, newBody);
+    if(post){
+      return res.status(201).send("Post Edited");
+    }
+    return res.status(404).send("Unable to edit post");
+  }catch(err){
+    console.log(err);
+  }
+});
+
+app.post("/comment", async(req, res) =>{
+  try{
+    const{postBody, comment} = req.body;
+    if(!(postBody && comment)){
+      return res.status(400).send("All field require");
+    }
+    const comm = await postServices.addComment(postBody, comment);
+    if(comm){
+      return res.status(201).send("Comment added");
+    }
+    return res.status(404).send("Unable to edit post");
+  }
+  catch(err){
+    console.log(err);
+}
+})
+
 
 app.listen(process.env.PORT || port, () => {
   if (process.env.PORT) {

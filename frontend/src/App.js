@@ -98,6 +98,12 @@ function App() {
 						}
 					/>
 					<Route
+						path="/profile"
+						element={
+							<ProfilePage />
+						}
+					/>
+					<Route
 						path="/feed"
 						element={
 							<Feed />

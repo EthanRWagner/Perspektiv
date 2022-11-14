@@ -18,3 +18,7 @@ Properties:
    - Semicolon: always
 
 [![Build and deploy -backend- Node.js app to Azure Web App - Perspektiv](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_perspektiv.yml/badge.svg)](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_perspektiv.yml)
+
+[![Build frontend - Perspektiv](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_frontend.yml/badge.svg)](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_frontend.yml)
+
+[![Build and deploy backend to Azure Web App - Perspektiv](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_backend.yml/badge.svg)](https://github.com/anonymous-pterodactyl/Perspektiv/actions/workflows/ci-cd_backend.yml)

@@ -18,7 +18,7 @@ input[type="text"]:focus {
     font-family: 'Courier New', Courier, monospace;
     color: #ffff;
     border: 1px solid #ed009c;
-  }
+}
 
 .eq-button {
     padding: 25px;
