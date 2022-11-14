@@ -2,6 +2,7 @@ import React, {useState, useRef} from "react";
 import RegisterPage from "./components/RegisterPage";
 import Login from "./components/Login";
 import ProfilePage from "./components/ProfilePage"
+import EditProfilePage from "./components/EditProfilePage";
 import Feed from "./components/Feed";
 //import MyApp from "./components/MyApp";
 import SearchPage from "./components/SearchPage";
@@ -129,9 +130,9 @@ function App() {
 						}
 					/>
 					<Route
-						path="/profile"
+						path="/editProfile"
 						element={
-							<ProfilePage />
+							<EditProfilePage />
 						}
 					/>
 					<Route

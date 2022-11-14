@@ -49,16 +49,16 @@ function EditProfile(){
     }
 
     function updateUser(user){
-        attemptFind(user).then(result => {
+        attemptUpdate(user).then(result => {
             if (result && result.status != 201) {
                 console.log("USER NOT FOUND");
             }
         })
     }
 
-    async function attemptFind(person){
+    async function attemptUpdate(person){
         try {
-            const response = await axios.post(`http://localhost:${port}/edit`, person);
+            const response = await axios.patch(`http://localhost:${port}/edit`, person);
             return response;
         }
         catch (error) {
