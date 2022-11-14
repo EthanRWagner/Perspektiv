@@ -2,17 +2,21 @@ import Register from "./Register";
 import axios from 'axios'; 
 import "../css/App.css";
 import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const port = 8675;
 
 function RegisterPage (){
+    const navigate = useNavigate();
     const [characters, setCharacters] = useState([]);
 
     function updateList(person) { 
         makePostCall(person).then( result => {
-        if (result && result.status === 201)
-        setCharacters([...characters, result.data] );
+            if (result && result.status === 201)
+            {
+                setCharacters([...characters, result.data] );
+                navigate('../login');
+            }
         });
     }
 

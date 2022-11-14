@@ -10,8 +10,6 @@ import SearchBar from "./components/SearchBar";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";
-import EditProfilePage from "./components/EditProfilePage";
-
 import axios from 'axios'; 
 
 const port = 8675;
@@ -87,7 +85,7 @@ function App() {
 			<nav>
 				<div>
 					<div className="navBar">
-						<HomeButtonLink to="/">PERSPEKTIV</HomeButtonLink>
+						<HomeButtonLink to="/feed">PERSPEKTIV</HomeButtonLink>
 						<SearchBar/>
 						{user == undefined ? <div className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
@@ -131,9 +129,9 @@ function App() {
 						}
 					/>
 					<Route
-						path="/editProfile"
+						path="/profile"
 						element={
-							<EditProfilePage />
+							<ProfilePage />
 						}
 					/>
 					<Route
