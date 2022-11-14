@@ -37,15 +37,6 @@
   }
 }
 
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
 .logo-center {
   display: flex;
   justify-content: center;
@@ -54,6 +45,26 @@
   margin-right: auto;
   width: 50%;
   border-radius: 15px;
+}
+
+.profile-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+}
+
+.user-center-circle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
 }
 
 .black-out {
@@ -68,10 +79,10 @@
 .subNavBar {
   display: inline;
   text-align: right;
-  padding-right: 2%;
+  padding-right: 0px;
   position: absolute;
-  right: 0%;
-  width: 200px;
+  right: 25px;
+  width: 300px;
 }
 
 .dropdown-content {

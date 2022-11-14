@@ -1,6 +1,7 @@
 import React, {useState, useRef} from "react";
 import RegisterPage from "./components/RegisterPage";
 import Login from "./components/Login";
+import ProfilePage from "./components/ProfilePage"
 import Feed from "./components/Feed";
 //import MyApp from "./components/MyApp";
 import SearchPage from "./components/SearchPage";
@@ -33,6 +34,18 @@ const RegisterLink = styled(Link)`
 `;
 
 const LoginLink = styled(Link)`
+	display: inline;
+	position: relative;
+	font-family: 'Courier New', Courier, monospace;
+	color: #ed009c;
+	background: none;
+	font-size: large;
+	padding-left: 25px;
+	margin-top: auto;
+  	margin-bottom: auto;
+`;
+
+const ProfileLink = styled(Link)`
 	display: inline;
 	position: relative;
 	font-family: 'Courier New', Courier, monospace;
@@ -81,6 +94,7 @@ function App() {
 						:
 						<div className="subNavBar">
 							<RegisterLink to="/feed">FEED</RegisterLink>
+							<ProfileLink to="/profile">PROFILE</ProfileLink>
 							<LoginLink to={"/login"} onClick={() => {
 								window.sessionStorage.removeItem("id");
 								setUser(undefined);
@@ -106,6 +120,18 @@ function App() {
 						path="/login"
 						element={
 							<Login />
+						}
+					/>
+					<Route
+						path="/profile"
+						element={
+							<ProfilePage />
+						}
+					/>
+					<Route
+						path="/profile"
+						element={
+							<ProfilePage />
 						}
 					/>
 					<Route
