@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useState, useRef} from "react";
 import RegisterPage from "./components/RegisterPage";
-import LoginPage from "./components/LoginPage";
+import Login from "./components/Login";
 import ProfilePage from "./components/ProfilePage"
 import Feed from "./components/Feed";
-import MyApp from "./components/MyApp";
+//import MyApp from "./components/MyApp";
 import SearchPage from "./components/SearchPage";
 import CreatePostPage from "./components/CreatePostPage";
 import SearchBar from "./components/SearchBar";
@@ -11,6 +11,10 @@ import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";
 import EditProfilePage from "./components/EditProfilePage";
+
+import axios from 'axios'; 
+
+const port = 8675;
 
 const HomeButtonLink = styled(Link)`
 	display: inline;
@@ -57,6 +61,26 @@ const ProfileLink = styled(Link)`
 
 //<Link to="/<user>feed">Feed</Link>
 function App() {
+	const [user, setUser] = useState({});
+	
+	const getUser =  async () => {
+        var id = window.sessionStorage.getItem("id");
+        try {
+            var response = await axios.get(`http://localhost:${port}/users/${id}`)
+            setUser(response.data.user);
+        }
+        catch(er) {
+            setUser(undefined);
+        }
+    }
+
+	const initializedRef = useRef(false);
+    
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      getUser();
+    }
+
 	return (
 		<div>
 			<BrowserRouter basename="/">
@@ -65,11 +89,19 @@ function App() {
 					<div className="navBar">
 						<HomeButtonLink to="/">PERSPEKTIV</HomeButtonLink>
 						<SearchBar/>
-						<div className="subNavBar">
+						{user == undefined ? <div className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
 							<LoginLink to="/login">LOGIN</LoginLink>
+						</div> 
+						:
+						<div className="subNavBar">
+							<RegisterLink to="/feed">FEED</RegisterLink>
 							<ProfileLink to="/profile">PROFILE</ProfileLink>
-						</div>
+							<LoginLink to={"/login"} onClick={() => {
+								window.sessionStorage.removeItem("id");
+								setUser(undefined);
+							}}>LOGOUT</LoginLink>
+						</div>}
 					</div>
 				</div>
 			</nav>
@@ -77,7 +109,7 @@ function App() {
 					<Route
 						path="/"
 						element={
-							<MyApp />
+							<Login />
 						}
 					/>
 					<Route
@@ -89,7 +121,7 @@ function App() {
 					<Route
 						path="/login"
 						element={
-							<LoginPage />
+							<Login />
 						}
 					/>
 					<Route

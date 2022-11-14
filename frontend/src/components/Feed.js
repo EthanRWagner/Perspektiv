@@ -1,14 +1,11 @@
 import axios from 'axios'; 
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import "../css/Feed.css";
 // import styled from "styled-components";
 
 const port = 8675;
 
 function Feed() {
-    const [user, setUser] = useState({});
-    const [index, setIndex] = useState(0);
-
     const getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
         try {
@@ -19,10 +16,15 @@ function Feed() {
             console.log(er);
         }
     }
-    
-    getUser();
 
-    console.log(user);
+    const [user, setUser] = useState({});
+    const [index, setIndex] = useState(0);
+    const initializedRef = useRef(false);
+    
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      getUser();
+    }
 
     var posts = [
         {url: `https://viewer.diagrams.net/?tags=%7B%7D&highlight=000000&edit=https%3A%2F%2Fapp.diagrams.net%2F%23G14J62bJ-mwPuvyI3UK9FMqsZkeiWTJrnE&layers=1&nav=1&title=Feed%20Sample%201#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D14J62bJ-mwPuvyI3UK9FMqsZkeiWTJrnE%26export%3Ddownload`,
