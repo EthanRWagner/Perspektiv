@@ -63,7 +63,7 @@ function EditProfile(){
         }
     }
 
-    function EditFrom(){
+    function editForm(){
         updateUser(user)
     }
 
@@ -111,7 +111,7 @@ function EditProfile(){
                             onChange={handleChange}/>
                     </div>
                     <div className="form-group">
-                        <input type="button" value="Update Information" onClick={editForm()}/>
+                        <input type="button" value="Update Information" onClick={editForm}/>
                     </div>
                 </Form>
             </div>
