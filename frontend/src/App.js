@@ -10,6 +10,7 @@ import SearchBar from "./components/SearchBar";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";
+import EditProfilePage from "./components/EditProfilePage";
 
 const HomeButtonLink = styled(Link)`
 	display: inline;
@@ -98,9 +99,9 @@ function App() {
 						}
 					/>
 					<Route
-						path="/profile"
+						path="/editProfile"
 						element={
-							<ProfilePage />
+							<EditProfilePage />
 						}
 					/>
 					<Route
