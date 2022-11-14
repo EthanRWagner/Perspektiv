@@ -10,6 +10,10 @@ const port = 8675;
 function Login() {
     const navigate = useNavigate();
 
+    if(window.sessionStorage.length > 0) {
+        navigate('../feed')
+    }
+
     const [user, setUser] = useState({
         username: "", password: "",
     });
