@@ -1,6 +1,7 @@
 import React from "react";
 import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
+import ProfilePage from "./components/ProfilePage"
 import Feed from "./components/Feed";
 import MyApp from "./components/MyApp";
 import SearchPage from "./components/SearchPage";
@@ -41,6 +42,18 @@ const LoginLink = styled(Link)`
   	margin-bottom: auto;
 `;
 
+const ProfileLink = styled(Link)`
+	display: inline;
+	position: relative;
+	font-family: 'Courier New', Courier, monospace;
+	color: #ed009c;
+	background: none;
+	font-size: large;
+	padding-left: 25px;
+	margin-top: auto;
+  	margin-bottom: auto;
+`;
+
 //<Link to="/<user>feed">Feed</Link>
 function App() {
 	return (
@@ -54,6 +67,7 @@ function App() {
 						<div className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
 							<LoginLink to="/login">LOGIN</LoginLink>
+							<ProfileLink to="/profile">PROFILE</ProfileLink>
 						</div>
 					</div>
 				</div>
@@ -75,6 +89,12 @@ function App() {
 						path="/login"
 						element={
 							<LoginPage />
+						}
+					/>
+					<Route
+						path="/profile"
+						element={
+							<ProfilePage />
 						}
 					/>
 					<Route

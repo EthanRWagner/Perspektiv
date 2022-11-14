@@ -11,7 +11,7 @@ function LoginPage (){
 
     function updateList(person) { 
         loginHandler(person).then( result => {
-            console.log(result.status);
+            //console.log(result.status);
         if (result && result.status === 404)
         console.log("Login Failed");
         });
