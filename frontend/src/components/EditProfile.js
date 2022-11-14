@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from '../img/temp-user.png'
 import "../css/App.css"
 import "../css/Register.css"
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import axios from 'axios'; 
 // import PropTypes from "prop-types";
+
+const port = 8675;
 
 function EditProfile(){
     const [user, setUser] = useState({
@@ -55,7 +58,7 @@ function EditProfile(){
 
     async function attemptFind(person){
         try {
-            const response = await axios.post(`http://localhost:${port}/signin`, person);
+            const response = await axios.post(`http://localhost:${port}/edit`, person);
             return response;
         }
         catch (error) {
