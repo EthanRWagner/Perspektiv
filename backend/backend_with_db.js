@@ -230,11 +230,11 @@ app.post("/editpost", async(req, res) =>{
 
 app.post("/comment", async(req, res) =>{
   try{
-    const{postBody, comment} = req.body;
-    if(!(postBody && comment)){
+    const{postBody, username ,comment} = req.body;
+    if(!(postBody && username && comment)){
       return res.status(400).send("All field require");
     }
-    const comm = await postServices.addComment(postBody, comment);
+    const comm = await postServices.addComment(postBody, username ,comment);
     if(comm){
       return res.status(201).send("Comment added");
     }

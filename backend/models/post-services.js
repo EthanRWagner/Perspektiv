@@ -30,9 +30,9 @@ mongoose
   async function updatePost(oldBody, newBody) {
     return await postModel.updateOne({postBody : oldBody}, {$set:{postBody: newBody}});
   }
-  async function addComment(postBody,comment){
+  async function addComment(postBody,username, comment){
     console.log(comment);
-    return await postModel.updateOne({postBody: postBody}, {$push: {comments: comment}});
+    return await postModel.updateOne({postBody: postBody}, {$push: {comments: {username: username, comment: comment}}});
   }
 
 exports.updatePost = updatePost;
