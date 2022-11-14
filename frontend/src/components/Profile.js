@@ -7,12 +7,17 @@ import "../css/Register.css"
 function Profile(){
     return (
         <div className='col-md-12'>
+            {/* <h2 className='logo-center'>User&apos;s Profile</h2>
+            <img src={logo} className='user-center-circle'/>
+            <h4 className='logo-center'>User&apos;s Username</h4>
+            <h4 className='logo-center'>User&apos;s Name</h4>
+            <h4 className='logo-center'>User&apos;s Email</h4> */}
             <div className='card card-container'>
-                <h2 className='center'>User&apos;s Profile</h2>
+                <h2 className='profile-center'>User&apos;s Profile</h2>
                 <img src={logo} className='user-center-circle'/>
-                <h3 className='center'>User&apos;s Username</h3>
-                <h3 className='center'>User&apos;s Name</h3>
-                <h3 className='center'>User&apos;s Email</h3>
+                <h4 className='profile-center'>User&apos;s Username</h4>
+                <h4 className='profile-center'>User&apos;s Name</h4>
+                <h4 className='profile-center'>User&apos;s Email</h4>
             </div>
         </div>
     );
