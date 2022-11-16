@@ -1,12 +1,18 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-  postBody: {
+  url:{
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
+  caption: {
     type: String,
     required: true,
     trim: true,
   },
-  userList: {
+  hpList: {
     type: Array,
     require: true,
     default: [],

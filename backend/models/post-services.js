@@ -27,13 +27,13 @@ mongoose
   )
   .catch((error) => console.log(error));
 
-  async function updatePost(oldBody, newBody) {
-    return await postModel.updateOne({postBody : oldBody}, {$set:{postBody: newBody}});
+  async function updateHP(url, hp) {
+    return await postModel.updateOne({url : url}, {$push:{hpList: hp}});
   }
-  async function addComment(postBody,username, comment){
+  async function addComment(url,username, comment){
     console.log(comment);
-    return await postModel.updateOne({postBody: postBody}, {$push: {comments: {username: username, comment: comment}}});
+    return await postModel.updateOne({url: url}, {$push: {comments: {username: username, comment: comment}}});
   }
 
-exports.updatePost = updatePost;
+exports.updateHP = updateHP;
 exports.addComment = addComment;

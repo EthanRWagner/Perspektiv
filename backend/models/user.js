@@ -28,6 +28,11 @@ const UserSchema = new mongoose.Schema({
     required: false,
     trim: true,
   }, 
+  hpList:{
+    type: Array,
+    default: [],
+    trim: true,
+  },
 }, {collection : 'users_list'});
 
 

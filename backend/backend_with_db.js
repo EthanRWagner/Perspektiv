@@ -44,18 +44,7 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// previously used function for local db
-// async function findUserByName(name) {
-//   return await userModel.find({ name: name });
-// }
 
-// async function findUserByJob(job) {
-//   return await userModel.find({ job: job });
-// }
-
-// async function findUserByNameAndJob(name, job) {
-//   return await userModel.find({ name: name, job: job });
-// }
 function isEmail(email) {
   var emailFormat = /^[a-zA-Z0-9_.+]*[a-zA-Z][a-zA-Z0-9_.+]*@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   if (email !== '' && email.match(emailFormat)) { return true; }
@@ -172,6 +161,22 @@ catch (err) {
   console.log(err);
 }});
 
+app.post("/joinHP", async(req, res) => {
+  const {username, hp} = req.body;
+  if(!username){
+    return res.status(404).send("Need username");
+  }
+  if(!hp){
+    return res.status(404).send("Need hodgepode");
+  }
+  const joinHP = await userServices.joinHP(username, hp);
+
+  if(joinHP){
+    return res.status(202).send("Joined hodgepode");
+  }
+  return res.status(404).send("Unable to join hodgepodge");
+});
+
 app.post("/signin", async(req, res) => {
   const {username, password} = req.body;
   if(!username) {
@@ -185,7 +190,7 @@ app.post("/signin", async(req, res) => {
   if(tempUser.length > 0){
     let result = bcrypt.compareSync(password, tempUser[0].password);
     if(result){
-      return res.status(201).send(tempUser);
+      return res.status(202).send(tempUser);
     }
     return res.status(404).send("Username and password do not match");
   }
@@ -194,13 +199,15 @@ app.post("/signin", async(req, res) => {
 
 app.post("/post", async(req, res) =>{
   try{
-    const{postBody, userList} = req.body;
-    if(!(postBody && userList)){
+    const{url, HPList, caption} = req.body;
+    console.log(HPList);
+    if(!(url && HPList && caption)){
       return res.status(400).send("All fields are required");
     }
     const post = await Post.create({
-      postBody: postBody,
-      userList: userList
+      caption: caption,
+      hpList: HPList,
+      url: url
     });
     if(post){
       return res.status(201).send("Post Created");
@@ -212,15 +219,15 @@ app.post("/post", async(req, res) =>{
   }
 });
 
-app.post("/editpost", async(req, res) =>{
+app.post("/addHP", async(req, res) =>{
   try{
-    const{oldBody, newBody} = req.body;
-    if(!(oldBody && newBody)){
+    const{url, hp} = req.body;
+    if(!(url && hp)){
       return res.status(400).send("All fields are required");
     }
-    const post = await postServices.updatePost(oldBody, newBody);
-    if(post){
-      return res.status(201).send("Post Edited");
+    const updateHPList = await postServices.updateHP(url, hp);
+    if(updateHPList){
+      return res.status(202).send("Post Edited");
     }
     return res.status(404).send("Unable to edit post");
   }catch(err){
@@ -230,11 +237,11 @@ app.post("/editpost", async(req, res) =>{
 
 app.post("/comment", async(req, res) =>{
   try{
-    const{postBody, username ,comment} = req.body;
-    if(!(postBody && username && comment)){
+    const{url, username ,comment} = req.body;
+    if(!(url && username && comment)){
       return res.status(400).send("All field require");
     }
-    const comm = await postServices.addComment(postBody, username ,comment);
+    const comm = await postServices.addComment(url, username ,comment);
     if(comm){
       return res.status(201).send("Comment added");
     }

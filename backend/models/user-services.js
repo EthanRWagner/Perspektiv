@@ -78,6 +78,10 @@ async function deleteUser(id) {
   return await userModel.findByIdAndDelete(id);
 }
 
+async function joinHP(username, hp) {
+  return await postModel.updateOne({username : username}, {$push:{hpList: hp}});
+}
+
 // async function disconnectDB() {
 //   await mongoose.connection.close();
 //   await mongoose.disconnect();
@@ -91,4 +95,5 @@ exports.findUserById = findUserById;
 exports.findUserByUserName = findUserByUserName;
 exports.addUser = addUser;
 exports.deleteUser = deleteUser;
+exports.joinHP = joinHP;
 // exports.disconnectDB = disconnectDB;
