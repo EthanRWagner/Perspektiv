@@ -163,121 +163,121 @@ catch (err) {
   console.log(err);
 }});
 
-app.post("/joinHP", async(req, res) => {
-  const {username, hp} = req.body;
-  if(!username){
-    return res.status(404).send("Need username");
-  }
-  if(!hp){
-    return res.status(404).send("Need hodgepode");
-  }
-  const hpObject = await hodgepodgeService.findHodgepodgeByName(hp);
-  if(hpObject){
-    const joinHP = await userServices.joinHP(username, hp);
-    if(joinHP){
-      return res.status(202).send("Joined hodgepode");
-    }
-  }
-  return res.status(404).send("Unable to join hodgepodge");
-});
+// app.post("/joinHP", async(req, res) => {
+//   const {username, hp} = req.body;
+//   if(!username){
+//     return res.status(404).send("Need username");
+//   }
+//   if(!hp){
+//     return res.status(404).send("Need hodgepode");
+//   }
+//   const hpObject = await hodgepodgeService.findHodgepodgeByName(hp);
+//   if(hpObject){
+//     const joinHP = await userServices.joinHP(username, hp);
+//     if(joinHP){
+//       return res.status(202).send("Joined hodgepode");
+//     }
+//   }
+//   return res.status(404).send("Unable to join hodgepodge");
+// });
 
-app.post("/signin", async(req, res) => {
-  const {username, password} = req.body;
-  if(!username) {
-    return res.status(404).send("Need username");
-  }
-  if(!password) {
-    return res.status(404).send("Need password");
-  }
-  const tempUser = await userServices.findUserByUserName(username);
-  console.log(tempUser);
-  if(tempUser.length > 0){
-    let result = bcrypt.compareSync(password, tempUser[0].password);
-    if(result){
-      return res.status(202).send(tempUser);
-    }
-    return res.status(404).send("Username and password do not match");
-  }
-  return res.status(404).send("User not found");
-});
+// app.post("/signin", async(req, res) => {
+//   const {username, password} = req.body;
+//   if(!username) {
+//     return res.status(404).send("Need username");
+//   }
+//   if(!password) {
+//     return res.status(404).send("Need password");
+//   }
+//   const tempUser = await userServices.findUserByUserName(username);
+//   console.log(tempUser);
+//   if(tempUser.length > 0){
+//     let result = bcrypt.compareSync(password, tempUser[0].password);
+//     if(result){
+//       return res.status(202).send(tempUser);
+//     }
+//     return res.status(404).send("Username and password do not match");
+//   }
+//   return res.status(404).send("User not found");
+// });
 
-app.post("/post", async(req, res) =>{
+// app.post("/post", async(req, res) =>{
 
-  let arr = new Array();
-  const{url, hpList, caption} = req.body;
-  if(!(url && hpList && caption)){
-    return res.status(400).send("All fields are required");
-  }
-  for (var i = 0; i < hpList.length; i++){
-    const hp = await hodgepodgeService.findHodgepodgeByName(hpList[i]);
-    if(hp.length > 0){
-      arr.push(hp[0]);
-    }
-    console.log(arr);
-  }
+//   let arr = new Array();
+//   const{url, hpList, caption} = req.body;
+//   if(!(url && hpList && caption)){
+//     return res.status(400).send("All fields are required");
+//   }
+//   for (var i = 0; i < hpList.length; i++){
+//     const hp = await hodgepodgeService.findHodgepodgeByName(hpList[i]);
+//     if(hp.length > 0){
+//       arr.push(hp[0]);
+//     }
+//     console.log(arr);
+//   }
   
-  if(arr.length > 0){
-    const post = await Post.create({
-      caption: caption,
-      hpList: arr,
-      url: url
-    });
-    if(post){
-      return res.status(201).send("Post Created");
-    }
-  }
-  return res.status(400).send("Unable to create post");
+//   if(arr.length > 0){
+//     const post = await Post.create({
+//       caption: caption,
+//       hpList: arr,
+//       url: url
+//     });
+//     if(post){
+//       return res.status(201).send("Post Created");
+//     }
+//   }
+//   return res.status(400).send("Unable to create post");
 
-});
+// });
 
-app.post("/addHP", async(req, res) =>{
-  const{url, hp} = req.body;
-  if(!(url && hp)){
-    return res.status(400).send("All fields are required");
-  }
-  const hpObject = await hodgepodgeService.findHodgepodgeByName(hp);
-  if(hpObject.length > 0){
-    const updateHPList = await postServices.updateHP(url, hpObject);
-    if(updateHPList){
-      return res.status(202).send("Post Edited");
-    }
-  }
+// app.post("/addHP", async(req, res) =>{
+//   const{url, hp} = req.body;
+//   if(!(url && hp)){
+//     return res.status(400).send("All fields are required");
+//   }
+//   const hpObject = await hodgepodgeService.findHodgepodgeByName(hp);
+//   if(hpObject.length > 0){
+//     const updateHPList = await postServices.updateHP(url, hpObject);
+//     if(updateHPList){
+//       return res.status(202).send("Post Edited");
+//     }
+//   }
   
-  return res.status(404).send("Unable to edit post");
-});
+//   return res.status(404).send("Unable to edit post");
+// });
 
-app.post("/comment", async(req, res) =>{
-  try{
-    const{url, username ,comment} = req.body;
-    if(!(url && username && comment)){
-      return res.status(400).send("All field require");
-    }
-    const comm = await postServices.addComment(url, username ,comment);
-    if(comm){
-      return res.status(201).send("Comment added");
-    }
-    return res.status(404).send("Unable to edit post");
-  }
-  catch(err){
-    console.log(err);
-}
-});
+// app.post("/comment", async(req, res) =>{
+//   try{
+//     const{url, username ,comment} = req.body;
+//     if(!(url && username && comment)){
+//       return res.status(400).send("All field require");
+//     }
+//     const comm = await postServices.addComment(url, username ,comment);
+//     if(comm){
+//       return res.status(201).send("Comment added");
+//     }
+//     return res.status(404).send("Unable to edit post");
+//   }
+//   catch(err){
+//     console.log(err);
+// }
+// });
 
 
-app.post("/createHP", async(req, res) =>{
-  const {name} = req.body;
-  if(!name){
-    return res.status(400).send("All field require");
-  }
-  console.log(name);
-  const hp = await Hodgepodge.create({
-    name: name
-  });
-  if(hp){
-    return res.status(201).send("Hodgepodge created");
-  }
-  return res.status(404).send("Hodgepodge name is available");
-});
+// app.post("/createHP", async(req, res) =>{
+//   const {name} = req.body;
+//   if(!name){
+//     return res.status(400).send("All field require");
+//   }
+//   console.log(name);
+//   const hp = await Hodgepodge.create({
+//     name: name
+//   });
+//   if(hp){
+//     return res.status(201).send("Hodgepodge created");
+//   }
+//   return res.status(404).send("Hodgepodge name is available");
+// });
 
 
 app.listen(process.env.PORT || port, () => {
