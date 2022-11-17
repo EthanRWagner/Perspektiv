@@ -276,7 +276,7 @@ app.post("/createHP", async(req, res) =>{
   if(hp){
     return res.status(201).send("Hodgepodge created");
   }
-  return res.status(404).send("Hodgepodge name is available");
+  return res.status(404).send("Hodgepodge name is not available");
 });
 
 
