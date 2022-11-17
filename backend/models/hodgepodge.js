@@ -6,7 +6,7 @@ const HodgepodgeSchema = new mongoose.Schema({
     trim: true,
     unique: true,
   }
-}, {collection : 'hodgePodge_list'});
+}, {collection : 'hodgepodge_list'});
 
 
 
