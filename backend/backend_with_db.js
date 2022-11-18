@@ -167,7 +167,7 @@ app.post("/joinHP", async(req, res) => {
     return res.status(404).send("Need username");
   }
   if(!hp){
-    return res.status(404).send("Need hodgepode");
+    return res.status(404).send("Need hodgepodge");
   }
   const joinHP = await userServices.joinHP(username, hp);
 
@@ -205,9 +205,9 @@ app.post("/post", async(req, res) =>{
       return res.status(400).send("All fields are required");
     }
     const post = await Post.create({
+      url: url,
       caption: caption,
-      hpList: HPList,
-      url: url
+      hpList: HPList
     });
     if(post){
       return res.status(201).send("Post Created");

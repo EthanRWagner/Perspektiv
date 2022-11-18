@@ -35,7 +35,7 @@ function Login() {
 
     function updateList(person) { 
         attemptLogin(person).then( result => {
-            if (result && result.status != 201) {
+            if (result && result.status != 202) {
                 setState(true);
             }
             else {

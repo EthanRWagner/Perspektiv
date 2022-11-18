@@ -58,7 +58,6 @@ const ProfileLink = styled(Link)`
   	margin-bottom: auto;
 `;
 
-//<Link to="/<user>feed">Feed</Link>
 function App() {
 	const [user, setUser] = useState({});
 	
