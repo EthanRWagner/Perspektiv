@@ -199,15 +199,15 @@ app.post("/signin", async(req, res) => {
 
 app.post("/post", async(req, res) =>{
   try{
-    const{url, HPList, caption} = req.body;
-    console.log(HPList);
-    if(!(url && HPList && caption)){
+    const{url, caption, hpList} = req.body;
+    console.log(hpList);
+    if(!(url && hpList && caption)){
       return res.status(400).send("All fields are required");
     }
     const post = await Post.create({
       url: url,
       caption: caption,
-      hpList: HPList
+      hpList: hpList
     });
     if(post){
       return res.status(201).send("Post Created");

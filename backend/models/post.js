@@ -12,7 +12,7 @@ const PostSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  HPList: {
+  hpList: {
     type: Array,
     require: true,
     default: [],
