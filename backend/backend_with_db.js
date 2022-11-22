@@ -250,7 +250,25 @@ app.post("/comment", async(req, res) =>{
   catch(err){
     console.log(err);
 }
-})
+});
+
+
+app.post("/createHP", async(req, res) =>{
+  const {name} = req.body;
+  if(!name){
+    return res.status(400).send("All field require");
+  }
+  console.log(name);
+  const hp = await Hodgepodge.create({
+    name: name
+  });
+  if(hp){
+    return res.status(201).send("Hodgepodge created");
+  }
+  return res.status(404).send("Hodgepodge name is not available");
+});
+
+
 
 
 app.listen(process.env.PORT || port, () => {
