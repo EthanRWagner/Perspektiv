@@ -41,6 +41,8 @@ function Login() {
             else {
                 window.sessionStorage.setItem("id", result.data[0]['_id'])
                 navigate('../feed')
+                // need to refresh after navigating to update navbar in parent component
+                window.location.reload(false);
             }
         });
     }
