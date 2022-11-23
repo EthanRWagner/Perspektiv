@@ -172,7 +172,7 @@ app.post("/joinHP", async(req, res) => {
   const joinHP = await userServices.joinHP(username, hp);
 
   if(joinHP){
-    return res.status(202).send("Joined hodgepode");
+    return res.status(202).send("Joined hodgepodge");
   }
   return res.status(404).send("Unable to join hodgepodge");
 });
@@ -200,14 +200,14 @@ app.post("/signin", async(req, res) => {
 app.post("/post", async(req, res) =>{
   try{
     const{url, caption, hpList} = req.body;
-    console.log(hpList);
+
     if(!(url && hpList && caption)){
       return res.status(400).send("All fields are required");
     }
     const post = await Post.create({
       url: url,
       caption: caption,
-      hpList: hpList
+      hpList: hpList,
     });
     if(post){
       return res.status(201).send("Post Created");
@@ -216,6 +216,16 @@ app.post("/post", async(req, res) =>{
   }
   catch(err){
     console.log(err);
+  }
+});
+
+app.get("/post", async (req, res) => {
+  try {
+    const postss_from_db = await postServices.getPosts();
+    res.send({ post_list: postss_from_db });
+  } catch (error) {
+    console.log("Mongoose error: " + error);
+    res.status(500).send("An error ocurred in the server.");
   }
 });
 

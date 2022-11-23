@@ -27,6 +27,10 @@ mongoose
   )
   .catch((error) => console.log(error));
 
+  async function getPosts() {
+    return await postModel.find();
+  }
+
   async function updateHP(url, hp) {
     return await postModel.updateOne({url : url}, {$push:{hpList: hp}});
   }
@@ -35,5 +39,6 @@ mongoose
     return await postModel.updateOne({url: url}, {$push: {comments: {username: username, comment: comment}}});
   }
 
+exports.getPosts = getPosts;
 exports.updateHP = updateHP;
 exports.addComment = addComment;

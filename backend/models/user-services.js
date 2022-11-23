@@ -79,7 +79,7 @@ async function deleteUser(id) {
 }
 
 async function joinHP(username, hp) {
-  return await postModel.updateOne({username : username}, {$push:{hpList: hp}});
+  return await userModel.updateOne({username : username}, {$push:{hpList: hp}});
 }
 
 // async function disconnectDB() {

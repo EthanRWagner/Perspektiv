@@ -1,18 +1,37 @@
 .subheader-cont {
-    display: block;
+    display: inline-block;
     position: absolute;
-    left: 40%;
+    align-content: center;
+    width: 75%;
+    left: 10%;
     top: 5%;
+    padding: 8px;
     font-family: 'Courier New', Courier, monospace;
 }
 
 .post-section-container {
-    display: relative;
+    display: block;
     position: absolute;
     top: 15%;
     left: 10%;
     width: 80%;
     height: 70%;
+}
+
+.feed-heading {
+    color: #121121;
+    position: absolute;
+    left: 30%;
+    font-size: xx-large;
+}
+
+.refresh-button {
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #121121;
+    color: #ed009c;
+    border:none;
+    left: 0%;
 }
 
 .post-container {
@@ -132,5 +151,7 @@
 }
 
 .descr {
+    font-size: medium;
     color:white;
 }
+
