@@ -41,14 +41,14 @@ mongoose
 //   return result;
 // }
 
-// async function findUserById(id) {
-//   try {
-//     return await userModel.findById(id);
-//   } catch (error) {
-//     console.log(error);
-//     return undefined;
-//   }
-// }
+async function findUserById(id) {
+  try {
+    return await userModel.findById(id);
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}
 
 // async function addUser(user) {
 //   try {
@@ -91,7 +91,7 @@ async function joinHP(username, hp) {
 
 
 //exports.getUsers = getUsers;
-//exports.findUserById = findUserById;
+exports.findUserById = findUserById;
 exports.findUserByUserName = findUserByUserName;
 exports.findUserByEmail= findUserByEmail;
 //exports.addUser = addUser;

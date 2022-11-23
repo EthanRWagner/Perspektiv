@@ -54,17 +54,17 @@ function isEmail(email) {
 }
 
 
-// app.get("/users/:id", async (req, res) => {
-//   const id = req.params["id"];
-//   let result = await userServices.findUserById(id);
-//   console.log(result)
-//   if (result === undefined || result === null) {
-//     res.status(404).send("Resource not found.");
-//   } else {
-//     result = { user: result };
-//     res.send(result);
-//   }
-// });
+app.get("/users/:id", async (req, res) => {
+  const id = req.params["id"];
+  let result = await userServices.findUserById(id);
+  console.log(result)
+  if (result === undefined || result === null) {
+    res.status(404).send("Resource not found.");
+  } else {
+    result = { user: result };
+    res.send(result);
+  }
+});
 
 
 // app.delete("/users/:id", async (req, res) => {
@@ -242,6 +242,9 @@ app.post("/createHP", async(req, res) =>{
   const {name} = req.body;
   if(!name){
     return res.status(400).send("All field require");
+  }
+  else if(name === "<<default>>") {
+    res.status(400).send("Invalid Hodgepodge name");
   }
   console.log(name);
   const hp = await Hodgepodge.create({
