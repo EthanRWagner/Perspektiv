@@ -91,7 +91,8 @@
   padding-right: 0px;
   position: absolute;
   right: 25px;
-  width: 300px;
+  width: auto;
+  margin-top: 10px;
 }
 
 .dropdown-content {

@@ -6,7 +6,6 @@ import EditProfilePage from "./components/EditProfilePage";
 import Feed from "./components/Feed";
 import SearchPage from "./components/SearchPage";
 import CreatePostPage from "./components/CreatePostPage";
-import SearchBar from "./components/SearchBar";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";
@@ -90,7 +89,6 @@ function App() {
 							<HomeButtonLink to="/feed">PERSPEKTIV</HomeButtonLink>
 						:
 						<HomeButtonLink to="/login">PERSPEKTIV</HomeButtonLink>}
-						<SearchBar/>
 						{user == undefined ? <div className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
 							<LoginLink to="/login">LOGIN</LoginLink>
@@ -98,6 +96,7 @@ function App() {
 						:
 						<div className="subNavBar">
 							<RegisterLink to="/feed">FEED</RegisterLink>
+							<ProfileLink to="/search">DISCOVER</ProfileLink>
 							<ProfileLink to="/profile">PROFILE</ProfileLink>
 							<LoginLink to={"/login"} onClick={() => {
 								window.sessionStorage.removeItem("id");
