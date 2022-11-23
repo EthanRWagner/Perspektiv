@@ -82,6 +82,20 @@ async function joinHP(username, hp) {
   return await userModel.updateOne({username : username}, {$push:{hpList: hp}});
 }
 
+async function changeUsername(username, newUsername){
+  return await userModel.updateOne({username : username}, {$set:{username: newUsername}});
+}
+
+
+async function changeEmail(username, newEmail){
+  return await userModel.updateOne({username : username}, {$set:{email: newEmail}});
+}
+
+
+async function changePassword(username, password){
+  return await userModel.updateOne({username : username}, {$set:{password: password, confPassword: password}});
+}
+
 // async function disconnectDB() {
 //   await mongoose.connection.close();
 //   await mongoose.disconnect();
@@ -97,4 +111,7 @@ exports.findUserByEmail= findUserByEmail;
 //exports.addUser = addUser;
 //exports.deleteUser = deleteUser;
 exports.joinHP = joinHP;
+exports.changeEmail = changeEmail;
+exports.changePassword = changePassword;
+exports.changeUsername = changeUsername;
 // exports.disconnectDB = disconnectDB;
