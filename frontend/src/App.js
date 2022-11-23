@@ -4,10 +4,8 @@ import Login from "./components/Login";
 import ProfilePage from "./components/ProfilePage"
 import EditProfilePage from "./components/EditProfilePage";
 import Feed from "./components/Feed";
-//import MyApp from "./components/MyApp";
 import SearchPage from "./components/SearchPage";
 import CreatePostPage from "./components/CreatePostPage";
-import SearchBar from "./components/SearchBar";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";
@@ -59,7 +57,7 @@ const ProfileLink = styled(Link)`
 `;
 
 function App() {
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState(undefined);
 	
 	const getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
@@ -75,8 +73,10 @@ function App() {
 	const initializedRef = useRef(false);
     
     if (!initializedRef.current) {
-      initializedRef.current = true;
-      getUser();
+		initializedRef.current = true;
+		if(window.sessionStorage.getItem('id') != null){
+			getUser();
+		}
     }
 
 	return (
@@ -85,8 +85,10 @@ function App() {
 			<nav>
 				<div>
 					<div className="navBar">
-						<HomeButtonLink to="/feed">PERSPEKTIV</HomeButtonLink>
-						<SearchBar/>
+						{user != undefined ? 
+							<HomeButtonLink to="/feed">PERSPEKTIV</HomeButtonLink>
+						:
+						<HomeButtonLink to="/login">PERSPEKTIV</HomeButtonLink>}
 						{user == undefined ? <div className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
 							<LoginLink to="/login">LOGIN</LoginLink>
@@ -94,6 +96,7 @@ function App() {
 						:
 						<div className="subNavBar">
 							<RegisterLink to="/feed">FEED</RegisterLink>
+							<ProfileLink to="/search">DISCOVER</ProfileLink>
 							<ProfileLink to="/profile">PROFILE</ProfileLink>
 							<LoginLink to={"/login"} onClick={() => {
 								window.sessionStorage.removeItem("id");

@@ -35,7 +35,6 @@ mongoose
     return await postModel.updateOne({url : url}, {$push:{hpList: hp}});
   }
   async function addComment(url,username, comment){
-    console.log(comment);
     return await postModel.updateOne({url: url}, {$push: {comments: {username: username, comment: comment}}});
   }
 
