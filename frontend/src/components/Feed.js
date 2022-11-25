@@ -7,44 +7,6 @@ import "../css/Feed.css";
 const port = 8675;
 
 function Feed() {
-    const getUser =  async () => {
-        var id = window.sessionStorage.getItem("id");
-        try {
-            var response = await axios.get(`http://localhost:${port}/users/${id}`)
-            setUser(response.data.user);
-        }
-        catch(er) {
-            console.log(er);
-        }
-    }
-
-    const [user, setUser] = useState({});
-    const [index, setIndex] = useState(0);
-    const [userFeed, setFeed] = useState([{
-                "url":logo,
-                "caption":"Loading...",
-                "hpList":["<<default>>"],
-                "comments":[],
-                "date":"Loading..."}])
-    const initializedRef = useRef(false);
-    
-    if (!initializedRef.current) {
-      initializedRef.current = true;
-      getUser();
-    }
-
-    window.addEventListener('load', () => {
-        getFeed();
-    });
-
-    //post example
-    // {
-    //     url:...,
-    //     caption:...,
-    //     hpList:...,
-    //     comments:....,
-    //     date:...
-    // }
 
     async function getFeed() {
         try{
@@ -66,8 +28,52 @@ function Feed() {
         catch(er){
             console.log(er); 
         }
-        
     }
+
+    //window.onload = function(){getFeed()};
+
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     window.location.reload(false);
+    // });
+
+    window.addEventListener('load', () => {
+        getFeed();
+    });
+
+    const getUser =  async () => {
+        var id = window.sessionStorage.getItem("id");
+        try {
+            var response = await axios.get(`http://localhost:${port}/users/${id}`)
+            setUser(response.data.user);
+        }
+        catch(er) {
+            console.log(er);
+        }
+    }
+
+    const [user, setUser] = useState({});
+    const [index, setIndex] = useState(0);
+    const [userFeed, setFeed] = useState([{
+                "url":logo,
+                "caption":"Press the REFRESH button",
+                "hpList":["<<default>>"],
+                "comments":[],
+                "date":"Loading..."}])
+    const initializedRef = useRef(false);
+    
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      getUser();
+    }
+
+    //post example
+    // {
+    //     url:...,
+    //     caption:...,
+    //     hpList:...,
+    //     comments:....,
+    //     date:...
+    // }
 
     let incrementIndex = () => setIndex(index + 1);
     let decrementIndex = () => setIndex(index - 1);
