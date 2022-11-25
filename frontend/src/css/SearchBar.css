@@ -10,11 +10,11 @@
     margin-left: auto;
   }
 
-input[type="text"] {
+input[name="searchbar"] {
     font-family: 'Courier New', Courier, monospace;
 }
 
-input[type="text"]:focus {
+input[name="searchbar"]:focus {
     font-family: 'Courier New', Courier, monospace;
     color: #ffff;
     border: 1px solid #ed009c;

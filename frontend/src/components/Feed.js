@@ -1,6 +1,7 @@
 import axios from 'axios'; 
 import React, {useState, useRef} from 'react';
 import logo from "../img/Perspektiv.gif";
+import Comment from "../components/Comment";
 import "../css/Feed.css";
 // import styled from "styled-components";
 
@@ -58,12 +59,46 @@ function Feed() {
                 "caption":"Press the REFRESH button",
                 "hpList":["<<default>>"],
                 "comments":[],
-                "date":"Loading..."}])
+                "date":"Loading..."}]);
     const initializedRef = useRef(false);
     
     if (!initializedRef.current) {
       initializedRef.current = true;
       getUser();
+    }
+
+    // Comment example:
+    // {
+    //     username: "@ewagne02",
+    //     comment: "That was easy!"
+    // }
+
+    function submitComment(comment) { 
+        makeCommentCall(comment).then( result => {
+        if (result && result.status === 404)
+            console.log("Error posting comment. Try Again.");
+        });
+    }
+
+    async function makeCommentCall(comment) {
+        try {
+            console.log({
+                url: userFeed[index].url,
+                username: user.username,
+                comment: comment
+            })
+            const response = await axios.post(`http://localhost:${port}/comment`, 
+                {
+                    url: userFeed[index].url,
+                    username: user.username,
+                    comment: comment
+                });
+            return response
+        }
+        catch (error) {
+        console.log(error);
+        return false;
+        }
     }
 
     //post example
@@ -91,16 +126,39 @@ function Feed() {
         for (let i = 0; i < userFeed[index].hpList.length; i++) {
             if (i === userFeed[index].hpList.length-1){
                 hodges.push(
-                    <small key={userFeed[index].hpList[i]}className="descr">{userFeed[index].hpList[i]}</small>);
+                    <small key={userFeed[index].hpList[i]}
+                           className="descr">
+                            {userFeed[index].hpList[i]}
+                    </small>);
             }
             else {
-                hodges.push(<small key={userFeed[index].hpList[i]} className="descr">{userFeed[index].hpList[i]}</small>);
-                hodges.push(<small key={i} className="descr">,&nbsp;</small>);
+                hodges.push(<small key={userFeed[index].hpList[i]} 
+                                   className="descr">
+                                    {userFeed[index].hpList[i]}
+                            </small>);
+                hodges.push(<small key={i} 
+                                   className="descr">
+                                    ,&nbsp;
+                            </small>);
             }
         }
 
         return hodges;
       };
+
+    const navigateToUserPage = (userName) => {
+        var url = "";
+        if (userName === user.username)
+            url = "http://localhost:3000/profile";
+        else
+            url = "http://localhost:3000/profile?username=" + userName;
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+    }
+
+    const onClickUser = (userName) => {
+    return () => navigateToUserPage(userName)
+    }
 
     const commentEnum = () => {
       
@@ -108,9 +166,16 @@ function Feed() {
         for (let i = 0; i < userFeed[index].comments.length; i++) {
           commList.push(
           <div className='comment-box'>
-            <small key={userFeed[index].comments[i].user} className="descr">{userFeed[index].comments[i].user}</small>
+            <small key={userFeed[index].comments[i].username} 
+                   className="descr" 
+                   onClick={onClickUser(userFeed[index].comments[i].username)}>
+                    @{userFeed[index].comments[i].username}
+            </small>
             <br/>
-            <small key={userFeed[index].comments[i].comment} className="descr">{userFeed[index].comments[i].comment}</small>
+            <small key={userFeed[index].comments[i].comment} 
+                   className="descr">
+                    {userFeed[index].comments[i].comment}
+            </small>
           </div>);
         }
 
@@ -125,7 +190,7 @@ function Feed() {
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
-                    <iframe src={userFeed[index].url}>
+                    <iframe className='content-style' src={userFeed[index].url}>
                     </iframe>
                 </div>
                 <div className='descr-container'>
@@ -140,7 +205,9 @@ function Feed() {
                     <small className="descr">Comments</small>
                     <br/>
                     {commentEnum()}
+                    <Comment userName={user.username} handleSubmit={submitComment}/>
                 </div>
+                
                 <div className='button-container'>
                     <button onClick={decrementIndex} className='scroll-button-top'>
                         <div className='tri-top'></div>

@@ -10,7 +10,7 @@ function ProfilePage(){
             <div>
                 <div className="container">
                     <Profile/>
-                    <Link class='profile-center' to='/editProfile'>edit account information</Link>
+                    <Link className='profile-center' to='/editProfile'>edit account information</Link>
                 </div>
             </div>
         </div>

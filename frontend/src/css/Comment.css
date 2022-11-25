@@ -1,0 +1,41 @@
+textarea[name="comment"] {
+    vertical-align: top;
+    height: 7em;
+    font-family: 'Courier New', Courier, monospace;
+    color: white !important;
+    word-break: break-word;
+    overflow: auto;
+  }
+
+textarea[name="comment"]:focus {
+    vertical-align: top;
+    height: 7em;
+    word-break: break-word;
+    font-family: 'Courier New', Courier, monospace;
+    color: white !important;
+    border: 1px solid #ed009c;
+    overflow: auto;
+  }
+
+.comment-form-container {
+    position:absolute;
+    background-color: #121121;
+    border: 2px #ed009c ridge;
+    bottom:5px;
+    min-height: 30px;
+    height: 25%;
+    width: 95%;
+    padding: 8px;
+}
+
+.submit-comment-button {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    border: 2px #ed009c solid;
+    color: #ed009c;
+}
+
+.username {
+    font-size: medium;
+    color:white;
+}

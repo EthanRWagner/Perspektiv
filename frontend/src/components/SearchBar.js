@@ -49,6 +49,7 @@ const SearchBar = () => {
       <div className="search-bar">
         <input
             type="text"
+            name="searchbar"
             placeholder="Search here..."
             onChange={handleChange}
             value={searchInput} />
