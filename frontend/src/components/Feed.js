@@ -1,5 +1,6 @@
 import axios from 'axios'; 
 import React, {useState, useRef} from 'react';
+import logo from "../img/Perspektiv.gif";
 import "../css/Feed.css";
 // import styled from "styled-components";
 
@@ -20,13 +21,11 @@ function Feed() {
     const [user, setUser] = useState({});
     const [index, setIndex] = useState(0);
     const [userFeed, setFeed] = useState([{
-                "_id":{"$oid":"637d99d5f2f54ff1e66f797c"},
-                "url":"https://viewer.diagrams.net/?tags=%7B%7D&highlight=000000&edit=https%3A%2F%2Fapp.diagrams.net%2F%23G1koA2qI5hvjCAWdWbL-Z-3J_-QRl-44ov&layers=1&nav=1&title=Copy%20of%20ClassDiagramExercise.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1koA2qI5hvjCAWdWbL-Z-3J_-QRl-44ov%26export%3Ddownload",
-                "caption":"Today we learned about class diagrams. Comment the translation of this class diagram. Add further abstractions or additons to this class diagram!",
+                "url":logo,
+                "caption":"Loading...",
                 "hpList":["<<default>>"],
                 "comments":[],
-                "date":"21 November 2022",
-                "__v":{"$numberInt":"0"}}])
+                "date":"Loading..."}])
     const initializedRef = useRef(false);
     
     if (!initializedRef.current) {
