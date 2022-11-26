@@ -8,6 +8,8 @@ import axios from 'axios';
 const port = 8675;
 
 function Profile(){
+    let username = null
+
     const getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
         try {
@@ -19,13 +21,33 @@ function Profile(){
         }
     }
 
+    const findUser = async (username) => {
+        try {
+            var response = await axios.get(`http://localhost:${port}/users/${username}`)
+            setUser(response.data.user);
+        }
+        catch(er){
+            console.log(er);
+        }
+    }
+
     const [user, setUser] = useState({});
 
     const initializedRef = useRef(false);
     
     if (!initializedRef.current) {
       initializedRef.current = true;
-      getUser();
+      let search = window.location.search;
+      let params = new URLSearchParams(search);
+      username = params.get('username')
+      console.log(username)
+      if(username !== null && username.length > 0){
+        //findUser(username)
+        findUser('63656f7e082f9cd1cfbccc04')
+      }
+      else{
+        getUser();
+      }
     }
 
     return (
@@ -40,7 +62,9 @@ function Profile(){
                 <img src={logo} className='user-center-circle'/>
                 <h4 className='profile-left'>Username: {user.username}</h4>
                 <h4 className='profile-left'>Name: {user.fullName}</h4>
+                {username == null &&
                 <h4 className='profile-left'>Email: {user.email}</h4>
+                }
             </div>
         </div>
     );
