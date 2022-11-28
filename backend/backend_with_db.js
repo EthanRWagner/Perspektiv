@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const User = require("./models/user");
+const Hodgepodge = require("./models/hodgepodge")
 const bcrypt = require('bcrypt');
 // Add mongdb user services
 const userServices = require("./models/user-services");
@@ -170,7 +171,7 @@ app.post("/joinHP", async(req, res) => {
   }
   const hpObject = await hodgepodgeServices.findHodgepodgeByName(hp);
   if(hpObject){
-    const joinHP = await userServices.joinHP(username, hpObject);
+    const joinHP = await userServices.joinHP(username, hp);
     if(joinHP){
       return res.status(202).send("Joined hodgepodge");
     }

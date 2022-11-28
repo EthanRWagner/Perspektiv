@@ -54,15 +54,14 @@ const tempPost = {
 }
 
 beforeEach(async () => {
+  await u.deleteOne({fullName: "random person"});
+  await p.deleteOne({url : "google.com"});
+  await h.deleteOne({name: "HPtest"}); 
   await u.create(tempUser);
   await p.create(tempPost);
   await h.create(tempHP);
 });
-afterEach(async () =>{
-  await u.deleteOne({fullName: "random person"});
-  await p.deleteOne({url : "google.com"});
-  await h.deleteOne({name: "HPtest"}); 
-})
+
 test("Find by username -- success",async () =>{
   const r = await user.findUserByUserName("testuser1");
   const res = r[0];
@@ -141,7 +140,7 @@ test("Get post -- success", async () => {
 test("Update HP from list -- success", async() =>{
   await post.updateHP("google.com", "HPtest2");
   const r = await post.getPosts();
-  const res = r[1];
+  const res = r[r.length-1];
   console.log(res);
   const arr = ["HPtest", "HPtest2"];
   expect(res.hpList).toEqual(arr);
@@ -150,7 +149,7 @@ test("Update HP from list -- success", async() =>{
 test("Comment to post -- success", async () =>{
   await post.addComment("google.com", "testuser1", "this is a test comment");
   const r = await post.getPosts();
-  const res = r[1];
+  const res = r[r.length-1];
   console.log(res.comments);
   const arr = [{username: 'testuser1', comment : 'this is a test comment'}];
   expect(res.comments).toEqual(arr);
