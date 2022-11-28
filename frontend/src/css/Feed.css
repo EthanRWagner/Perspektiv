@@ -77,6 +77,13 @@
     height: 100%;
 }
 
+.actual-comment-container {
+    overflow: auto;
+    top: 8px;
+    height: 70%;
+    width: 100%;
+}
+
 .comment-box {
     position:relative;
     width:auto;
@@ -170,5 +177,17 @@
 
 .user-link:hover {
     color:blue
+}
+
+.create-post-button {
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    background-color: #121121;
+    color: #ed009c;
+    border:none;
+    width: 200px;
+    height: 40px;
+    right: 0%;
 }
 

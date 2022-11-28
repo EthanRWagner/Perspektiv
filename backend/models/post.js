@@ -27,11 +27,12 @@ const PostSchema = new mongoose.Schema({
   },
   comments: {
     type: Array,
+    requre: false,
     default: [],
   },
   date: {
     type: String,
-    require: true,
+    require: false,
     default: today,
   }
 }, {collection : 'post_list'});

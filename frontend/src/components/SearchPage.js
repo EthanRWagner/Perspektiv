@@ -1,36 +1,42 @@
-import React, {useState} from 'react';
+import React from 'react';
 import "../css/SearchPage.css";
 import MyGallery from './MyGallery';
 
 function SearchPage (){
 
-    const [search, setSearch] = useState([]);
+    // const [search, setSearch] = useState({featured_HP: [],
+    //                                       featured_User: [],
+    //                                       featured_Tag: [],
+    //                                       search_HP: [],
+    //                                       search_User: [],
+    //                                       search_Tag: []});
 
-    const hodgePodgeEnum = () => {
+    // const HP_Search = () => {
       
-        const hodges = [];
-        for (let i = 0; i < userFeed[index].hpList.length; i++) {
-            if (i === userFeed[index].hpList.length-1){
-                hodges.push(
-                    <small key={userFeed[index].hpList[i]}
-                           className="descr">
-                            {userFeed[index].hpList[i]}
-                    </small>);
-            }
-            else {
-                hodges.push(<small key={userFeed[index].hpList[i]} 
-                                   className="descr">
-                                    {userFeed[index].hpList[i]}
-                            </small>);
-                hodges.push(<small key={i} 
-                                   className="descr">
-                                    ,&nbsp;
-                            </small>);
-            }
-        }
+    //     const hps = [];
 
-        return hodges;
-      };
+    //     for (let i = 0; i < userFeed[index].hpList.length; i++) {
+    //         if (i === userFeed[index].hpList.length-1){
+    //             hodges.push(
+    //                 <small key={userFeed[index].hpList[i]}
+    //                        className="descr">
+    //                         {userFeed[index].hpList[i]}
+    //                 </small>);
+    //         }
+    //         else {
+    //             hodges.push(<small key={userFeed[index].hpList[i]} 
+    //                                className="descr">
+    //                                 {userFeed[index].hpList[i]}
+    //                         </small>);
+    //             hodges.push(<small key={i} 
+    //                                className="descr">
+    //                                 ,&nbsp;
+    //                         </small>);
+    //         }
+    //     }
+
+    //     return hodges;
+    //   };
 
     return (
         <div>

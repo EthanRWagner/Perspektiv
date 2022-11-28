@@ -2,12 +2,15 @@ import axios from 'axios';
 import React, {useState, useRef} from 'react';
 import logo from "../img/Perspektiv.gif";
 import Comment from "../components/Comment";
+import {useNavigate} from "react-router-dom";
 import "../css/Feed.css";
 // import styled from "styled-components";
 
 const port = 8675;
 
 function Feed() {
+
+    const navigate = useNavigate();
 
     async function getFeed() {
         try{
@@ -157,7 +160,7 @@ function Feed() {
     }
 
     const onClickUser = (userName) => {
-    return () => navigateToUserPage(userName)
+        return () => navigateToUserPage(userName)
     }
 
     const commentEnum = () => {
@@ -187,6 +190,7 @@ function Feed() {
             <div className='subheader-cont'>
                 <button className='refresh-button' onClick={getFeed}>REFRESH</button>
                 <b className='feed-heading'>Recent Feed for {user.fullName}</b>
+                <button className='create-post-button' onClick={() => navigate('../createPost')}>+ NEW POST</button>
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
@@ -202,9 +206,11 @@ function Feed() {
                     <small className="descr">{userFeed[index].caption}</small>
                 </div>
                 <div className='comment-container'>
-                    <small className="descr">Comments</small>
+                    <b className="descr">COMMENTS</b>
                     <br/>
-                    {commentEnum()}
+                    <div className='actual-comment-container'>
+                        {commentEnum()}
+                    </div>
                     <Comment userName={user.username} handleSubmit={submitComment}/>
                 </div>
                 

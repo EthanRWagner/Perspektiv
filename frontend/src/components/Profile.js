@@ -41,8 +41,8 @@ function Profile(props){
     //   username = params.get('username')
     //   console.log(username)
       if(props.username !== null && props.username.length > 0){
-        //findUser(username)
-        findUser('63656f7e082f9cd1cfbccc04')
+        findUser(props.username)
+        //findUser('63656f7e082f9cd1cfbccc04')
       }
       else{
         getUser();
