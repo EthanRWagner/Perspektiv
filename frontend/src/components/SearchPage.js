@@ -56,7 +56,7 @@ function SearchPage (){
 
     async function joinHPSearch (hp_name) {
         try {
-            await axios.post(`http://localhost:${port}/joinHP`, user.username, hp_name);
+            await axios.post(`http://localhost:${port}/joinHP`, {username: user.username, hp: hp_name});
         }
         catch (error) {
             console.log(error);
@@ -95,7 +95,7 @@ function SearchPage (){
             }
             else{
                 hodges.push(
-                    <div className='search-item' onClick={joinHPSearch}>
+                    <div className='search-item' onClick={() => joinHPSearch(hp_results[i].name)}>
                         <small key={hp_results[i].name}
                                className="descr">
                                ADD &emsp;{hp_results[i].name}
