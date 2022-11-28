@@ -1,18 +1,17 @@
 import axios from 'axios'; 
 import React, {useState, useRef} from 'react';
-import "../css/Feed.css";
-// import styled from "styled-components";
-
-const port = 8675;
+import {useLocation} from 'react-router-dom';
 import "../css/SearchPage.css";
 //import MyGallery from './MyGallery';
+
+const port = 8675;
 
 function SearchPage (){
 
     const initializedRef = useRef(false);
 
     const location = useLocation();
-    
+
     const [search, setSearch] = useState({search_HP: [],
                                           search_User: []});
 
@@ -81,26 +80,28 @@ function SearchPage (){
 
     const HP_enum = () =>{
         const hodges = [];
-        const hp_results = search.search_HP
+        const hp_results = search.search_HP;
         const user_hps = user.hpList;
-        for (let i = 0; i < hp_results?.length; i++) {
-            if(user_hps.includes(hp_results[i])){
+        for (let i = 0; i < hp_results.length; i++) {
+            if(user_hps.includes(hp_results[i].name)){
                 hodges.push(
                     <div className='search-item'>
-                        <small key={hp_results[i]}
+                        <small key={hp_results[i].name}
                                className="descr">
-                               JOINED &#10003;&emsp;{hp_results[i]}
+                               JOINED &#10003;&emsp;{hp_results[i].name}
                         </small>
-                    </div>);
+                    </div>
+                );
             }
             else{
                 hodges.push(
                     <div className='search-item' onClick={joinHPSearch}>
-                        <small key={hp_results[i]}
+                        <small key={hp_results[i].name}
                                className="descr">
-                               ADD &emsp;{hp_results[i]}
+                               ADD &emsp;{hp_results[i].name}
                         </small>
-                    </div>);
+                    </div>
+                );
             }
         }
         return hodges;
@@ -109,22 +110,22 @@ function SearchPage (){
     const people_enum = () =>{
         const people = [];
         const people_results = search.search_User;
-        for (let i = 0; i < people_results?.length; i++) {
-            if(user.username === people_results[i]){
+        for (let i = 0; i < people_results.length; i++) {
+            if(user.username === people_results[i].username){
                 people.push(
-                    <div className='search-item' onClick={onClickUser(people_results[i])}>
-                        <small key={people_results[i]}
+                    <div className='search-item' onClick={onClickUser(people_results[i].username)}>
+                        <small key={people_results[i].username}
                                className="descr">
-                               [YOU]&emsp;{people_results[i]}
+                               [YOU]&emsp;{people_results[i].username}
                         </small>
                     </div>);
             }
             else{
                 people.push(
-                    <div className='search-item' onClick={onClickUser(people_results[i])}>
-                        <small key={people_results[i]}
+                    <div className='search-item' onClick={onClickUser(people_results[i].username)}>
+                        <small key={people_results[i].username}
                                className="descr">
-                               {people_results[i]}
+                               {people_results[i].username}
                         </small>
                     </div>);
             }
@@ -135,6 +136,8 @@ function SearchPage (){
     return (
         <div>
             <div className='search-content'>
+                <div className='line-break'></div>
+                <b className='box-headings'>Search Results for: </b> <small>&quot;{location.state.search_input}&quot;</small>
                 <div className='line-break'></div>
 
                 <div className='results-frame'>

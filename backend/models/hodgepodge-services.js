@@ -30,4 +30,10 @@ mongoose
 async function findHodgepodgeByName(name) {
     return await hodgepodgeModel.find({name: name});
 }
+
+async function findSimilarHodgepodgeName(name) {
+  return await hodgepodgeModel.find({ name: { $regex: "^" + name, $options: 'i' } });
+}
+
 exports.findHodgepodgeByName = findHodgepodgeByName;
+exports.findSimilarHodgepodgeName = findSimilarHodgepodgeName;
