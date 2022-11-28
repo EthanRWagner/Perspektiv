@@ -1,8 +1,13 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import "../css/SearchPage.css";
 import MyGallery from './MyGallery';
 
 function SearchPage (){
+
+    const location = useLocation();
+
+    console.log(location.state)
 
     // const [search, setSearch] = useState({featured_HP: [],
     //                                       featured_User: [],
