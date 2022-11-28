@@ -87,7 +87,7 @@ function App() {
 					<div className="navBar">
 						<HomeButtonLink to="/feed">PERSPEKTIV</HomeButtonLink>
 						
-						{user == undefined ? <div className="subNavBar">
+						{user == undefined ? <div style={{ marginTop: 10 }} className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
 							<LoginLink to="/login">LOGIN</LoginLink>
 						</div> 
