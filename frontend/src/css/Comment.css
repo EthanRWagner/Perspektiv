@@ -18,17 +18,20 @@ textarea[name="comment"]:focus {
   }
 
 .comment-form-container {
-    position:absolute;
+    position: absolute;
     background-color: #121121;
-    border: 2px #ed009c ridge;
-    bottom:5px;
+    border: 5px #ed009c ridge;
+    bottom: 8px;
     min-height: 30px;
     height: 25%;
-    width: 95%;
+    width: 90%;
     padding: 8px;
+    left: 5%;
 }
 
 .submit-comment-button {
+    position: absolute;
+    right: 8px;
     font-family: 'Courier New', Courier, monospace;
     background-color: black;
     border: 2px #ed009c solid;

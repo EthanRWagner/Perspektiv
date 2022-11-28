@@ -1,16 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "../css/SearchPage.css";
-import "../components/SearchBar";
 import MyGallery from './MyGallery';
-import SearchBar from '../components/SearchBar';
 
 function SearchPage (){
 
+    const [search, setSearch] = useState([]);
+
+    const hodgePodgeEnum = () => {
+      
+        const hodges = [];
+        for (let i = 0; i < userFeed[index].hpList.length; i++) {
+            if (i === userFeed[index].hpList.length-1){
+                hodges.push(
+                    <small key={userFeed[index].hpList[i]}
+                           className="descr">
+                            {userFeed[index].hpList[i]}
+                    </small>);
+            }
+            else {
+                hodges.push(<small key={userFeed[index].hpList[i]} 
+                                   className="descr">
+                                    {userFeed[index].hpList[i]}
+                            </small>);
+                hodges.push(<small key={i} 
+                                   className="descr">
+                                    ,&nbsp;
+                            </small>);
+            }
+        }
+
+        return hodges;
+      };
+
     return (
         <div>
-            <br/>
-            <SearchBar/>
-            <br/>
             <div className='search-content'>
                 <div className='featured-frame'>
                     <div  className='featured-box'>
