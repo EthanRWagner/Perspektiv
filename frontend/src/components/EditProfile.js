@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import logo from '../img/temp-user.png'
 import "../css/App.css"
 import "../css/Register.css"
@@ -13,6 +13,24 @@ function EditProfile(){
     const [user, setUser] = useState({
         username: "", email: "", password: "", confirmPassword: ""
     });
+
+    const getUser =  async () => {
+        var id = window.sessionStorage.getItem("id");
+        try {
+            var response = await axios.get(`http://localhost:${port}/users/${id}`)
+            setUser(response.data.user);
+        }
+        catch(er) {
+            console.log(er);
+        }
+    }
+
+    const initializedRef = useRef(false);
+    
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      getUser();
+    }
 
     function handleChange(event) {
         const {name, value} = event.target;
@@ -70,6 +88,15 @@ function EditProfile(){
         updateUser(user)
     }
 
+    function checkPassword(){
+        if(user.password === user.confirmPassword){
+            updateUser(user)
+        }
+        else{
+            console.log("passwords did not match")
+        }
+    }
+
     return (
         <div className='col-md-12'>
             {/* <h2 className='logo-center'>User&apos;s Profile</h2>
@@ -87,16 +114,28 @@ function EditProfile(){
                             type="text"
                             name="username"
                             id="username"
+                            value={user.username}
                             onChange={handleChange}/>
                     </div>
+                    <div className="form-group">
+                        <input type="button" value="Update Username" onClick={editForm}/>
+                    </div>
+                </Form>
+                <Form>
                     <div className="form-group">
                         <label htmlFor="username">New Email</label>
                         <Input
                             type="text"
                             name="email"
                             id="email"
+                            value={user.email}
                             onChange={handleChange}/>
                     </div>
+                    <div className="form-group">
+                        <input type="button" value="Update Email" onClick={editForm}/>
+                    </div>
+                </Form>
+                <Form>
                     <div className="form-group">
                         <label htmlFor="password">New Password</label>
                         <Input
@@ -114,7 +153,7 @@ function EditProfile(){
                             onChange={handleChange}/>
                     </div>
                     <div className="form-group">
-                        <input type="button" value="Update Information" onClick={editForm}/>
+                        <input type="button" value="Update Password" onClick={checkPassword}/>
                     </div>
                 </Form>
             </div>

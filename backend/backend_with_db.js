@@ -45,6 +45,17 @@ app.use(express.json());
 //   }
 // });
 
+app.get("/search", async (req, res) => {
+  const username = req.query["username"];
+  let result = await userServices.findSimilarUsername(username);
+  console.log(result)
+  if (result === undefined || result === null) {
+    res.status(404).send("Resource not found.");
+  } else {
+    result = { user_list: result };
+    res.send(result);
+  }
+});
 
 function isEmail(email) {
   var emailFormat = /^[a-zA-Z0-9_.+]*[a-zA-Z][a-zA-Z0-9_.+]*@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;

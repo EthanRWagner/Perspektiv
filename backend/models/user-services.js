@@ -65,6 +65,9 @@ async function findUserByUserName(username) {
   return await userModel.find({ username: username });
 }
 
+async function findSimilarUsername(username) {
+  return await userModel.find({ username: { $regex: "^" + username, $options: 'i' } });
+}
 
 async function findUserByEmail(email) {
   return await userModel.find({ email: email });
@@ -115,3 +118,4 @@ exports.changeEmail = changeEmail;
 exports.changePassword = changePassword;
 exports.changeUsername = changeUsername;
 // exports.disconnectDB = disconnectDB;
+exports.findSimilarUsername = findSimilarUsername;
