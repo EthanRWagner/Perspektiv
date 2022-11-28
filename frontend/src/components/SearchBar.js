@@ -3,12 +3,14 @@ import axios from 'axios';
 import "../css/SearchBar.css"
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
+import { useNavigate } from "react-router-dom";
 
 const port = 8675;
 
 const SearchBar = () => {
     const [searchInput, setSearchInput] = useState("");
     const [resultList, setResults] = useState([]);
+    const navigate = useNavigate();
 
     async function getResultList(val){
       try{
@@ -24,8 +26,18 @@ const SearchBar = () => {
     e.preventDefault();
     let val = e.target.value;
     await setSearchInput(val);
-    await getResultList(val)
+    if(val != '') {
+      await getResultList(val)
+    }
   };
+
+  async function handleSearch(e){
+    e.preventDefault();
+    const users = await axios.get(`http://localhost:${port}/search`, { params: { username : searchInput } });
+    await axios.get(`http://localhost:${port}/search`, { params: { hp : searchInput } }).then(response => {
+      navigate("../search", { state: { hp_list: response.data.hp_list, user_list: users.data.user_list, search_input: searchInput } });
+    });
+  }
 
   const clearInput = () => {
     setResults([]);
@@ -40,7 +52,7 @@ const SearchBar = () => {
 
   return (
     <div className="search">
-      <div className="search-bar">
+      <form className="search-bar" onSubmit={handleSearch}>
         <input
             type="text"
             name="searchbar"
@@ -63,7 +75,7 @@ const SearchBar = () => {
             );
           })}
         </div>}
-      </div>
+      </form>
       
     </div>
   );

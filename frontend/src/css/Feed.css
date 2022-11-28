@@ -8,6 +8,7 @@
     top: 5%;
     padding: 8px;
     font-family: 'Courier New', Courier, monospace;
+    margin-top: 10px;
 }
 
 .post-section-container {
@@ -22,7 +23,7 @@
 .feed-heading {
     color: #121121;
     position: absolute;
-    left: 30%;
+    left: 20%;
     font-size: xx-large;
 }
 

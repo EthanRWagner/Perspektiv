@@ -42,12 +42,8 @@ mongoose
 // }
 
 async function findUserById(id) {
-  try {
-    return await userModel.findById(id);
-  } catch (error) {
-    console.log(error);
-    return undefined;
-  }
+  return await userModel.findById(id);
+ 
 }
 
 // async function addUser(user) {

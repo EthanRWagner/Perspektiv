@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const User = require("./models/user");
+const Hodgepodge = require("./models/hodgepodge")
 const bcrypt = require('bcrypt');
 // Add mongdb user services
 const userServices = require("./models/user-services");
@@ -17,43 +18,43 @@ const port = 8675;
 app.use(cors());
 app.use(express.json());
 
-// app.get("/users", async (req, res) => {
-//   const fullName = req.query["fullName"];
-//   const email = req.query["email"];
-//   const username = req.query["username"];
-//   const password = req.query["password"];
-//   if (username === undefined && email === undefined) {
-//     try {
-//       const users_from_db = await userServices.getUsers();
-//       res.send({ users_list: users_from_db });
-//     } catch (error) {
-//       console.log("Mongoose error: " + error);
-//       res.status(500).send("An error ocurred in the server.");
-//     }
-//   } else if (username && email === undefined) {
-//     let result = await userServices.findUserByUserName(username);
-//     result = { users_list: result };
-//     res.send(result);
-//   } else if (email && username === undefined) {
-//     let result = await userServices.findUserByEmail(email);
-//     result = { users_list: result };
-//     res.send(result);
-//   } else {
-//     let result = await userServices.findUserByUserNameAndEmail(username, email);
-//     result = { users_list: result };
-//     res.send(result);
-//   }
-// });
+app.get("/users", async (req, res) => {
+  const username = req.query["username"];
+  if (username) {
+    let result = await userServices.findUserByUsername(username);
+    result = { users_list: result };
+    res.send(result);
+  } else {
+    console.log("Mongoose error: " + error);
+    res.status(500).send("An error ocurred in the server.");
+  }
+});
 
 app.get("/search", async (req, res) => {
   const username = req.query["username"];
-  let result = await userServices.findSimilarUsername(username);
-  console.log(result)
-  if (result === undefined || result === null) {
-    res.status(404).send("Resource not found.");
-  } else {
-    result = { user_list: result };
-    res.send(result);
+  const hp = req.query["hp"];
+  if (username) {
+    let result = await userServices.findSimilarUsername(username);
+    console.log(result)
+    if (result === undefined || result === null) {
+      res.status(404).send("Resource not found.");
+    } else {
+      result = { user_list: result };
+      res.send(result);
+    }
+  }
+  else if (hp) {
+    let result = await hodgepodgeServices.findSimilarHodgepodgeName(hp);
+    console.log(result)
+    if (result === undefined || result === null) {
+      res.status(404).send("Resource not found.");
+    } else {
+      result = { hp_list: result };
+      res.send(result);
+    }
+  }
+  else {
+    res.status(500).send("Invalid request");
   }
 });
 
@@ -184,7 +185,7 @@ app.post("/joinHP", async(req, res) => {
   }
   const hpObject = await hodgepodgeServices.findHodgepodgeByName(hp);
   if(hpObject){
-    const joinHP = await userServices.joinHP(username, hpObject);
+    const joinHP = await userServices.joinHP(username, hp);
     if(joinHP){
       return res.status(202).send("Joined hodgepodge");
     }

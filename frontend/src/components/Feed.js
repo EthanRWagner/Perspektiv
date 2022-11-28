@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useState, useRef} from 'react';
 import logo from "../img/Perspektiv.gif";
 import Comment from "../components/Comment";
-import {useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import "../css/Feed.css";
 // import styled from "styled-components";
 
