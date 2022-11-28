@@ -12,7 +12,7 @@ function RegisterPage (){
 
     function updateList(person) { 
         makePostCall(person).then( result => {
-            if (result && result.status === 202)
+            if (result && result.status === 201)
             {
                 setCharacters([...characters, result.data] );
                 navigate('../login');
@@ -38,8 +38,8 @@ function RegisterPage (){
         return response;
         }
         catch (error) {
-        console.log(error);
-        return false;
+            console.log(error);
+            return false;
         }
     }
 
