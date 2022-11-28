@@ -1,60 +1,71 @@
 import React, {useState} from "react";
+import axios from 'axios'; 
 import "../css/SearchBar.css"
-import {Link} from "react-router-dom";
+import SearchIcon from "@material-ui/icons/Search";
+import CloseIcon from "@material-ui/icons/Close";
+
+const port = 8675;
 
 const SearchBar = () => {
     const [searchInput, setSearchInput] = useState("");
+    const [resultList, setResults] = useState([]);
 
-    const countries = [
+    async function getResultList(val){
+      try{
+        const users = await axios.get(`http://localhost:${port}/search`, { params: { username : val } });
+        await setResults(users.data.user_list);
+    }
+    catch(er){
+        console.log(er); 
+    }
+    }
 
-        { name: "Belgium", continent: "Europe" },
-        { name: "India", continent: "Asia" },
-        { name: "Bolivia", continent: "South America" },
-        { name: "Ghana", continent: "Africa" },
-        { name: "Japan", continent: "Asia" },
-        { name: "Canada", continent: "North America" },
-        { name: "New Zealand", continent: "Australasia" },
-        { name: "Italy", continent: "Europe" },
-        { name: "South Africa", continent: "Africa" },
-        { name: "China", continent: "Asia" },
-        { name: "Paraguay", continent: "South America" },
-        { name: "Usa", continent: "North America" },
-        { name: "France", continent: "Europe" },
-        { name: "Botswana", continent: "Africa" },
-        { name: "Spain", continent: "Europe" },
-        { name: "Senegal", continent: "Africa" },
-        { name: "Brazil", continent: "South America" },
-        { name: "Denmark", continent: "Europe" },
-        { name: "Mexico", continent: "South America" },
-        { name: "Australia", continent: "Australasia" },
-        { name: "Tanzania", continent: "Africa" },
-        { name: "Bangladesh", continent: "Asia" },
-        { name: "Portugal", continent: "Europe" },
-        { name: "Pakistan", continent: "Asia" },
-  ];
-
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     e.preventDefault();
-    setSearchInput(e.target.value);
+    let val = e.target.value;
+    await setSearchInput(val);
+    await getResultList(val)
+  };
+
+  const clearInput = () => {
+    setResults([]);
+    setSearchInput("");
   };
   
   if (searchInput.length > 0) {
-      countries.filter((country) => {
-      return country.name.match(searchInput);
+      resultList.filter((resultList) => {
+      return resultList.username.match(searchInput);
   });
 }
 
   return (
-    <Link to="/search">
+    <div className="search">
       <div className="search-bar">
         <input
             type="text"
             name="searchbar"
             placeholder="Search here..."
             onChange={handleChange}
-            value={searchInput} />
+            value={searchInput}/>
+        <div className="searchIcon">
+          {searchInput.length === 0 ? (
+            <SearchIcon />
+          ) : (
+            <CloseIcon id="clearBtn" onClick={clearInput} />
+          )}
+        </div>
+        {searchInput != '' && <div className="dataResult">
+          {resultList.slice(0, 15).map((value) => {
+            return (
+              <a key={value._id} className="dataItem" href={"/profile?username=" + value.username} target="_self">
+                <p>{value.username} </p>
+              </a>
+            );
+          })}
+        </div>}
       </div>
-    </Link>
+      
+    </div>
   );
 }
 

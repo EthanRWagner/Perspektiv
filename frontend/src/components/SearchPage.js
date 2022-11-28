@@ -2,15 +2,11 @@ import React from 'react';
 import "../css/SearchPage.css";
 import "../components/SearchBar";
 import MyGallery from './MyGallery';
-import SearchBar from '../components/SearchBar';
 
 function SearchPage (){
 
     return (
         <div>
-            <br/>
-            <SearchBar/>
-            <br/>
             <div className='search-content'>
                 <div className='featured-frame'>
                     <div  className='featured-box'>
