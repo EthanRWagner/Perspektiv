@@ -86,19 +86,22 @@ function App() {
 				<div>
 					<div className="navBar">
 						<HomeButtonLink to="/feed">PERSPEKTIV</HomeButtonLink>
-						<SearchBar/>
+						
 						{user == undefined ? <div className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
 							<LoginLink to="/login">LOGIN</LoginLink>
 						</div> 
 						:
-						<div className="subNavBar">
-							<RegisterLink to="/feed">FEED</RegisterLink>
-							<ProfileLink to="/profile">PROFILE</ProfileLink>
-							<LoginLink to={"/login"} onClick={() => {
-								window.sessionStorage.removeItem("id");
-								setUser(undefined);
-							}}>LOGOUT</LoginLink>
+						<div>
+							<SearchBar/>
+							<div className="subNavBar">
+								<RegisterLink to="/feed">FEED</RegisterLink>
+								<ProfileLink to="/profile">PROFILE</ProfileLink>
+								<LoginLink to={"/login"} onClick={() => {
+									window.sessionStorage.removeItem("id");
+									setUser(undefined);
+								}}>LOGOUT</LoginLink>
+							</div>
 						</div>}
 					</div>
 				</div>

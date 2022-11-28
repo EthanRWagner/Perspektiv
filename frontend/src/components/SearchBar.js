@@ -35,7 +35,7 @@ const SearchBar = () => {
     e.preventDefault();
     const users = await axios.get(`http://localhost:${port}/search`, { params: { username : searchInput } });
     await axios.get(`http://localhost:${port}/search`, { params: { hp : searchInput } }).then(response => {
-      navigate("../search", { state: { hp_list: response.data.hp_list, user_list: users.data.user_list } });
+      navigate("../search", { state: { hp_list: response.data.hp_list, user_list: users.data.user_list, search_input: searchInput } });
     });
   }
 
