@@ -25,7 +25,15 @@ mongoose
       useUnifiedTopology: true,
     }
   )
-  .catch((error) => console.log(error));
+  .catch((error) => console.log(error + "\n\nmongodb+srv://" +
+  process.env.MONGO_USER +
+  ":" +
+  process.env.MONGO_PWD +
+  "@" +
+  process.env.MONGO_CLUSTER +
+  "/" +
+  process.env.MONGO_DB +
+  "?retryWrites=true&w=majority"));
 
 async function findHodgepodgeByName(name) {
     return await hodgepodgeModel.find({name: name});

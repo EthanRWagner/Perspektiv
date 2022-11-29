@@ -155,7 +155,7 @@ function Feed() {
             url = "http://localhost:3000/profile";
         else
             url = "http://localhost:3000/profile?username=" + userName;
-        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        const newWindow = window.open(url, '_self', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
     }
 
