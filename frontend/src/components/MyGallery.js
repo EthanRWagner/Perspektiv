@@ -43,10 +43,10 @@ class MyGallery extends React.Component {
             <div>
                 <ImageGallery 
                     items={this.state.images}
-                    autoPlay="true"
-                    showPlayButton="false"
-                    showBullets="true"
-                    showFullscreenButton="false"
+                    autoPlay={true}
+                    showPlayButton={false}
+                    showBullets={true}
+                    showFullscreenButton={false}
                     />
             </div>
             

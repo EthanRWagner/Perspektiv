@@ -1,61 +1,96 @@
 .subheader-cont {
-    display: block;
+    display: inline-block;
     position: absolute;
-    left: 40%;
+    align-content: center;
+    height: auto;
+    width: 75%;
+    left: 10%;
     top: 5%;
+    padding: 8px;
     font-family: 'Courier New', Courier, monospace;
+    margin-top: 10px;
 }
 
 .post-section-container {
-    display: relative;
+    display: block;
     position: absolute;
     top: 15%;
     left: 10%;
     width: 80%;
-    height: 70%;
+    height: 90%;
+}
+
+.feed-heading {
+    color: #121121;
+    position: absolute;
+    left: 20%;
+    font-size: xx-large;
+}
+
+.refresh-button {
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #121121;
+    color: #ed009c;
+    border:none;
+    left: 0%;
 }
 
 .post-container {
-    overflow: scroll;
-    background-color: gray;
+    overflow: auto;
+    background-color: black;
     position: absolute;
-    border-color: black;
+    border: 5px #ed009c ridge;
     top: 0%;
     left: 0%;
     width: 75%;
-    height: 67%;
+    height: 75%;
 }
 
 .descr-container {
-    overflow: scroll;
+    overflow: auto;
     background-color: #121121;
     position: absolute;
-    border-color: black;
+    border: 5px #ed009c;
+    border-left-style: ridge;
+    border-bottom-style: ridge;
+    border-right-style: ridge;
     padding: 8px;
     bottom: 0%;
     left: 0%;
     width: 75%;
-    height: 33%;
+    height: 25%;
 }
 
 .comment-container {
-    overflow: scroll;
-    background-color: black;
+    overflow: auto;
+    background-color: #121121;
+    border: 5px #ed009c;
+    border-right-style: ridge;
+    border-bottom-style: ridge;
+    border-top-style: ridge;
     position: absolute;
-    border-color: black;
     padding: 8px;
     top: 0%;
     right: 5%;
     width: 20%;
+    min-height: 50px;
     height: 100%;
+}
+
+.actual-comment-container {
+    overflow: auto;
+    top: 8px;
+    height: 70%;
+    width: 100%;
 }
 
 .comment-box {
     position:relative;
-    padding: 8px;
     width:auto;
     height: auto;
     min-height: 30px;
+    border: 5px #ed009c;
 }
 
 .button-container {
@@ -132,5 +167,28 @@
 }
 
 .descr {
+    font-size: medium;
     color:white;
 }
+
+.user-link {
+    font-size: medium;
+    color:white;
+}
+
+.user-link:hover {
+    color:blue
+}
+
+.create-post-button {
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    background-color: #121121;
+    color: #ed009c;
+    border:none;
+    width: 200px;
+    height: 40px;
+    right: 0%;
+}
+

@@ -1,19 +1,39 @@
 const mongoose = require("mongoose");
 
+var today = new Date();
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var dd = today.getDate();
+var mm = months[today.getMonth()]; //January is 0
+var yyyy = today.getFullYear();
+
+today = dd + ' ' + mm + ' ' + yyyy;
+
 const PostSchema = new mongoose.Schema({
-  postBody: {
+  url:{
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
+  caption: {
     type: String,
     required: true,
     trim: true,
   },
-  userList: {
+  hpList: {
     type: Array,
     require: true,
     default: [],
   },
   comments: {
     type: Array,
+    requre: false,
     default: [],
+  },
+  date: {
+    type: String,
+    require: false,
+    default: today,
   }
 }, {collection : 'post_list'});
 

@@ -6,3 +6,21 @@
     margin-right: auto;
     width: 50%;
   }
+
+input[name="password"] {
+  -webkit-text-security: disc;
+}
+
+input[name="confPassword"] {
+  -webkit-text-security: disc;
+}
+
+input[name="username"]:focus {
+  font-family: 'Courier New', Courier, monospace;
+  color: black !important;
+}
+
+input[name="password"]:focus {
+  font-family: 'Courier New', Courier, monospace;
+  color: black !important;
+}

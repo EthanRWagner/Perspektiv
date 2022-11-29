@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useState, useRef} from "react";
 import RegisterPage from "./components/RegisterPage";
-import LoginPage from "./components/LoginPage";
+import Login from "./components/Login";
+import ProfilePage from "./components/ProfilePage"
+import EditProfilePage from "./components/EditProfilePage";
 import Feed from "./components/Feed";
-import MyApp from "./components/MyApp";
+//import MyApp from "./components/MyApp";
 import SearchPage from "./components/SearchPage";
 import CreatePostPage from "./components/CreatePostPage";
 import SearchBar from "./components/SearchBar";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";
+import axios from 'axios'; 
+
+const port = 8675;
 
 const HomeButtonLink = styled(Link)`
 	display: inline;
@@ -41,20 +46,63 @@ const LoginLink = styled(Link)`
   	margin-bottom: auto;
 `;
 
-//<Link to="/<user>feed">Feed</Link>
+const ProfileLink = styled(Link)`
+	display: inline;
+	position: relative;
+	font-family: 'Courier New', Courier, monospace;
+	color: #ed009c;
+	background: none;
+	font-size: large;
+	padding-left: 25px;
+	margin-top: auto;
+  	margin-bottom: auto;
+`;
+
 function App() {
+	const [user, setUser] = useState({});
+	
+	const getUser =  async () => {
+        var id = window.sessionStorage.getItem("id");
+        try {
+            var response = await axios.get(`http://localhost:${port}/users/${id}`)
+            setUser(response.data.user);
+        }
+        catch(er) {
+            setUser(undefined);
+        }
+    }
+
+	const initializedRef = useRef(false);
+    
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      getUser();
+    }
+
 	return (
 		<div>
 			<BrowserRouter basename="/">
 			<nav>
 				<div>
 					<div className="navBar">
-						<HomeButtonLink to="/">PERSPEKTIV</HomeButtonLink>
-						<SearchBar/>
-						<div className="subNavBar">
+						<HomeButtonLink to="/feed">PERSPEKTIV</HomeButtonLink>
+						
+						{user == undefined ? <div style={{ marginTop: 10 }} className="subNavBar">
 							<RegisterLink to="/register">REGISTER</RegisterLink>
 							<LoginLink to="/login">LOGIN</LoginLink>
-						</div>
+						</div> 
+						:
+						<div>
+							<SearchBar/>
+							<div className="subNavBar">
+								<RegisterLink to="/feed">FEED</RegisterLink>
+								<ProfileLink to="/profile">PROFILE</ProfileLink>
+								<LoginLink to={"/login"} onClick={() => {
+									window.sessionStorage.removeItem("id");
+									setUser(undefined);
+								}}>LOGOUT</LoginLink>
+							</div>
+						</div>}
 					</div>
 				</div>
 			</nav>
@@ -62,7 +110,7 @@ function App() {
 					<Route
 						path="/"
 						element={
-							<MyApp />
+							<Login />
 						}
 					/>
 					<Route
@@ -74,7 +122,19 @@ function App() {
 					<Route
 						path="/login"
 						element={
-							<LoginPage />
+							<Login />
+						}
+					/>
+					<Route
+						path="/profile"
+						element={
+							<ProfilePage />
+						}
+					/>
+					<Route
+						path="/editProfile"
+						element={
+							<EditProfilePage />
 						}
 					/>
 					<Route

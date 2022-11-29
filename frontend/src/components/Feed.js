@@ -1,56 +1,117 @@
-//import axios from 'axios'; 
-import React, {useState} from 'react';
+import axios from 'axios'; 
+import React, {useState, useRef} from 'react';
+import logo from "../img/Perspektiv.gif";
+import Comment from "../components/Comment";
+import { useNavigate} from "react-router-dom";
 import "../css/Feed.css";
 // import styled from "styled-components";
 
-const Feed = () => {
+const port = 8675;
+
+function Feed() {
+
+    const navigate = useNavigate();
+
+    async function getFeed() {
+        try{
+            const posts = await axios.get(`http://localhost:${port}/post`);
+            const result = posts.data.post_list;
+            var tempFeed = [];
+            var lookFor = user.hpList;
+            if (!user.hpList || user.hpList.length === 0)
+                lookFor = ["<<default>>"];
+            for (var i=0; i<result.length; i++){
+                const postHPs = result[i]['hpList'];
+                for(var j=0; j<postHPs.length; j++){
+                    if(lookFor.includes(postHPs[j]))
+                        tempFeed.push(result[i]);
+                }
+            }
+            setFeed(tempFeed);
+        }
+        catch(er){
+            console.log(er); 
+        }
+    }
+
+    //window.onload = function(){getFeed()};
+
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     window.location.reload(false);
+    // });
+
+    window.addEventListener('load', () => {
+        getFeed();
+    });
+
+    const getUser =  async () => {
+        var id = window.sessionStorage.getItem("id");
+        try {
+            var response = await axios.get(`http://localhost:${port}/users/${id}`)
+            setUser(response.data.user);
+        }
+        catch(er) {
+            console.log(er);
+        }
+    }
+
+    const [user, setUser] = useState({});
     const [index, setIndex] = useState(0);
-    var posts = [
-        {url: `https://viewer.diagrams.net/?tags=%7B%7D&highlight=000000&edit=https%3A%2F%2Fapp.diagrams.net%2F%23G14J62bJ-mwPuvyI3UK9FMqsZkeiWTJrnE&layers=1&nav=1&title=Feed%20Sample%201#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D14J62bJ-mwPuvyI3UK9FMqsZkeiWTJrnE%26export%3Ddownload`,
-        hodgepodges: ["Comp Neuro", "BCI"],
-        initialPost: "6 November 2022",
-        caption: `What are your thoughts on brain-computer interfacing (BCI)? 
-                Many BCI companies are coming to light and trying to help people 
-                and augment certain aspects of our lives.`,
-        comments: [
-            {user: "@ewagne02",
-             comment: "I want to pursue that field and hopefully work for one of those companies one day!"}]},
+    const [userFeed, setFeed] = useState([{
+                "url":logo,
+                "caption":"Press the REFRESH button",
+                "hpList":["<<default>>"],
+                "comments":[],
+                "date":"Loading..."}]);
+    const initializedRef = useRef(false);
     
-        {url: `https://viewer.diagrams.net/?tags=%7B%7D&highlight=000000&edit=https%3A%2F%2Fapp.diagrams.net%2F%23G1koA2qI5hvjCAWdWbL-Z-3J_-QRl-44ov&layers=1&nav=1&title=Copy%20of%20ClassDiagramExercise.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1koA2qI5hvjCAWdWbL-Z-3J_-QRl-44ov%26export%3Ddownload`,
-        hodgepodges: ["CSC 307", "Cal Poly CS"],
-        initialPost: "6 November 2022",
-        caption: `Today we learned about class diagrams. Comment the 
-        translation of this class diagram. Add further abstractions or additons to this class diagram!`,
-        comments: [
-            {user: "@ewagne02",
-            comment: `A house may have any number of pets living in it. The two possible types 
-                        of pets that can live in a house are dogs and cats. Each dog or cat has 
-                        a name. An animal's house is its one and only home. You can tell animal 
-                        to make a noise and it will do it in its own way.`}]},
-        
-        {url: `https://viewer.diagrams.net/?tags=%7B%7D&highlight=000000&edit=https%3A%2F%2Fapp.diagrams.net%2F%23G1PGACNzTa4kmVNAsr3wuT4PO0c-AYvdW-&layers=1&nav=1&title=Copy%20of%20PerspektivClassDiagram#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1PGACNzTa4kmVNAsr3wuT4PO0c-AYvdW-%26export%3Ddownload`,
-        hodgepodges: ["Perspektiv"],
-        initialPost: "6 November 2022",
-        caption: `After learning about class diagrams in CSC 307, we need to make a class diagram
-                    for our website application project. Add to the diagram and review it so we can
-                    get an idea of how our data is represented.`,
-        comments: [
-            {user: "@ewagne02",
-            comment: `I think this is ready to be turned in to Professor Klingenberg.`}]},
-    
-        {url: `https://viewer.diagrams.net/?tags=%7B%7D&highlight=000000&edit=https%3A%2F%2Fapp.diagrams.net%2F%23G1i71FGVTRSzt98wLTDi58tFon95K2p6RX&layers=1&nav=1&title=Copy%20of%20PerspektivUseCaseDiagram#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1i71FGVTRSzt98wLTDi58tFon95K2p6RX%26export%3Ddownload`,
-        hodgepodges: ["Perspektiv"],
-        initialPost: "6 November 2022",
-        caption: `This use case diagram will guide us to build functionality for our website
-                    application. Add or edit the use case diagram by Wednesday 11/10.`,
-        comments: [
-            {user: "@ewagne02",
-            comment: `This use case diagram is good to go for our Sprint #2 but it does not
-                        accurately represent the work we did for the sprint.`},
-            {user: "@taile",
-            comment: `@ewagne02 I think that is because we did a lot of design this sprint and does not
-                        consist of a lot of functionality coverage. Looks good.`}]}
-    ]
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      getUser();
+    }
+
+    // Comment example:
+    // {
+    //     username: "@ewagne02",
+    //     comment: "That was easy!"
+    // }
+
+    function submitComment(comment) { 
+        makeCommentCall(comment).then( result => {
+        if (result && result.status === 404)
+            console.log("Error posting comment. Try Again.");
+        });
+    }
+
+    async function makeCommentCall(comment) {
+        try {
+            console.log({
+                url: userFeed[index].url,
+                username: user.username,
+                comment: comment
+            })
+            const response = await axios.post(`http://localhost:${port}/comment`, 
+                {
+                    url: userFeed[index].url,
+                    username: user.username,
+                    comment: comment
+                });
+            return response
+        }
+        catch (error) {
+        console.log(error);
+        return false;
+        }
+    }
+
+    //post example
+    // {
+    //     url:...,
+    //     caption:...,
+    //     hpList:...,
+    //     comments:....,
+    //     date:...
+    // }
 
     let incrementIndex = () => setIndex(index + 1);
     let decrementIndex = () => setIndex(index - 1);
@@ -58,65 +119,101 @@ const Feed = () => {
         decrementIndex = () => setIndex(0);
     }
 
-    if(index === posts.length-1) {
+    if(index === userFeed.length-1) {
         incrementIndex = () => setIndex(0);
     }
 
     const hodgePodgeEnum = () => {
       
         const hodges = [];
-        for (let i = 0; i < posts[index].hodgepodges.length; i++) {
-            if (i === posts[index].hodgepodges.length-1){
+        for (let i = 0; i < userFeed[index].hpList.length; i++) {
+            if (i === userFeed[index].hpList.length-1){
                 hodges.push(
-                    <t className="descr">{posts[index].hodgepodges[i]}</t>);
+                    <small key={userFeed[index].hpList[i]}
+                           className="descr">
+                            {userFeed[index].hpList[i]}
+                    </small>);
             }
             else {
-                hodges.push(<t className="descr">{posts[index].hodgepodges[i]}</t>);
-                hodges.push(<t className="descr">,&nbsp;</t>);
+                hodges.push(<small key={userFeed[index].hpList[i]} 
+                                   className="descr">
+                                    {userFeed[index].hpList[i]}
+                            </small>);
+                hodges.push(<small key={i} 
+                                   className="descr">
+                                    ,&nbsp;
+                            </small>);
             }
         }
 
         return hodges;
       };
 
+    const navigateToUserPage = (userName) => {
+        var url = "";
+        if (userName === user.username)
+            url = "http://localhost:3000/profile";
+        else
+            url = "http://localhost:3000/profile?username=" + userName;
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+    }
+
+    const onClickUser = (userName) => {
+        return () => navigateToUserPage(userName)
+    }
+
     const commentEnum = () => {
       
         const commList = [];
-        for (let i = 0; i < posts[index].comments.length; i++) {
+        for (let i = 0; i < userFeed[index].comments.length; i++) {
           commList.push(
           <div className='comment-box'>
-            <t className="descr">{posts[index].comments[i].user}</t>
+            <small key={userFeed[index].comments[i].username} 
+                   className="descr" 
+                   onClick={onClickUser(userFeed[index].comments[i].username)}>
+                    @{userFeed[index].comments[i].username}
+            </small>
             <br/>
-            <t className="descr">{posts[index].comments[i].comment}</t>
+            <small key={userFeed[index].comments[i].comment} 
+                   className="descr">
+                    {userFeed[index].comments[i].comment}
+            </small>
           </div>);
         }
 
         return commList;
-      };
+    };
 
     return (
         <div>
             <div className='subheader-cont'>
-                <h1>Recent Feed</h1>
+                <button className='refresh-button' onClick={getFeed}>REFRESH</button>
+                <b className='feed-heading'>Recent Feed for {user.fullName}</b>
+                <button className='create-post-button' onClick={() => navigate('../createPost')}>+ NEW POST</button>
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
-                    <iframe src={posts[index].url}>
+                    <iframe className='content-style' src={userFeed[index].url}>
                     </iframe>
                 </div>
                 <div className='descr-container'>
-                    <t className="descr">{posts[index].initialPost} </t>
+                    <small className="descr">{userFeed[index].date} </small>
                     <br/>
                     {hodgePodgeEnum()}
                     <br/>
                     <br/>
-                    <t className="descr">{posts[index].caption}</t>
+                    <small className="descr">{userFeed[index].caption}</small>
                 </div>
                 <div className='comment-container'>
-                    <t className="descr">Comments</t>
+                    <b className="descr">COMMENTS</b>
                     <br/>
-                    {commentEnum()}
+                    <div className='actual-comment-container'>
+                        {commentEnum()}
+                    </div>
+                    <Comment userName={user.username} handleSubmit={submitComment}/>
                 </div>
+                
                 <div className='button-container'>
                     <button onClick={decrementIndex} className='scroll-button-top'>
                         <div className='tri-top'></div>
@@ -127,7 +224,6 @@ const Feed = () => {
                 </div>
             </div>
         </div>
-        
     );
 }
 

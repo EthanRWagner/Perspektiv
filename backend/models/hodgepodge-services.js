@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const postModel = require("./post");
+const hodgepodgeModel = require("./hodgepodge");
 const dotenv = require("dotenv");
-const Post = require("./post");
+
 
 dotenv.config();
 
@@ -27,17 +27,13 @@ mongoose
   )
   .catch((error) => console.log(error));
 
-  async function getPosts() {
-    return await postModel.find();
-  }
+async function findHodgepodgeByName(name) {
+    return await hodgepodgeModel.find({name: name});
+}
 
-  async function updateHP(url, hp) {
-    return await postModel.updateOne({url : url}, {$push:{hpList: hp}});
-  }
-  async function addComment(url,username, comment){
-    return await postModel.updateOne({url: url}, {$push: {comments: {username: username, comment: comment}}});
-  }
+async function findSimilarHodgepodgeName(name) {
+  return await hodgepodgeModel.find({ name: { $regex: "^" + name, $options: 'i' } });
+}
 
-exports.getPosts = getPosts;
-exports.updateHP = updateHP;
-exports.addComment = addComment;
+exports.findHodgepodgeByName = findHodgepodgeByName;
+exports.findSimilarHodgepodgeName = findSimilarHodgepodgeName;

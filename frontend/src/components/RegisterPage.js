@@ -2,40 +2,44 @@ import Register from "./Register";
 import axios from 'axios'; 
 import "../css/App.css";
 import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const port = 8675;
 
 function RegisterPage (){
+    const navigate = useNavigate();
     const [characters, setCharacters] = useState([]);
 
     function updateList(person) { 
         makePostCall(person).then( result => {
-        if (result && result.status === 201)
-        setCharacters([...characters, result.data] );
+            if (result && result.status === 201)
+            {
+                setCharacters([...characters, result.data] );
+                navigate('../login');
+            }
         });
     }
 
     async function fetchAll(){
         try {
-        const response = await axios.get(`http://localhost:${port}/users`);
-        return response.data.users_list;
+            const response = await axios.get(`http://localhost:${port}/users`);
+            return response.data.users_list;
         }
         catch (error){
-        //We're not handling errors. Just logging into the console.
-        console.log(error); 
-        return false;         
+            //We're not handling errors. Just logging into the console.
+            console.log(error); 
+            return false;         
         }
     }
 
     async function makePostCall(person){
         try {
-        const response = await axios.post(`http://localhost:${port}/users`, person);
-        return response;
+            const response = await axios.post(`http://localhost:${port}/signup`, person);
+            return response;
         }
         catch (error) {
-        console.log(error);
-        return false;
+            console.log(error);
+            return false;
         }
     }
 
