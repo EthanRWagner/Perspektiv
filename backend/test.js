@@ -82,6 +82,13 @@ test("Find by email -- success", async () => {
   expect(res.fullName).toBe("random person");
 });
 
+test("Find by email 2 -- success", async () => {
+  const r = await user.findUserByEmail("test@gmail.com");
+  const res = r[0];
+  expect(res).toBe(undefined);
+});
+
+
 test("Find by similar username -- success", async () =>{
   const r = await user.findSimilarUsername("test");
   const res = r[0];
@@ -89,10 +96,27 @@ test("Find by similar username -- success", async () =>{
   expect(res.fullName).toBe("random person");
 });
 
+
+test("Find by similar username 2 -- success", async () =>{
+  const r = await user.findSimilarUsername("ano");
+  const res = r[0];
+  console.log(res);
+  expect(res).toBe(undefined);
+});
+
+
 test("Find user by ID -- success", async () =>{
   const res = await user.findUserById(tempUser._id);
   expect(res.username).toBe("testuser1");
 });
+
+
+test("Find user by ID 2 -- success", async () =>{
+  const res = await user.findUserById(mongoose.Types.ObjectId());
+  console.log(res)
+  expect(res).toBe(null);
+});
+
 test("Join HP -- success", async () =>{
   const t = await user.joinHP("testuser1","HPtest");
   const r = await user.findUserByUserName("testuser1");
@@ -104,18 +128,35 @@ test("Join HP -- success", async () =>{
 
 test("Change username -- success", async () => {
 
-  const t = await user.changeUsername("testuser1","testuser");
+  await user.changeUsername("testuser1","testuser");
   const r = await user.findUserByUserName("testuser");
   const res = r[0];
   expect(res.fullName).toEqual("random person");
 });
 
+test("Change username 2 -- success", async () => {
+
+  await user.changeUsername("testuser","testuser1");
+  const r = await user.findUserByUserName("testuser");
+  const res = r[0];
+  expect(res).toBe(undefined);
+});
+
+
 test("Change password -- success", async () => {
 
-  const t = await user.changePassword("testuser1","987654321");
+  await user.changePassword("testuser1","987654321");
   const r = await user.findUserByUserName("testuser1");
   const res = r[0];
   expect(res.password).toEqual("987654321");
+});
+
+test("Change password 2 -- success", async () => {
+
+  await user.changePassword("testuser","987654321");
+  const r = await user.findUserByUserName("testuser");
+  const res = r[0];
+  expect(res).toBe(undefined);
 });
 
 test("Change email -- success", async () => {
@@ -126,10 +167,24 @@ test("Change email -- success", async () => {
   expect(res.email).toEqual("test@gmail.com");
 });
 
+test("Change email 2 -- success", async () => {
+
+  await user.changeEmail("testuser","test@gmail.com");
+  const r = await user.findUserByUserName("testuser");
+  const res = r[0];
+  expect(res).toBe(undefined);
+});
+
 test("Find hodgepodge -- success", async () =>{
   const r = await hp.findHodgepodgeByName("HPtest");
   const res = r[0];
   expect(res.name).toBe("HPtest");
+});
+
+test("Find hodgepodge 2 -- success", async () =>{
+  const r = await hp.findHodgepodgeByName("HP");
+  const res = r[0];
+  expect(res).toBe(undefined);
 });
 
 test("Get post -- success", async () => {
