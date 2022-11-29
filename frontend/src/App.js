@@ -63,13 +63,19 @@ function App() {
 	
 	const getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
-        try {
-            var response = await axios.get(`http://localhost:${port}/users/${id}`)
-            setUser(response.data.user);
-        }
-        catch(er) {
-            setUser(undefined);
-        }
+		if(id)
+		{
+			try {
+				var response = await axios.get(`http://localhost:${port}/users/${id}`)
+				setUser(response.data.user);
+			}
+			catch(er) {
+				setUser(undefined);
+			}
+		}
+        else {
+			setUser(undefined);
+		}
     }
 
 	const initializedRef = useRef(false);
