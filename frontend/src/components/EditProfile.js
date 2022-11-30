@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import logo from '../img/temp-user.png'
+import logo from "../img/Perspektiv.gif";
 import "../css/App.css"
 import "../css/Register.css"
 import Form from "react-validation/build/form";
