@@ -1,24 +1,36 @@
 import axios from 'axios'; 
-import React, {useState, useRef} from 'react';
+import React from 'react';
 import logo from "../img/Perspektiv.gif";
 import Comment from "../components/Comment";
-import { useNavigate} from "react-router-dom";
 import "../css/Feed.css";
 // import styled from "styled-components";
 
 const port = 8675;
 
-function Feed() {
+class Feed extends React.Component {
 
-    const navigate = useNavigate();
+    constructor(){
+        super();
+    }
 
-    async function getFeed() {
+    state = {
+        user: {},
+        index: 0,
+        userFeed: [{
+                    "url":logo,
+                    "caption":"Press the REFRESH button",
+                    "hpList":["<<default>>"],
+                    "comments":[],
+                    "date":"Loading..."}]
+    }
+
+    getFeed = async () => {
         try{
             const posts = await axios.get(`http://localhost:${port}/post`);
             const result = posts.data.post_list;
             var tempFeed = [];
-            var lookFor = user.hpList;
-            if (!user.hpList || user.hpList.length === 0)
+            var lookFor = this.state.user.hpList;
+            if (!this.state.user.hpList || this.state.user.hpList.length === 0)
                 lookFor = ["<<default>>"];
             for (var i=0; i<result.length; i++){
                 const postHPs = result[i]['hpList'];
@@ -27,7 +39,7 @@ function Feed() {
                         tempFeed.push(result[i]);
                 }
             }
-            setFeed(tempFeed);
+            await this.setState({ userFeed: tempFeed });
         }
         catch(er){
             console.log(er); 
@@ -40,34 +52,22 @@ function Feed() {
     //     window.location.reload(false);
     // });
 
-    window.addEventListener('load', () => {
-        getFeed();
-    });
-
-    const getUser =  async () => {
+    getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
         try {
             var response = await axios.get(`http://localhost:${port}/users/${id}`)
-            setUser(response.data.user);
+            this.setState({ user: response.data.user });
         }
         catch(er) {
             console.log(er);
         }
     }
 
-    const [user, setUser] = useState({});
-    const [index, setIndex] = useState(0);
-    const [userFeed, setFeed] = useState([{
-                "url":logo,
-                "caption":"Press the REFRESH button",
-                "hpList":["<<default>>"],
-                "comments":[],
-                "date":"Loading..."}]);
-    const initializedRef = useRef(false);
-    
-    if (!initializedRef.current) {
-      initializedRef.current = true;
-      getUser();
+    async componentDidMount() {
+        window.addEventListener('load', async () => {
+            await this.getFeed();
+        });
+        await this.getUser().then(await this.getFeed());
     }
 
     // Comment example:
@@ -76,24 +76,24 @@ function Feed() {
     //     comment: "That was easy!"
     // }
 
-    function submitComment(comment) { 
-        makeCommentCall(comment).then( result => {
+    submitComment = (comment) => { 
+        this.makeCommentCall(comment).then( result => {
         if (result && result.status === 404)
             console.log("Error posting comment. Try Again.");
         });
     }
 
-    async function makeCommentCall(comment) {
+    makeCommentCall = async (comment) => {
         try {
             console.log({
-                url: userFeed[index].url,
-                username: user.username,
+                url: this.state.userFeed[this.state.index].url,
+                username: this.state.user.username,
                 comment: comment
             })
             const response = await axios.post(`http://localhost:${port}/comment`, 
                 {
-                    url: userFeed[index].url,
-                    username: user.username,
+                    url: this.state.userFeed[this.state.index].url,
+                    username: this.state.user.username,
                     comment: comment
                 });
             return response
@@ -113,31 +113,24 @@ function Feed() {
     //     date:...
     // }
 
-    let incrementIndex = () => setIndex(index + 1);
-    let decrementIndex = () => setIndex(index - 1);
-    if(index<=0) {
-        decrementIndex = () => setIndex(0);
-    }
+    incrementIndex = () => this.setIndex(this.state.index + 1);
+    decrementIndex = () => this.setIndex(this.state.index - 1);
 
-    if(index === userFeed.length-1) {
-        incrementIndex = () => setIndex(0);
-    }
-
-    const hodgePodgeEnum = () => {
+    hodgePodgeEnum = () => {
       
         const hodges = [];
-        for (let i = 0; i < userFeed[index].hpList.length; i++) {
-            if (i === userFeed[index].hpList.length-1){
+        for (let i = 0; i < this.state.userFeed[this.state.index].hpList.length; i++) {
+            if (i === this.state.userFeed[this.state.index].hpList.length-1){
                 hodges.push(
-                    <small key={userFeed[index].hpList[i]}
+                    <small key={this.state.userFeed[this.state.index].hpList[i]}
                            className="descr">
-                            {userFeed[index].hpList[i]}
+                            {this.state.userFeed[this.state.index].hpList[i]}
                     </small>);
             }
             else {
-                hodges.push(<small key={userFeed[index].hpList[i]} 
+                hodges.push(<small key={this.state.userFeed[this.state.index].hpList[i]} 
                                    className="descr">
-                                    {userFeed[index].hpList[i]}
+                                    {this.state.userFeed[this.state.index].hpList[i]}
                             </small>);
                 hodges.push(<small key={i} 
                                    className="descr">
@@ -147,11 +140,11 @@ function Feed() {
         }
 
         return hodges;
-      };
+    };
 
-    const navigateToUserPage = (userName) => {
+    navigateToUserPage = (userName) => {
         var url = "";
-        if (userName === user.username)
+        if (userName === this.state.user.username)
             url = "http://localhost:3000/profile";
         else
             url = "http://localhost:3000/profile?username=" + userName;
@@ -159,25 +152,24 @@ function Feed() {
         if (newWindow) newWindow.opener = null
     }
 
-    const onClickUser = (userName) => {
-        return () => navigateToUserPage(userName)
+    onClickUser = (userName) => {
+        return () => this.navigateToUserPage(userName)
     }
 
-    const commentEnum = () => {
-      
+    commentEnum = () => {
         const commList = [];
-        for (let i = 0; i < userFeed[index].comments.length; i++) {
+        for (let i = 0; i < this.state.userFeed[this.state.index].comments.length; i++) {
           commList.push(
           <div className='comment-box'>
-            <small key={userFeed[index].comments[i].username} 
+            <small key={this.state.userFeed[this.state.index].comments[i].username} 
                    className="descr" 
-                   onClick={onClickUser(userFeed[index].comments[i].username)}>
-                    @{userFeed[index].comments[i].username}
+                   onClick={this.onClickUser(this.state.userFeed[this.state.index].comments[i].username)}>
+                    @{this.state.userFeed[this.state.index].comments[i].username}
             </small>
             <br/>
-            <small key={userFeed[index].comments[i].comment} 
+            <small key={this.state.userFeed[this.state.index].comments[i].comment} 
                    className="descr">
-                    {userFeed[index].comments[i].comment}
+                    {this.state.userFeed[this.state.index].comments[i].comment}
             </small>
           </div>);
         }
@@ -185,46 +177,48 @@ function Feed() {
         return commList;
     };
 
-    return (
+    render() {
+        return(
         <div>
             <div className='subheader-cont'>
-                <button className='refresh-button' onClick={getFeed}>REFRESH</button>
-                <b className='feed-heading'>Recent Feed for {user.fullName}</b>
-                <button className='create-post-button' onClick={() => navigate('../createPost')}>+ NEW POST</button>
+                <button className='refresh-button' onClick={this.getFeed}>REFRESH</button>
+                <b className='feed-heading'>Recent Feed for {this.state.user.fullName}</b>
+                <button className='create-post-button' onClick={() => window.open("./createPost", "_self")}>+ NEW POST</button>
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
-                    <iframe className='content-style' src={userFeed[index].url}>
+                    <iframe className='content-style' src={this.state.userFeed[this.state.index].url}>
                     </iframe>
                 </div>
                 <div className='descr-container'>
-                    <small className="descr">{userFeed[index].date} </small>
+                    <small className="descr">{this.state.userFeed[this.state.index].date} </small>
                     <br/>
-                    {hodgePodgeEnum()}
+                    {this.hodgePodgeEnum()}
                     <br/>
                     <br/>
-                    <small className="descr">{userFeed[index].caption}</small>
+                    <small className="descr">{this.state.userFeed[this.state.index].caption}</small>
                 </div>
                 <div className='comment-container'>
                     <b className="descr">COMMENTS</b>
                     <br/>
                     <div className='actual-comment-container'>
-                        {commentEnum()}
+                        {this.commentEnum()}
                     </div>
-                    <Comment userName={user.username} handleSubmit={submitComment}/>
+                    <Comment userName={this.state.user.username} handleSubmit={this.submitComment}/>
                 </div>
                 
                 <div className='button-container'>
-                    <button onClick={decrementIndex} className='scroll-button-top'>
+                    <button onClick={this.decrementIndex} className='scroll-button-top'>
                         <div className='tri-top'></div>
                     </button>
-                    <button onClick={incrementIndex} className='scroll-button-bottom'>
+                    <button onClick={this.incrementIndex} className='scroll-button-bottom'>
                         <div className='tri-bottom'></div>
                     </button>
                 </div>
             </div>
         </div>
-    );
+        );
+    }
 }
 
 export default Feed;

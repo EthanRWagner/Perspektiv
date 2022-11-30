@@ -17,8 +17,8 @@ function SearchPage (){
 
     const [user, setUser] = useState({});
 
-    window.addEventListener('load', () => {
-        setSearch({search_HP: location.state.hp_list, search_User: location.state.user_list});
+    window.addEventListener('load', async () => {
+        await setSearch({search_HP: location.state.hp_list, search_User: location.state.user_list});
     });
     
     const getUser =  async () => {
@@ -34,8 +34,9 @@ function SearchPage (){
 
     if (!initializedRef.current) {
         initializedRef.current = true;
-        getUser();
-      }
+        getUser().then(setSearch({search_HP: location.state.hp_list, search_User: location.state.user_list}));
+    }
+    
     // IF WE WANT TO ADD FEATURED HPS, USERS, AND POSTS
     // <div className='featured-frame'>
     //     <div  className='featured-box'>
@@ -83,7 +84,7 @@ function SearchPage (){
         const hp_results = search.search_HP;
         const user_hps = user.hpList;
         for (let i = 0; i < hp_results.length; i++) {
-            if(user_hps.includes(hp_results[i].name)){
+            if(user_hps && user_hps.includes(hp_results[i].name)){
                 hodges.push(
                     <div className='search-item'>
                         <small key={hp_results[i].name}
