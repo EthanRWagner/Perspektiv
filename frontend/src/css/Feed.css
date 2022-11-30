@@ -27,15 +27,6 @@
     font-size: xx-large;
 }
 
-.refresh-button {
-    position: absolute;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #121121;
-    color: #ed009c;
-    border:none;
-    left: 0%;
-}
-
 .post-container {
     overflow: auto;
     background-color: black;
@@ -180,7 +171,39 @@
     color:blue
 }
 
-.button-div {
+.lbutton-div {
+    display: inline-block;
+    height: 90px;
+    width:150px;
+    position: absolute;
+    left: 0%;
+}
+
+.refresh-button {
+    position: relative;
+    float: left;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #121121;
+    height: 40px;
+    width: 150px;
+    color: #ed009c;
+    border:none;
+    top: 0px;
+}
+.def-button {
+    position: relative;
+    float: left;
+    font-family: 'Courier New', Courier, monospace;
+    height: 40px;
+    width: 150px;
+    background-color: #121121;
+    color: #ed009c;
+    border:none;
+    bottom: 0px;
+}
+
+
+.rbutton-div {
     display: inline-block;
     height: 90px;
     width:200px;
@@ -215,7 +238,7 @@
 }
 
 .create-button {
-    position: relative;
+    position: absolute;
     font-family: 'Courier New', Courier, monospace;
     background-color: #121121;
     color: #ed009c;

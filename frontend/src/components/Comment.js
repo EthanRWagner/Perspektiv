@@ -18,6 +18,7 @@ function Comment (props) {
         if (comment.length >= 1) {
             props.handleSubmit(comment);
             setComment("");
+            window.location.reload(false);
         } else {
             throw "Error processing comment. Try Again."
         }

@@ -25,7 +25,6 @@ app.get("/users", async (req, res) => {
     result = { users_list: result };
     res.send(result);
   } else {
-    console.log("Mongoose error: " + error);
     res.status(500).send("An error ocurred in the server.");
   }
 });

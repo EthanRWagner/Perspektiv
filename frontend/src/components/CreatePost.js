@@ -125,6 +125,8 @@ function CreatePost (props) {
                 items: [],
                 value: "",
                 error: null});
+            const newWindow = window.open("http://localhost:3000/feed", '_self', 'noopener,noreferrer');
+            if (newWindow) newWindow.opener = null;
         } else {
             throw "Missing required fields for post: Recreate post."
         }

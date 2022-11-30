@@ -32,7 +32,7 @@ class Feed extends React.Component {
             const result = posts.data.post_list;
             var tempFeed = [];
             var lookFor = this.state.user.hpList;
-            if (!this.state.user.hpList || this.state.user.hpList.length === 0)
+            if (!this.state.user.hpList || (this.state.user.hpList.length === 0))
                 lookFor = ["<<default>>"];
             for (var i=0; i<result.length; i++){
                 const postHPs = result[i]['hpList'];
@@ -48,11 +48,25 @@ class Feed extends React.Component {
         }
     }
 
-    //window.onload = function(){getFeed()};
-
-    // document.addEventListener('DOMContentLoaded', () => {
-    //     window.location.reload(false);
-    // });
+    getDefFeed = async () => {
+        try{
+            const posts = await axios.get(`http://localhost:${port}/post`);
+            const result = posts.data.post_list;
+            var tempFeed = [];
+            var lookFor = ["<<default>>"];
+            for (var i=0; i<result.length; i++){
+                const postHPs = result[i]['hpList'];
+                for(var j=0; j<postHPs.length; j++){
+                    if(lookFor.includes(postHPs[j]))
+                        tempFeed.push(result[i]);
+                }
+            }
+            await this.setState({ userFeed: tempFeed });
+        }
+        catch(er){
+            console.log(er); 
+        }
+    }
 
     getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
@@ -224,9 +238,12 @@ class Feed extends React.Component {
         return(
         <div>
             <div className='subheader-cont'>
-                <button className='refresh-button' onClick={this.getFeed}>REFRESH</button>
+                <div className='lbutton-div'>
+                    <button className='refresh-button' onClick={this.getFeed}>REFRESH</button>
+                    <button className='def-button' onClick={this.getDefFeed}>Default Feed</button>
+                </div>
                 <b className='feed-heading'>Recent Feed for {this.state.user.fullName}</b>
-                <div className='button-div'>
+                <div className='rbutton-div'>
                     <button className='create-post-button' onClick={() => window.open("./createPost", "_self")}>+ NEW POST</button>
                     <button className='create-HP-button' onClick={() => this.togglePopup()}>+ HodgePodge</button>
                 </div>
