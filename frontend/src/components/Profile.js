@@ -3,6 +3,8 @@ import logo from '../img/temp-user.png'
 import "../css/App.css"
 import "../css/Register.css"
 import axios from 'axios'; 
+import "../css/SearchPage.css";
+
 // import PropTypes from "prop-types";
 
 const port = 8675;
@@ -13,7 +15,6 @@ function Profile(props){
         var id = window.sessionStorage.getItem("id");
         try {
             var response = await axios.get(`http://localhost:${port}/users/${id}`)
-            console.log(response.data.user);
             setUser(response.data.user);
         }
         catch(er) {
@@ -23,9 +24,9 @@ function Profile(props){
 
 
     const findUser = async (username) => {
+        console.log("find user");
         try {
             var response = await axios.get(`http://localhost:${port}/findUser/${username}`)
-            console.log(response.data.user)
             setOtherUser(response.data.user[0]);
         }
         catch(er){
@@ -38,32 +39,20 @@ function Profile(props){
     const [user, setUser] = useState({});
 
     const [otherUser, setOtherUser] = useState({});
-
     
     if (!initializedRef.current) {
       initializedRef.current = true;
-    //   let search = window.location.search;
-    //   let params = new URLSearchParams(search);
-    //   username = params.get('username')
-    //   console.log(username)
       if(props.username !== null && props.username.length > 0){
         findUser(props.username)
-        //findUser('6384ed0b5d3d57b6e834d7a3')
       }
       else{
-        getUser();
-        //setOtherUser(null)
-        otherUser.username = null
+        getUser()
+        otherUser.username = null;
       }
     }
 
     return (
         <div className='col-md-12'>
-            {/* <h2 className='logo-center'>User&apos;s Profile</h2>
-            <img src={logo} className='user-center-circle'/>
-            <h4 className='logo-center'>User&apos;s Username</h4>
-            <h4 className='logo-center'>User&apos;s Name</h4>
-            <h4 className='logo-center'>User&apos;s Email</h4> */}
             <div id="user" style={{visibility:"visible"}}>
                 <div className='card card-container'>
                     {otherUser.username == null &&
@@ -87,6 +76,24 @@ function Profile(props){
                     }
                     {otherUser.username == null &&
                     <h4 className='profile-left'>Email: {user.email}</h4>
+                    }
+                </div>
+                <div  className='results-box'>
+                    {otherUser.username == null &&
+                    <small className='box-headings'>{user.username}&apos;s HodgePodges</small>
+                    }
+                    {otherUser.username !== null &&
+                    <small className='box-headings'>{otherUser.username}&apos;s HodgePodges</small>
+                    }
+                    {otherUser.username == null &&
+                    <div className='sample-result'>
+                        <ol className='hp-list'>{user.hpList}</ol>
+                    </div>
+                    }
+                    {otherUser.username !== null &&
+                    <div>
+                        <ol className='hp-list'>{otherUser.hpList}</ol>
+                    </div>
                     }
                 </div>
             </div>

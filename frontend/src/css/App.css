@@ -115,6 +115,10 @@ ul.no-bullets {
   padding: 0;
 }
 
+.hp-list {
+  color: "red"
+}
+
 nav {
   height: 50px;
   background-color: #121121;

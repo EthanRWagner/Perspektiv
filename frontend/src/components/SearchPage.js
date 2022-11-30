@@ -52,7 +52,6 @@ function SearchPage (){
         catch (error) {
             console.log(error);
         }
-
     }
 
     // if user clicks on a user search result navigates to their profile page
