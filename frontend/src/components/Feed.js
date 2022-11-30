@@ -115,8 +115,22 @@ class Feed extends React.Component {
     //     date:...
     // }
 
-    incrementIndex = () => this.setState({index: this.state.index + 1});
-    decrementIndex = () => this.setState({index: this.state.index - 1});
+    incrementIndex = () => {
+        if(this.state.index + 1 < this.state.userFeed.length){
+            this.setState({index: this.state.index + 1})
+        }
+        else {
+            this.setState({index: 0})
+        }
+    };
+    decrementIndex = () => {
+        if(this.state.index - 1 >= 0){
+            this.setState({index: this.state.index - 1})
+        }
+        else {
+            this.setState({index: this.state.userFeed.length-1})
+        }
+    };
 
     hodgePodgeEnum = () => {
       
@@ -247,8 +261,8 @@ class Feed extends React.Component {
                 </div>
             </div>
             {this.state.isOpen && <Popup
-                handleSubmit={this.updateHPDB}
                 handleClose={this.togglePopup}
+                currUser={this.state.user}
                 />}
         </div>
         );

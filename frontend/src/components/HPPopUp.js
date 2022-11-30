@@ -42,6 +42,7 @@ const Popup = props => {
             return response;
         }
         catch (error) {
+            console.log(error)
             return false;
         }
     }
