@@ -70,7 +70,6 @@ app.get("/users/:id", async (req, res) => {
   const id = req.params["id"];
   let result = await userServices.findUserById(id);
   console.log(result)
-  console.log("here2")
   if (result === undefined || result === null) {
     res.status(404).send("Resource not found.");
   } else {
@@ -83,7 +82,6 @@ app.get("/findUser/:username", async (req, res) => {
   const username = req.params["username"];
   let result = await userServices.findUserByUserName(username);
   console.log(result)
-  console.log("here")
   if (result === undefined || result === null) {
     res.status(404).send("Resource not found.");
   } else {
@@ -296,6 +294,11 @@ app.post("/createHP", async(req, res) =>{
     res.status(400).send("Invalid Hodgepodge name");
   }
   console.log(name);
+
+  const prevHP = await hodgepodgeServices.findHodgepodgeByName(name);
+  if(prevHP.length > 0){
+    return res.status(400).send("Hodgepodge name was taken");
+  }
   const hp = await Hodgepodge.create({
     name: name
   });

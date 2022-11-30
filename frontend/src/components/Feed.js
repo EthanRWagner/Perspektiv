@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import logo from "../img/Perspektiv.gif";
 import Comment from "../components/Comment";
+import Popup from './HPPopUp';
 import "../css/Feed.css";
 // import styled from "styled-components";
 
@@ -21,7 +22,8 @@ class Feed extends React.Component {
                     "caption":"Press the REFRESH button",
                     "hpList":["<<default>>"],
                     "comments":[],
-                    "date":"Loading..."}]
+                    "date":"Loading..."}],
+        isOpen: false
     }
 
     getFeed = async () => {
@@ -176,6 +178,33 @@ class Feed extends React.Component {
 
         return commList;
     };
+ 
+    togglePopup = () => {
+        this.setIsOpen(!this.state.isOpen);
+    }
+
+    updateHPDB = (hp) => { 
+        this.makeHPCall(hp).then( result => {
+        if (result && result.status === 400){
+            console.log("HodgePodge name already taken. Try a different one.");
+            return 2;
+        }
+        else
+            return 1;
+        });
+    }
+
+    makeHPCall = async (hp) => {
+        try {
+            const response = await axios.post(`http://localhost:${port}/createHP`, {name: hp});
+            await axios.post(`http://localhost:${port}/joinHP`, {username: this.user.username, hp: hp});
+            return response;
+        }
+        catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
 
     render() {
         return(
@@ -184,6 +213,7 @@ class Feed extends React.Component {
                 <button className='refresh-button' onClick={this.getFeed}>REFRESH</button>
                 <b className='feed-heading'>Recent Feed for {this.state.user.fullName}</b>
                 <button className='create-post-button' onClick={() => window.open("./createPost", "_self")}>+ NEW POST</button>
+                <button className='create-HP-button' onClick={() => this.togglePopup()}>+ HodgePodge</button>
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
@@ -216,6 +246,10 @@ class Feed extends React.Component {
                     </button>
                 </div>
             </div>
+            {this.state.isOpen && <Popup
+                handleSubmit={this.updateHPDB}
+                handleClose={this.togglePopup}
+                />}
         </div>
         );
     }

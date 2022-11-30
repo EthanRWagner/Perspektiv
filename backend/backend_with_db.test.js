@@ -9,27 +9,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 mongoose.set("debug", true);
 
-mongoose
-  .connect(
-    "mongodb+srv://" +
-      process.env.MONGO_USER +
-      ":" +
-      process.env.MONGO_PWD +
-      "@" +
-      process.env.MONGO_CLUSTER +
-      "/" +
-      process.env.MONGO_DB +
-      "?retryWrites=true&w=majority",
-    // "mongodb://localhost:27017/users",
-    {
-      useNewUrlParser: true, //useFindAndModify: false,
-      useUnifiedTopology: true,
-    }
-  )
-  .catch((error) => console.log(error));
-
-
-
 const tempUser = {
   _id: mongoose.Types.ObjectId(),
   fullName: "random person",
@@ -100,7 +79,6 @@ test("Find by similar username -- success", async () =>{
 test("Find by similar username 2 -- success", async () =>{
   const r = await user.findSimilarUsername("ano");
   const res = r[0];
-  console.log(res);
   expect(res).toBe(undefined);
 });
 
@@ -113,7 +91,6 @@ test("Find user by ID -- success", async () =>{
 
 test("Find user by ID 2 -- success", async () =>{
   const res = await user.findUserById(mongoose.Types.ObjectId());
-  console.log(res)
   expect(res).toBe(null);
 });
 
@@ -122,7 +99,6 @@ test("Join HP -- success", async () =>{
   const r = await user.findUserByUserName("testuser1");
   const res = r[0];
   let a = ['HPtest'];
-  console.log(res.hpList);
   expect(res.hpList).toEqual(a);
 });
 
@@ -187,6 +163,24 @@ test("Find hodgepodge 2 -- success", async () =>{
   expect(res).toBe(undefined);
 });
 
+test("Find similar hodgepodge name -- success", async () =>{
+  const r = await hp.findSimilarHodgepodgeName("HP");
+  const res = r[0];
+  expect(res.name).toBe("HPtest");
+});
+
+test("Find similar hodgepodge name 2 -- success", async () =>{
+  const r = await hp.findSimilarHodgepodgeName("test");
+  const res = r[0];
+  expect(res).toBe(undefined);
+});
+
+test("Find similar hodgepodge name 3 -- success", async () =>{
+  const r = await hp.findSimilarHodgepodgeName("asd");
+  const res = r[0];
+  expect(res).toBe(undefined);
+});
+
 test("Get post -- success", async () => {
   const r = await post.getPosts();
   expect(r.length).toBeGreaterThanOrEqual(1);
@@ -196,7 +190,6 @@ test("Update HP from list -- success", async() =>{
   await post.updateHP("google.com", "HPtest2");
   const r = await post.getPosts();
   const res = r[r.length-1];
-  console.log(res);
   const arr = ["HPtest", "HPtest2"];
   expect(res.hpList).toEqual(arr);
 });
@@ -205,7 +198,6 @@ test("Comment to post -- success", async () =>{
   await post.addComment("google.com", "testuser1", "this is a test comment");
   const r = await post.getPosts();
   const res = r[r.length-1];
-  console.log(res.comments);
   const arr = [{username: 'testuser1', comment : 'this is a test comment'}];
   expect(res.comments).toEqual(arr);
 });

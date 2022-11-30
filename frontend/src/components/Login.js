@@ -92,10 +92,10 @@ function Login() {
                     onClick={LoginForm} />
                 </div>
             </Form>
-            {loginState && <t>Login failed, please try again.</t>}
+            {loginState && <small>Login failed, please try again.</small>}
         </div>
         <div className='regLink'>
-            <t>Don&apos;t Have An Account?&nbsp;</t>
+            <small>Don&apos;t Have An Account?&nbsp;</small>
             <Link to="/register">Register Here</Link>
         </div>
     </div>);
