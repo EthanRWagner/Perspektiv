@@ -79,8 +79,8 @@ function SearchPage (){
             url = "http://localhost:3000/profile";
         else
             url = "http://localhost:3000/profile?username=" + userName;
-        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-        if (newWindow) newWindow.opener = null
+        const newWindow = window.open(url, '_self', 'noopener,noreferrer');
+        if (newWindow) newWindow.opener = null;
     }
 
     // function caller to go to user profile page
@@ -125,11 +125,11 @@ function SearchPage (){
         for (let i = 0; i < people_results.length; i++) {
             if(user.username === people_results[i].username){
                 people.push(
-                    <div className='search-item' onClick={onClickUser(people_results[i].username)}>
-                        <small key={people_results[i].username}
+                    <div className='search-item'>
+                        <a key={people_results[i].username} href={onClickUser(people_results[i].username)}
                                className="descr">
                                [YOU]&emsp;{people_results[i].username}
-                        </small>
+                        </a>
                     </div>);
             }
             else{

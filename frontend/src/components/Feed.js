@@ -164,8 +164,8 @@ class Feed extends React.Component {
             url = "http://localhost:3000/profile";
         else
             url = "http://localhost:3000/profile?username=" + userName;
-        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-        if (newWindow) newWindow.opener = null
+        const newWindow = window.open(url, '_self', 'noopener,noreferrer');
+        if (newWindow) newWindow.opener = null;
     }
 
     onClickUser = (userName) => {
