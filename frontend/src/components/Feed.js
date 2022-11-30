@@ -234,16 +234,16 @@ class Feed extends React.Component {
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
-                    <iframe className='content-style' src={this.state.userFeed[this.state.index].url}>
+                    <iframe className='content-style' src={this.state.userFeed[this.state.index]?.url}>
                     </iframe>
                 </div>
                 <div className='descr-container'>
-                    <small className="descr">{this.state.userFeed[this.state.index].date} </small>
+                    <small className="descr">{this.state.userFeed[this.state.index]?.date} </small>
                     <br/>
                     {this.hodgePodgeEnum()}
                     <br/>
                     <br/>
-                    <small className="descr">{this.state.userFeed[this.state.index].caption}</small>
+                    <small className="descr">{this.state.userFeed[this.state.index]?.caption}</small>
                 </div>
                 <div className='comment-container'>
                     <b className="descr">COMMENTS</b>
