@@ -91,26 +91,6 @@ app.get("/findUser/:username", async (req, res) => {
 });
 
 
-// app.delete("/users/:id", async (req, res) => {
-//   const id = req.params["id"];
-//   if (deleteUserById(id)) res.status(204).end();
-//   else res.status(404).send("Resource not found.");
-// });
-
-// async function deleteUserById(id) {
-//   try {
-//     if (await userServices.deleteUser(id)) return true;
-//   } catch (error) {
-//     console.log(error);
-//     return false;
-//   }
-// }
-
-// app.post("/users", async (req, res) => {
-//   const user = req.body;
-//   if (await userServices.addUser(user)) res.status(201).end();
-//   else res.status(500).end();
-// });
 
 app.patch("/users/:id", async (req, res) => {
   const id = req.params["id"];
@@ -123,18 +103,9 @@ app.patch("/users/:id", async (req, res) => {
   }
 });
 
-// async function updateUser(id, updatedUser) {
-//   try {
-//     const result = await userModel.findByIdAndUpdate(id, updatedUser);
-//     if (result) return 204;
-//     else return 404;
-//   } catch (error) {
-//     console.log(error);
-//     return 500;
-//   }
-// };
 
 
+// create a new user
 app.post("/signup", async (req, res) =>{
     const { fullName, email, username, password, confPassword } = req.body;
 
@@ -172,7 +143,7 @@ app.post("/signup", async (req, res) =>{
       }
     }
  });
-
+// get the HP and allow user to join if the hodgepodge is available
 app.post("/joinHP", async(req, res) => {
   const {username, hp} = req.body;
   if(!username){
@@ -190,7 +161,7 @@ app.post("/joinHP", async(req, res) => {
   }
   return res.status(404).send("Unable to join hodgepodge");
 });
-
+// allow user to signin with the correct username and password
 app.post("/signin", async(req, res) => {
   const {username, password} = req.body;
   if(!username) {
@@ -210,7 +181,7 @@ app.post("/signin", async(req, res) => {
   }
   return res.status(404).send("User not found");
 });
-
+// allow user to create a post
 app.post("/post", async(req, res) =>{
   try{
     const{url, caption, hpList} = req.body;
@@ -249,7 +220,7 @@ app.post("/post", async(req, res) =>{
       }
   return res.status(400).send("Unable to create post");
 });
-
+// get all the post from the database
 app.get("/post", async (req, res) => {
   try {
     const postss_from_db = await postServices.getPosts();
@@ -259,7 +230,7 @@ app.get("/post", async (req, res) => {
     res.status(500).send("An error ocurred in the server.");
   }
 });
-
+// add HP to the hpList of current post
 app.post("/addHP", async(req, res) =>{
     const{url, hp} = req.body;
     if(!(url && hp)){
@@ -271,7 +242,7 @@ app.post("/addHP", async(req, res) =>{
     }
     return res.status(404).send("Unable to edit post");
 });
-
+// add comment to the post
 app.post("/comment", async(req, res) =>{
   const{url, username ,comment} = req.body;
   if(!(url && username && comment)){
@@ -284,7 +255,7 @@ app.post("/comment", async(req, res) =>{
   return res.status(404).send("Unable to edit post");
 });
 
-
+// get the name of HP and create if the name is available 
 app.post("/createHP", async(req, res) =>{
   const {name} = req.body;
   if(!name){

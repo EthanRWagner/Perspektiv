@@ -46,9 +46,11 @@ function Profile(props){
         findUser(props.username);
         getUser();
         setStatus(2);
+        console.log("not changing correctly?");
       }
       else{
         getUser();
+        console.log("should change");
         setStatus(1);
         otherUser.username = null;
       }
