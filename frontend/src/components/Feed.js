@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState, useRef} from 'react';
 import logo from "../img/Perspektiv.gif";
 import Comment from "../components/Comment";
+import Popup from './HPPopUp';
 import { useNavigate} from "react-router-dom";
 import "../css/Feed.css";
 // import styled from "styled-components";
@@ -56,13 +57,17 @@ function Feed() {
     }
 
     const [user, setUser] = useState({});
+    
     const [index, setIndex] = useState(0);
+    
     const [userFeed, setFeed] = useState([{
                 "url":logo,
                 "caption":"Press the REFRESH button",
                 "hpList":["<<default>>"],
                 "comments":[],
                 "date":"Loading..."}]);
+    const [isOpen, setIsOpen] = useState(false);
+    
     const initializedRef = useRef(false);
     
     if (!initializedRef.current) {
@@ -184,13 +189,39 @@ function Feed() {
 
         return commList;
     };
+ 
+    const togglePopup = () => {
+        setIsOpen(!isOpen);
+    }
+
+    function updateHPDB(hp) { 
+        makeHPCall(hp).then( result => {
+        if (result && result.status === 404)
+            console.log("HodgePodge name already taken. Try a different one.");
+        });
+    }
+
+    async function makeHPCall(hp) {
+        try {
+            const response = await axios.post(`http://localhost:${port}/createHP`, {name: hp});
+            await axios.post(`http://localhost:${port}/joinHP`, {username: user.username, hp: hp});
+            return response;
+        }
+        catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
 
     return (
         <div>
             <div className='subheader-cont'>
                 <button className='refresh-button' onClick={getFeed}>REFRESH</button>
                 <b className='feed-heading'>Recent Feed for {user.fullName}</b>
-                <button className='create-post-button' onClick={() => navigate('../createPost')}>+ NEW POST</button>
+                <div className='button-div'>
+                    <button className='create-post-button' onClick={() => navigate('../createPost')}>+ NEW POST</button>
+                    <button className='create-HP-button' onClick={() => togglePopup()}>+ HodgePodge</button>
+                </div>
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
@@ -223,6 +254,10 @@ function Feed() {
                     </button>
                 </div>
             </div>
+            {isOpen && <Popup
+                handleSubmit={updateHPDB}
+                handleClose={togglePopup}
+                />}
         </div>
     );
 }

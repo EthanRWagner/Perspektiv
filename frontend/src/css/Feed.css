@@ -14,7 +14,7 @@
 .post-section-container {
     display: block;
     position: absolute;
-    top: 15%;
+    top: 180px;
     left: 10%;
     width: 80%;
     height: 90%;
@@ -94,7 +94,7 @@
 }
 
 .button-container {
-    background-color: white;
+    background-color: transparent;
     border-color: black;
     position: absolute;
     top: 40%;
@@ -112,7 +112,7 @@
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;
-    background-color: white;
+    background-color: transparent;
     border-color: black;
     color: black;
     text-align: center;
@@ -129,7 +129,7 @@
     margin-left: auto;
     margin-right: auto;
     border-radius: 50%;
-    background-color: white;
+    background-color: transparent;
     color: black;
     border-color: black;
     text-align: center;
@@ -180,6 +180,14 @@
     color:blue
 }
 
+.button-div {
+    display: inline-block;
+    height: 90px;
+    width:200px;
+    position: absolute;
+    right: 0%;
+}
+
 .create-post-button {
     position: absolute;
     font-family: 'Courier New', Courier, monospace;
@@ -189,6 +197,29 @@
     border:none;
     width: 200px;
     height: 40px;
-    right: 0%;
+    top: 0px;
+}
+
+.create-HP-button {
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    background-color: #121121;
+    color: #ed009c;
+    border:none;
+    width: 200px;
+    height: 40px;
+    bottom: 0px;
+}
+
+.create-button {
+    position: relative;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #121121;
+    color: #ed009c;
+    border:none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 8px;
 }
 
