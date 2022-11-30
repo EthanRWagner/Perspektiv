@@ -277,10 +277,11 @@ app.post("/createHP", async(req, res) =>{
   }
   return res.status(404).send("Hodgepodge name is not available");
 });
-// edit profile for user, accept the info from front end and call database to change data
-app.post("/editProfile", async(req, res) =>{
+
+app.patch("/editProfile", async(req, res) =>{
   const{username, newUsername, newEmail, newPassword, newConfPassword} = req.body;
-  if(newUsername){
+  console.log(newEmail);
+  if(newUsername && username !== newUsername){
     const checkUser = await userServices.findUserByUserName(newUsername);
     if(checkUser.length > 0){
       return res.status(406).send("Username existed");

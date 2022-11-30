@@ -14,6 +14,10 @@ function EditProfile(){
         username: "", email: "", password: "", confirmPassword: ""
     });
 
+    const [updatedUser, setUpdatedUser] = useState({
+        username: "", newUsername: "", newEmail: "", newPassword: "", newConfPassword: ""
+    })
+
     const getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
         try {
@@ -34,49 +38,56 @@ function EditProfile(){
 
     function handleChange(event) {
         const {name, value} = event.target;
-        if (name === "username") {
-            setUser({
-                username: value, 
-                email: user['email'], 
-                password: user['password'], 
-                confirmPassword: user['confirmPassword']
+        if (name === "newUsername") {
+            if(user.username !== updatedUser.newUsername){
+                setUpdatedUser({
+                    username: user["username"],
+                    newUsername: value, 
+                    newEmail: null, 
+                    newPassword: null, 
+                    newConfPassword: null
+                }); 
+            }
+        }
+        else if(name === "newEmail"){
+            setUpdatedUser({
+                username: user['username'],
+                newUsername: null, 
+                newEmail: value, 
+                newPassword: null, 
+                newConfassword: null
             }); 
         }
-        else if(name === "email"){
-            setUser({
+        else if(name === "newPassword"){
+            setUpdatedUser({
                 username: user['username'], 
-                email: value, 
-                password: user['password'], 
-                confirmPassword: user['confirmPassword']
-            }); 
-        }
-        else if(name === "password"){
-            setUser({
-                username: user['username'], 
-                email: user['email'], 
-                password: value, 
-                confirmPassword: user['confirmPassword']}); 
+                newUsername: null, 
+                newEmail: null, 
+                newPassword: value, 
+                newConfPassword: updatedUser['newConfPassword']}); 
         }
         else {
-            setUser({
+            setUpdatedUser({
                 username: user['username'], 
-                email: user['email'], 
-                password: user['password'], 
-                confirmPassword: value}); 
+                newUsername: null, 
+                newEmail: null, 
+                newPassword: updatedUser['newPassword'], 
+                newConfPassword: value}); 
         }
     }
 
-    function updateUser(user){
-        attemptUpdate(user).then(result => {
-            if (result && result.status != 201) {
+    function updateUser(){
+        attemptUpdate(updatedUser).then(result => {
+            if (result && result.status != 202) {
                 console.log("USER NOT FOUND");
+                console.log(result)
             }
         })
     }
 
     async function attemptUpdate(person){
         try {
-            const response = await axios.patch(`http://localhost:${port}/edit`, person);
+            const response = await axios.patch(`http://localhost:${port}/editProfile`, person);
             return response;
         }
         catch (error) {
@@ -85,12 +96,12 @@ function EditProfile(){
     }
 
     function editForm(){
-        updateUser(user)
+        updateUser()
     }
 
     function checkPassword(){
-        if(user.password === user.confirmPassword){
-            updateUser(user)
+        if(updatedUser.password === updatedUser.confirmPassword){
+            updateUser()
         }
         else{
             console.log("passwords did not match")
@@ -112,9 +123,8 @@ function EditProfile(){
                         <label htmlFor="username">New Username</label>
                         <Input
                             type="text"
-                            name="username"
-                            id="username"
-                            value={user.username}
+                            name="newUsername"
+                            id="newUsername"
                             onChange={handleChange}/>
                     </div>
                     <div className="form-group">
@@ -126,9 +136,8 @@ function EditProfile(){
                         <label htmlFor="username">New Email</label>
                         <Input
                             type="text"
-                            name="email"
-                            id="email"
-                            value={user.email}
+                            name="newEmail"
+                            id="newEmail"
                             onChange={handleChange}/>
                     </div>
                     <div className="form-group">
@@ -140,16 +149,16 @@ function EditProfile(){
                         <label htmlFor="password">New Password</label>
                         <Input
                             type="text"
-                            name="password"
-                            id="password"
+                            name="newPassword"
+                            id="newPassword"
                             onChange={handleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Confirm New Password</label>
                         <Input
                             type="text"
-                            name="confirmPassword"
-                            id="confirmPassword"
+                            name="newConfirmPassword"
+                            id="newConfirmPassword"
                             onChange={handleChange}/>
                     </div>
                     <div className="form-group">
