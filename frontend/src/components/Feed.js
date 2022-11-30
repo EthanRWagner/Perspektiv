@@ -115,8 +115,8 @@ class Feed extends React.Component {
     //     date:...
     // }
 
-    incrementIndex = () => this.setIndex(this.state.index + 1);
-    decrementIndex = () => this.setIndex(this.state.index - 1);
+    incrementIndex = () => this.setState({index: this.state.index + 1});
+    decrementIndex = () => this.setState({index: this.state.index - 1});
 
     hodgePodgeEnum = () => {
       
@@ -180,7 +180,7 @@ class Feed extends React.Component {
     };
  
     togglePopup = () => {
-        this.setIsOpen(!this.state.isOpen);
+        this.setState({isOpen: !this.state.isOpen});
     }
 
     updateHPDB = (hp) => { 

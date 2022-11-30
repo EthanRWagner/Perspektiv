@@ -189,7 +189,8 @@
 }
 
 .create-post-button {
-    position: absolute;
+    position: relative;
+    float: right;
     font-family: 'Courier New', Courier, monospace;
     font-size: large;
     background-color: #121121;
@@ -201,7 +202,9 @@
 }
 
 .create-HP-button {
-    position: absolute;
+    position: relative;
+    float: right;
+    margin-right: 10px;
     font-family: 'Courier New', Courier, monospace;
     font-size: large;
     background-color: #121121;

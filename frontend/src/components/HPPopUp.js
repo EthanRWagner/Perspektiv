@@ -1,7 +1,9 @@
 import React, {useState} from "react";
+import axios from 'axios';
 import "../css/HPPopUp.css";
 
 // src: https://www.cluemediator.com/create-simple-popup-in-reactjs
+const port = 8675;
 
 const Popup = props => {
 
@@ -9,26 +11,39 @@ const Popup = props => {
 
     const[status, setStatus] = useState(0);
 
+    const user = props.currUser;
+
     function handleChange(event) {
         const {name, value} = event.target;
         if (name === "newHP") setNewHP(value);
     }
 
-    function submitNewHP() {
+    function updateHPDB() {
         setStatus(0);
-        try{
-            if (newHP.length >= 1) {
-                setStatus(props.handleSubmit(newHP));
-                setNewHP("");
-            } else {
-                setStatus(3);
-                throw "Invalid HodgePodge Name."
-            }
+        if (newHP.length >= 1) {
+            makeHPCall(newHP).then( result => {
+                if (result && (result.status === 201)){
+                    setStatus(1);
+                }
+                else{
+                    setStatus(2);
+                }
+                });
+        } else {
+            setStatus(3);
+        } 
+        setNewHP("");
+    }
+
+    async function makeHPCall(hp) {
+        try {
+            const response = await axios.post(`http://localhost:${port}/createHP`, {name: hp});
+            await axios.post(`http://localhost:${port}/joinHP`, {username: user.username, hp: hp});
+            return response;
         }
-        catch(error){
-            setStatus(2);
+        catch (error) {
+            return false;
         }
-        
     }
 
     return (
@@ -47,10 +62,10 @@ const Popup = props => {
                         onChange={handleChange}>
                     </textarea>
                 </p>
-                <button className='create-button' onClick={submitNewHP}>Create</button>
-                {(status === 1) && <small>HodgePodge Created!</small>}
-                {(status === 2) && <small>That Name Is Taken. Try A Different One.</small>}
-                {(status === 3) && <small>Invalid HodgePodge name.</small>}
+                <button className='create-button' onClick={updateHPDB}>Create</button>
+                {(status === 1) && <small name="good-text">&emsp;&emsp;HodgePodge Created!</small>}
+                {(status === 2) && <small name="bad-text">&emsp;&emsp;HodgePodge name already taken. Try a different one.</small>}
+                {(status === 3) && <small name="bad-text">&emsp;&emsp;Invalid HodgePodge name.</small>}
             </>
         </div>
         </div>
