@@ -308,9 +308,10 @@ app.post("/createHP", async(req, res) =>{
   return res.status(404).send("Hodgepodge name is not available");
 });
 
-app.post("/editProfile", async(req, res) =>{
+app.patch("/editProfile", async(req, res) =>{
   const{username, newUsername, newEmail, newPassword, newConfPassword} = req.body;
-  if(newUsername){
+  console.log(newEmail);
+  if(newUsername && username !== newUsername){
     const checkUser = await userServices.findUserByUserName(newUsername);
     if(checkUser.length > 0){
       return res.status(406).send("Username existed");
@@ -321,7 +322,7 @@ app.post("/editProfile", async(req, res) =>{
     }
   }
   if(newEmail){
-    const checkUser = await userServices.findUserByEmail(email);
+    const checkUser = await userServices.findUserByEmail(newEmail);
     if(checkUser.length > 0){
       return res.status(406).send("Email existed");
     }
@@ -334,7 +335,7 @@ app.post("/editProfile", async(req, res) =>{
     if(newPassword != newConfPassword){
       return res.status(404).send("Password and confirm password mismatch");
     }
-    const encryptedUserPassword = await bcrypt.hash(password, 10);
+    const encryptedUserPassword = await bcrypt.hash(newPassword, 10);
     const returnVal = await userServices.changePassword(username, encryptedUserPassword);
     if(!returnVal){
       return res.status(404).send("Unable to change password");
