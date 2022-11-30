@@ -296,6 +296,11 @@ app.post("/createHP", async(req, res) =>{
     res.status(400).send("Invalid Hodgepodge name");
   }
   console.log(name);
+
+  const prevHP = await hodgepodgeServices.findHodgepodgeByName(name);
+  if(prevHP.length > 0){
+    return res.status(400).send("Hodgepodge name was taken");
+  }
   const hp = await Hodgepodge.create({
     name: name
   });

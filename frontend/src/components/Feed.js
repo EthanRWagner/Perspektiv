@@ -196,8 +196,12 @@ function Feed() {
 
     function updateHPDB(hp) { 
         makeHPCall(hp).then( result => {
-        if (result && result.status === 404)
+        if (result && result.status === 400){
             console.log("HodgePodge name already taken. Try a different one.");
+            return 2;
+        }
+        else
+            return 1;
         });
     }
 
