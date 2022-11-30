@@ -16,14 +16,12 @@ function CreatePostPage (){
 
     async function makePostCall(post) {
         try {
-        console.log(post);
-        const response = await axios.post(`http://localhost:${port}/post`, post);
-        console.log(response);
-        return response
+            const response = await axios.post(`http://localhost:${port}/post`, post);
+            return response;
         }
         catch (error) {
-        console.log(error);
-        return false;
+            console.log(error);
+            return false;
         }
     }
     

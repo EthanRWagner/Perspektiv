@@ -15,7 +15,7 @@ function Comment (props) {
     }
 
     function postComment() {
-        if (comment.length > 1) {
+        if (comment.length >= 1) {
             props.handleSubmit(comment);
             setComment("");
         } else {
