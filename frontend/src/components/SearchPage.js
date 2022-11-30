@@ -38,7 +38,6 @@ function SearchPage (){
         }
     }
 
-    //ask nate what this does
     if (!initializedRef.current) {
         initializedRef.current = true;
         getUser().then(setSearch({search_HP: location.state.hp_list, search_User: location.state.user_list}));
@@ -66,6 +65,7 @@ function SearchPage (){
     async function joinHPSearch (hp_name) {
         try {
             await axios.post(`http://localhost:${port}/joinHP`, {username: user.username, hp: hp_name});
+            window.location.reload(false);
         }
         catch (error) {
             console.log(error);
