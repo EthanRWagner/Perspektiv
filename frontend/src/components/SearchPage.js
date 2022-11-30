@@ -61,7 +61,6 @@ function SearchPage (){
         catch (error) {
             console.log(error);
         }
-
     }
 
     const navigateToUserPage = (userName) => {
