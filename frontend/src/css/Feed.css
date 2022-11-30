@@ -204,7 +204,6 @@
 .create-HP-button {
     position: relative;
     float: right;
-    margin-right: 10px;
     font-family: 'Courier New', Courier, monospace;
     font-size: large;
     background-color: #121121;
@@ -225,4 +224,3 @@
     margin-right: auto;
     margin-bottom: 8px;
 }
-

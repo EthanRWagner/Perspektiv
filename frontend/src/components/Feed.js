@@ -226,8 +226,11 @@ class Feed extends React.Component {
             <div className='subheader-cont'>
                 <button className='refresh-button' onClick={this.getFeed}>REFRESH</button>
                 <b className='feed-heading'>Recent Feed for {this.state.user.fullName}</b>
-                <button className='create-post-button' onClick={() => window.open("./createPost", "_self")}>+ NEW POST</button>
-                <button className='create-HP-button' onClick={() => this.togglePopup()}>+ HodgePodge</button>
+                <div className='button-div'>
+                    <button className='create-post-button' onClick={() => window.open("./createPost", "_self")}>+ NEW POST</button>
+                    <button className='create-HP-button' onClick={() => this.togglePopup()}>+ HodgePodge</button>
+                </div>
+                
             </div>
             <div className='post-section-container'>
                 <div className='post-container'>
