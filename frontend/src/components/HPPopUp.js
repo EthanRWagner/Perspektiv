@@ -64,9 +64,11 @@ const Popup = props => {
                     </textarea>
                 </p>
                 <button className='create-button' onClick={updateHPDB}>Create</button>
-                {(status === 1) && <small name="good-text">&emsp;&emsp;HodgePodge Created!</small>}
-                {(status === 2) && <small name="bad-text">&emsp;&emsp;HodgePodge name already taken. Try a different one.</small>}
-                {(status === 3) && <small name="bad-text">&emsp;&emsp;Invalid HodgePodge name.</small>}
+                <div className="alert-box">
+                    {(status === 1) && <small name="good-text">HodgePodge Created!</small>}
+                    {(status === 2) && <small name="bad-text">HodgePodge name already taken. Try a different one.</small>}
+                    {(status === 3) && <small name="bad-text">Invalid HodgePodge name.</small>}
+                </div>
             </>
         </div>
         </div>
