@@ -3,15 +3,18 @@ CSC 307 Web Application
 
 # To set up on your machine:
 1. clone repo
-2. run `npm install` in root, frontend and backend
+2. run `npm install --legeacy-peer-deps` in root, frontend and backend
+3. Add .env file to the backend directory which is only granted to people with permission
+
 
 # To run:
-1. run `npmrun dev` in backend
-2. run `npm start` in frontend
+1. Navigate to backend directory `npm run dev` to start the backend
+2. Navigate to frontend driectory `npm start` to start the frontend which will open the application in browser
 
 # Code Style:
 Uses Prettier - ESLint
-Properties:
+Linting is currently disabled due to impeding development
+Ideal Properties:
    - Indent: Tab
    - Linebreak: 0
    - Quotes: double
