@@ -8,16 +8,15 @@ const bcrypt = require('bcrypt');
 const userServices = require("./models/user-services");
 const postServices = require("./models/post-services");
 const hodgepodgeServices = require("./models/hodgepodge-services");
-const { findOne } = require("./models/user");
+
 const Post = require("./models/post");
-const { findPostByPostBody } = require("./models/post-services");
 
 const app = express();
 const port = 8675;
 
 app.use(cors());
 app.use(express.json());
-
+//get a list of user with their information
 app.get("/users", async (req, res) => {
   const username = req.query["username"];
   if (username) {
@@ -28,13 +27,14 @@ app.get("/users", async (req, res) => {
     res.status(500).send("An error ocurred in the server.");
   }
 });
-
+// the search will find the similar name and hp as the user pass it from the front end
 app.get("/search", async (req, res) => {
   const username = req.query["username"];
   const hp = req.query["hp"];
   if (username) {
     let result = await userServices.findSimilarUsername(username);
-    console.log(result)
+    console.log(result);
+    //check for result
     if (result === undefined || result === null) {
       res.status(404).send("Resource not found.");
     } else {
@@ -45,6 +45,7 @@ app.get("/search", async (req, res) => {
   else if (hp) {
     let result = await hodgepodgeServices.findSimilarHodgepodgeName(hp);
     console.log(result)
+    //check for result
     if (result === undefined || result === null) {
       res.status(404).send("Resource not found.");
     } else {
@@ -56,7 +57,7 @@ app.get("/search", async (req, res) => {
     res.status(500).send("Invalid request");
   }
 });
-
+// check if it is a valid email using regular expression
 function isEmail(email) {
   var emailFormat = /^[a-zA-Z0-9_.+]*[a-zA-Z][a-zA-Z0-9_.+]*@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   if (email !== '' && email.match(emailFormat)) { return true; }
@@ -64,7 +65,7 @@ function isEmail(email) {
   return false;
 }
 
-
+// get user id when id was passed in
 app.get("/users/:id", async (req, res) => {
   const id = req.params["id"];
   let result = await userServices.findUserById(id);
@@ -77,6 +78,7 @@ app.get("/users/:id", async (req, res) => {
   }
 });
 
+// get user by username when username is passed in from frontend
 app.get("/findUser/:username", async (req, res) => {
   const username = req.params["username"];
   let result = await userServices.findUserByUserName(username);
@@ -90,7 +92,7 @@ app.get("/findUser/:username", async (req, res) => {
 });
 
 
-
+//
 app.patch("/users/:id", async (req, res) => {
   const id = req.params["id"];
   const updatedUser = req.body;
@@ -145,12 +147,14 @@ app.post("/signup", async (req, res) =>{
 // get the HP and allow user to join if the hodgepodge is available
 app.post("/joinHP", async(req, res) => {
   const {username, hp} = req.body;
+  //check for fields
   if(!username){
     return res.status(404).send("Need username");
   }
   if(!hp){
     return res.status(404).send("Need hodgepode");
   }
+  // check if hp is available to create
   const hpObject = await hodgepodgeServices.findHodgepodgeByName(hp);
   if(hpObject){
     const joinHP = await userServices.joinHP(username, hp);
@@ -163,12 +167,14 @@ app.post("/joinHP", async(req, res) => {
 // allow user to signin with the correct username and password
 app.post("/signin", async(req, res) => {
   const {username, password} = req.body;
+  //check for username and password
   if(!username) {
     return res.status(404).send("Need username");
   }
   if(!password) {
     return res.status(404).send("Need password");
   }
+  //validate user
   const tempUser = await userServices.findUserByUserName(username);
   console.log(tempUser);
   if(tempUser.length > 0){
@@ -184,40 +190,34 @@ app.post("/signin", async(req, res) => {
 app.post("/post", async(req, res) =>{
   try{
     const{url, caption, hpList} = req.body;
-
+    //check for fields
     if(!(url && hpList && caption)){
       return res.status(400).send("All fields are required");
     }
-    const post = await Post.create({
-      url: url,
-      caption: caption,
-      hpList: hpList,
-    });
-    if(post){
-      return res.status(201).send("Post Created");
+    for(var i = 0; i < hpList.length; i++){
+      const hp = await hodgepodgeServices.findHodgepodgeByName(hpList[i]);
+      if(hp.length == 0){
+       hpList.splice(i,1);
+      }
     }
+    console.log(hpList);
+    //create a post
+    if(hpList.length > 0){
+      const post = await Post.create({
+        url: url,
+        caption: caption,
+        hpList: hpList,
+      });
+      if(post){
+        return res.status(201).send("Post Created");
+      }
+    }
+    
     return res.status(400).send("Unable to create post");
   }
   catch(err){
     console.log(err);
   }
-  for (var i = 0; i < hpList.length; i++){
-        const hp = await hodgepodgeServices.findHodgepodgeByName(hpList[i]);
-        if(hp.length > 0){
-          arr.push(hp[0]);
-        }
-      }
-  if(arr.length > 0){
-        const post = await Post.create({
-          caption: caption,
-          hpList: arr,
-          url: url
-        });
-        if(post){
-          return res.status(201).send("Post Created");
-        }
-      }
-  return res.status(400).send("Unable to create post");
 });
 // get all the post from the database
 app.get("/post", async (req, res) => {
@@ -232,9 +232,11 @@ app.get("/post", async (req, res) => {
 // add HP to the hpList of current post
 app.post("/addHP", async(req, res) =>{
     const{url, hp} = req.body;
+    //check for url and hp to find in mongo
     if(!(url && hp)){
       return res.status(400).send("All fields are required");
     }
+    //add hp to the hpList for that url
     const updateHPList = await postServices.updateHP(url, hp);
     if(updateHPList){
       return res.status(202).send("Post Edited");
@@ -244,9 +246,11 @@ app.post("/addHP", async(req, res) =>{
 // add comment to the post
 app.post("/comment", async(req, res) =>{
   const{url, username ,comment} = req.body;
+  //check fields
   if(!(url && username && comment)){
     return res.status(400).send("All field require");
   }
+  //add comment to the post
   const comm = await postServices.addComment(url, username ,comment);
   if(comm){
     return res.status(201).send("Comment added");
@@ -257,6 +261,7 @@ app.post("/comment", async(req, res) =>{
 // get the name of HP and create if the name is available 
 app.post("/createHP", async(req, res) =>{
   const {name} = req.body;
+  //check field
   if(!name){
     return res.status(400).send("All field require");
   }
@@ -264,11 +269,12 @@ app.post("/createHP", async(req, res) =>{
     res.status(400).send("Invalid Hodgepodge name");
   }
   console.log(name);
-
+  //check if the hp name is available to use
   const prevHP = await hodgepodgeServices.findHodgepodgeByName(name);
   if(prevHP.length > 0){
     return res.status(400).send("Hodgepodge name was taken");
   }
+  //if available then create
   const hp = await Hodgepodge.create({
     name: name
   });
@@ -277,7 +283,7 @@ app.post("/createHP", async(req, res) =>{
   }
   return res.status(404).send("Hodgepodge name is not available");
 });
-
+//edit user's information
 app.patch("/editProfile", async(req, res) =>{
   const{username, newUsername, newEmail, newPassword, newConfPassword} = req.body;
   console.log(newEmail);
