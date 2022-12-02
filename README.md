@@ -1,4 +1,6 @@
 # Perspektiv
+![](https://github.com/anonymous-pterodactyl/Perspektiv/blob/main/frontend/src/img/Perspektiv.gif)
+
 For social media users who want a more creative, collaborative, and/or open contribution-based social media platform. 
 
 Perspektiv is a social media web application that allows multiple users to share their own perspectives on a trip, event, or anything shared among users in a single post. 
