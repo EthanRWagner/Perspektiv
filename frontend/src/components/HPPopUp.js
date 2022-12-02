@@ -6,18 +6,27 @@ import "../css/HPPopUp.css";
 const port = 8675;
 
 const Popup = props => {
-
+    // text state for the hodgepodge input field
     const[newHP, setNewHP] = useState("");
 
+    // state for alerts based on the status of the post call
+    // 0 default state, no alert
+    // 1 successful creation of HP
+    // 2 HP name already taken
+    // 3 invalid HP name
     const[status, setStatus] = useState(0);
 
+    // gets the user information from Feed componenet
     const user = props.currUser;
 
+    //updates the newHP state when the user types in the field
     function handleChange(event) {
         const {name, value} = event.target;
         if (name === "newHP") setNewHP(value);
     }
 
+    // when user submits entry creating the hodgepodge is attempted
+    // status is adjusted accordingly
     function updateHPDB() {
         setStatus(0);
         if (newHP.length >= 1) {
@@ -35,6 +44,7 @@ const Popup = props => {
         setNewHP("");
     }
 
+    // helper function to create HP and add HP to user's HP
     async function makeHPCall(hp) {
         try {
             const response = await axios.post(`http://localhost:${port}/createHP`, {name: hp});

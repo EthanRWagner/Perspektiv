@@ -3,17 +3,23 @@ import PropTypes from "prop-types";
 import "../css/Comment.css";
 
 function Comment (props) {
+    
+    // text state for comment input field 
     const [comment, setComment] = useState("");
 
+    // gets rid of eslint errors when passing in props
     Comment.propTypes = {
         handleSubmit: PropTypes.any.isRequired
     }
 
+    // updates the comment text state
     function handleChange(event) {
         const {name, value} = event.target;
         if (name === "comment") setComment(value);
     }
 
+    // submits the comment to be posted on the given post
+    // refreshes page so that the comment shows up on the post
     function postComment() {
         if (comment.length >= 1) {
             props.handleSubmit(comment);

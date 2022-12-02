@@ -38,29 +38,13 @@ function SearchPage (){
         }
     }
 
+    // when login references are established the user information is obtained and then
+    // search results are loaded
     if (!initializedRef.current) {
         initializedRef.current = true;
         getUser().then(setSearch({search_HP: location.state.hp_list, search_User: location.state.user_list}));
     }
     
-    // IF WE WANT TO ADD FEATURED HPS, USERS, AND POSTS
-    // <div className='featured-frame'>
-    //     <div  className='featured-box'>
-    //         <t className='box-headings'>Featured HodgePodges</t>
-    //         <MyGallery />
-    //     </div>
-
-    //     <div className='featured-box'>
-    //         <t className='box-headings'>Featured People</t>
-    //         <MyGallery />
-    //     </div>
-
-    //     <div className='featured-box'>
-    //         <t className='box-headings'>Featured Posts</t>
-    //         <MyGallery />
-    //     </div>
-    // </div>
-
     // posts to db that user joined db from search results
     async function joinHPSearch (hp_name) {
         try {

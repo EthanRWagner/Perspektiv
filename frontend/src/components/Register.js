@@ -6,6 +6,8 @@ import {isEmail} from "validator";
 import "../css/Register.css";
 
 // Validators
+
+// alerts the user that a field in the form is required
 const required = value => {
     if (!value) {
         return (<div className="alert alert-danger" role="alert">
@@ -14,6 +16,7 @@ const required = value => {
     }
 };
 
+// imported a checker for legitimate email format
 const valEmail = value => {
     if (!isEmail(value)) {
         return (<div className="alert alert-danger" role="alert">
@@ -22,6 +25,7 @@ const valEmail = value => {
     }
 };
 
+// currently restricting usernames to be less than 30 characters
 const valUsername = value => {
     if (value.length > 30) {
         return (<div className="alert alert-danger" role="alert">
@@ -30,6 +34,7 @@ const valUsername = value => {
     }
 };
 
+// currently password length has to be between 6 and 40 characters
 const valPassword = value => {
     if (value.length < 6 || value.length > 40) {
         return (<div className="alert alert-danger" role="alert">
@@ -39,15 +44,19 @@ const valPassword = value => {
 };
 
 function Register(props) {
+    // uses the model of a user, could get rid of confPassword in the model 
+    // can use confPassword in the person state and do not have to pass it in
+    // when the user object is created 
     const [person, setPerson] = useState({
         fullName: "", email: "", username: "", password: "", confPassword: "",
     });
 
-//gets rid of an eslint error
+    //gets rid of an eslint error
     Register.propTypes = {
         handleSubmit: PropTypes.any.isRequired
     }
 
+    // saves the text data entered in the Form fields
     function handleChange(event) {
         const {name, value} = event.target;
         if (name === "fullName") setPerson({
@@ -83,6 +92,8 @@ function Register(props) {
         });
     }
 
+    // when the register button is pressed the current state information
+    // is passed to the Register Page to be made into a user in the backend
     function registerForm() {
         if (person['password'] === person['confPassword'] && isEmail(person['email'])) {
             props.handleSubmit(person);
@@ -92,7 +103,9 @@ function Register(props) {
         }
     }
 
-    return (<div className="col-md-12">
+    // Would be nice to add confirmation/error messages like the login page
+    return (
+    <div className="col-md-12">
         <div className="card card-container">
             <h2>
                 Register

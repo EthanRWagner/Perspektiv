@@ -13,8 +13,10 @@ import "./css/App.css";
 import styled from "styled-components";
 import axios from 'axios'; 
 
+// backend port 
 const port = 8675;
 
+// Styled Link components
 const HomeButtonLink = styled(Link)`
 	display: inline;
 	position: absolute;
@@ -59,8 +61,10 @@ const ProfileLink = styled(Link)`
 `;
 
 function App() {
+	// state for a user
 	const [user, setUser] = useState({});
 	
+	// get user information
 	const getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
 		if(id)
@@ -78,6 +82,7 @@ function App() {
 		}
     }
 
+	// once login is successfull; obtains user info
 	const initializedRef = useRef(false);
     
     if (!initializedRef.current) {
@@ -85,6 +90,8 @@ function App() {
       getUser();
     }
 
+	// makes the navigation bar and updates based on if the user is logged in
+	// also sets up the routing for the website
 	return (
 		<div>
 			<BrowserRouter basename="/">
