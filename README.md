@@ -28,7 +28,17 @@ Unlike Instagram, Twitter, and Facebook, our product enables users to work with 
 # UI Prototype (Figma):
 Last Updated October 29, 2022
 
-https://www.figma.com/file/y4sYKrMqJDqsF7V8trsUqr/Storyboard?node-id=2%3A4&t=pW6ZKOGMVraMOftd-1
+[Perspektiv Figma](https://www.figma.com/file/y4sYKrMqJDqsF7V8trsUqr/Storyboard?node-id=2%3A4&t=pW6ZKOGMVraMOftd-1)
+
+# Use Case Diagram (diagrams.io):
+Last updated 21 October 2022
+
+[Use Case Diagram Wiki](https://github.com/anonymous-pterodactyl/Perspektiv/wiki/Use-Case-Diagram)
+
+# Class Diagram (diagrams.io):
+Last Updated 24 October 2022
+
+[Class Diagram Wiki](https://github.com/anonymous-pterodactyl/Perspektiv/wiki/Class-Diagram)
 
 # Code Style:
 Uses Prettier - ESLint
