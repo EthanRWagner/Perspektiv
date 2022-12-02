@@ -1,3 +1,6 @@
+// this funtional component defines the EditProfilePage and displays the EditProfile function component
+// Author: Liam Shaw
+
 import React from 'react';
 // import PropTypes from "prop-types";
 import EditProfile from './EditProfile'

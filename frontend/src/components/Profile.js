@@ -1,3 +1,6 @@
+// this file defines the functional component for the profile
+// Author: Ethan Wagner, Liam Shaw
+
 import React, {useState, useRef} from 'react';
 import logo from '../img/Perspektiv.gif'
 import "../css/App.css"
@@ -9,12 +12,15 @@ import "../css/SearchPage.css";
 
 const port = 8675;
 
+
+// Profile takes in a prop which should be filled a user other than the logged in user 
 function Profile(props){
 
     const [status, setStatus] = useState(0);
     const [user, setUser] = useState({});
     const [otherUser, setOtherUser] = useState({});
 
+    // getUser grabs the current logged in user to display their information
     const getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
         try {
@@ -26,7 +32,7 @@ function Profile(props){
         }
     }
 
-
+    // findUser grabs the user being serched for a displays their information on the page
     const findUser = async (username) => {
         try {
             var response = await axios.get(`http://localhost:${port}/findUser/${username}`)

@@ -1,3 +1,6 @@
+// This file outlines the functional compnent for edit profile
+// Author - Liam Shaw
+
 import React, {useState, useRef} from 'react';
 import logo from "../img/Perspektiv.gif";
 import "../css/App.css"
@@ -9,15 +12,21 @@ import axios from 'axios';
 
 const port = 8675;
 
+
+// edit profile function compenent 
 function EditProfile(){
+
+    // this useState variable is the logged in user
     const [user, setUser] = useState({
         username: "", email: "", password: "", confirmPassword: ""
     });
 
+    // this useState variable is the field that needs to be updated for the logged in user
     const [updatedUser, setUpdatedUser] = useState({
         username: "", newUsername: "", newEmail: "", newPassword: "", newConfPassword: ""
     })
 
+    // getUser makes a post API call to fetch the logged in user from the backend
     const getUser =  async () => {
         var id = window.sessionStorage.getItem("id");
         try {
@@ -30,12 +39,14 @@ function EditProfile(){
     }
 
     const initializedRef = useRef(false);
-    
+
+    // this runs as the page is being initialized to set the logged in user
     if (!initializedRef.current) {
       initializedRef.current = true;
       getUser();
     }
 
+    // handleChange sets the updated user based on what is being typed in the edit user form
     function handleChange(event) {
         const {name, value} = event.target;
         if (name === "newUsername") {
@@ -85,6 +96,8 @@ function EditProfile(){
         })
     }
 
+    // attemptUpdate makes a patch API call to attempt to update the users information.
+    // Parameters: person (the updatedUser use state variable)
     async function attemptUpdate(person){
         try {
             const response = await axios.patch(`http://localhost:${port}/editProfile`, person);
@@ -95,10 +108,12 @@ function EditProfile(){
         }
     }
 
+    // editForm use to do more but lost a lot of functionality 
     function editForm(){
         updateUser()
     }
 
+    // checkPassword checks to see if the new passwords match before calling attemptUpdate
     function checkPassword(){
         if(updatedUser.password === updatedUser.confirmPassword){
             updateUser()
