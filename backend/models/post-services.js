@@ -30,10 +30,11 @@ mongoose
   async function getPosts() {
     return await postModel.find();
   }
-
+//add hp to the current post
   async function updateHP(url, hp) {
     return await postModel.updateOne({url : url}, {$push:{hpList: hp}});
   }
+//add comment to the post
   async function addComment(url,username, comment){
     return await postModel.updateOne({url: url}, {$push: {comments: {username: username, comment: comment}}});
   }

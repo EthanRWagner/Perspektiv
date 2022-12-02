@@ -26,11 +26,11 @@ mongoose
     }
   )
   .catch((error) => console.log(error));
-
+//find hp by name
 async function findHodgepodgeByName(name) {
     return await hodgepodgeModel.find({name: name});
 }
-
+// find similar hp with the first part of the user input
 async function findSimilarHodgepodgeName(name) {
   return await hodgepodgeModel.find({ name: { $regex: "^" + name, $options: 'i' } });
 }
