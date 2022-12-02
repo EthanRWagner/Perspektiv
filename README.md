@@ -13,7 +13,9 @@ CSC 307 Web Application
 
 # Code Style:
 Uses Prettier - ESLint
+
 Linting is currently disabled due to impeding development
+
 Ideal Properties:
    - Indent: Tab
    - Linebreak: 0
